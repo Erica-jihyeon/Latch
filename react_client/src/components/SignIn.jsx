@@ -1,8 +1,9 @@
 import React from 'react';
 import './Login.css';
 import login_pic from '../img/login_pic.png';
+import Button from '@material-ui/core/Button'
 
-function Login() {
+function SignIn() {
   return (
     <div className="login-container">
       <div className="main">
@@ -12,9 +13,8 @@ function Login() {
 
           <div className="bottom-container">
           <p>Terms & Privacy Policy</p>
-          <div className="button-container">
-            <button>Sign up</button>
-            <button>Sign In</button>
+          <div>
+            <Button>Submit</Button>
           </div>
         </div>
         
@@ -23,4 +23,4 @@ function Login() {
   )
 }
 
-export default Login
+export default SignIn
