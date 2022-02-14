@@ -37,3 +37,12 @@
   }
 }
 
+.app-background {
+  display: grid;
+  /* vertically and horizontally center */
+  place-items: center;
+  background-color: rgb(247,137,80);
+  background-image: radial-gradient(circle, rgba(247,137,80,1) 0%, rgba(158,155,141,1) 59%, rgba(69,172,201,1) 100%);
+  height: 100vh;
+  width: 100vw;
+}
