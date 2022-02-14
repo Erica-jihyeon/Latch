@@ -1,26 +1,26 @@
 # GIT WORKFLOW
 
-//command line
-git branch feature/test
-git checkout feature/test
-git add .
-git commit
-git push origin feature/test
+//command line  
+git branch feature/test  
+git checkout feature/test  
+git add .  
+git commit  
+git push origin feature/test  
+  
+//git hub page  
+1. pull request  
+2. merge pull request -> delete branch (the other member)  
+  
+//command  
+git checkout master  
+git pull origin master  
 
-//git hub page
-1. pull request
-2. merge pull request -> delete branch (the other member)
-
-//command
-git checkout master
-git pull origin master
-
-//option1-when use feature/test
-git checkout feature/test
-git merge master
-
-//option2-delete branch & make new branch
-git branch -d feature/test
+//option1-when use feature/test  
+git checkout feature/test  
+git merge master  
+  
+//option2-delete branch & make new branch  
+git branch -d feature/test  
 
 
 # Demo WebSocket
