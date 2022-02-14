@@ -7,17 +7,18 @@ function Login() {
     <div className="login-container">
       <div className="main">
 
-          <img src={login_pic} alt="login_pic" />
-          <p>Find your language<br />exchange partner today</p>
+        <img src={login_pic} alt="login_pic" />
 
-          <div className="bottom-container">
+        <p>Find your language<br />exchange partner today</p>
+
+        <div className="bottom-container">
           <p>Terms & Privacy Policy</p>
           <div className="button-container">
-            <button>Sign up</button>
-            <button>Sign In</button>
+            <button>SIGN UP</button>
+            <button>SIGN IN</button>
           </div>
         </div>
-        
+
       </div>
     </div>
   )
