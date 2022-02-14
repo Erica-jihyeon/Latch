@@ -74,6 +74,7 @@ app.use("/test", test(db, io));
 
 io.on('connection', (socket) => {
   // socket is the object of the current connected client
+  console.log('connect')
 
   //socket.emit => to current connected client
   //io.emit => to all clients
@@ -92,6 +93,65 @@ io.on('connection', (socket) => {
   //     // send message to all sockets
   //     io.emit('message', msg);
   // });
+
+
+  socket.on('joinQueue',({user}) => {
+    const client1 = {speaking:'ko', learning:'en', option: 2};
+    const client2 = {speaking:'en', learning:'ko', option: 1};
+    // const client3 = ['sp', 'en', 2]
+
+
+    //using the db.query for bring out the users who pressed the start button
+
+    let queue = [client1]; //all the playlist who pressed the start button
+    let paired = [];
+    let expectedOption = 0;
+    let expectedLanguageKey = 0;
+    let selectedLanguage = '';
+
+    if (user.option === 1) {
+      expectedOption = 2;
+      expectedLanguageKey = 'learning';
+      selectedLanguage = user.speaking;
+
+    } else if (user.option === 2) {
+      expectedOption = 1;
+      expectedLanguageKey = 'speaking';
+      selectedLanguage = user.learning;
+
+    } else if (user.option === 3) {
+      expectedOption = 3;
+      expectedLanguageKey = 'speaking';
+      selectedLanguage = user.learning;
+
+    } else {
+      //send error to the client
+      expectedOption = null;
+      expectedLanguageKey = null;
+      selectedLanguage = null;
+    }
+
+    //const expectedOption = user.option === 1 ? 2 : 1;
+    //const expectedLanguageKey = user.option === 1 ? 'learning' : 'speaking';
+    // const selectedLanguage = user.option === 1 ? user.speaking : user.learning;
+
+    const matchedUser = queue.find(client => client.option === expectedOption && client[expectedLanguageKey] === selectedLanguage);
+
+    
+    if (matchedUser) {
+      // if find the matched user send them to created room
+      paired.push([user,matchedUser]);
+      
+      const userIndex = queue.findIndex((index => index === matchedUser));
+
+      queue.splice(userIndex,1);
+
+
+    } else {
+      // if can not find matched user, add to the queue
+      queue.push(user);
+    }
+  });
 
 
   socket.on('disconnect', function () {
