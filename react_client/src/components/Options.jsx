@@ -71,21 +71,23 @@ function Options() {
     if (!userId || !learning || !speaking || !chatOpt) {
       alert('please select all the matching options');
     } else {
-      // socketRef.current = io.connect('http://localhost:8080');
-      // socketRef.current.emit('matchReq', data);
-      // socketRef.current.on("roomId", ({ roomId }) => {
-      //   console.log('roomId: ' + roomId);
-      // });
-      axios.post('http://localhost:8080/test', data)
-        .then((res) => {
-          setTimeout(() => {
-            console.log(res)
-          }, 3000);
+      socketRef.current = io.connect('http://localhost:8080');
+      socketRef.current.emit('matchReq', data);
+      socketRef.current.on("roomId", ({ roomId }) => {
+        console.log('roomId: ' + roomId);
+        socketRef.current.disconnect();
+      });
 
-        })
-        .catch(err => {
-          console.log(err.message);
-        })
+      // axios.post('http://localhost:8080/matching', data)
+      //   .then((res) => {
+      //     setTimeout(() => {
+      //       console.log(res)
+      //     }, 3000);
+
+      //   })
+      //   .catch(err => {
+      //     console.log(err.message);
+      //   })
     }
     //data send
     //change to the matching page
