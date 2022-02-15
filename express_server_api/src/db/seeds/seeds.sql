@@ -12,10 +12,6 @@ INSERT INTO languages (language_name) VALUES ('Spanish');
 INSERT INTO languages (language_name) VALUES ('Franch');
 
 INSERT INTO user_option (user_id, learning_language_id, First_Sec_language_id, option_selected) VALUES (1, 1, 2, 2);
-INSERT INTO user_option (user_id, learning_language_id, First_Sec_language_id, option_selected) VALUES (2, 2, 1, 2);
-INSERT INTO user_option (user_id, learning_language_id, First_Sec_language_id, option_selected) VALUES (3, 3, 2, 3);
-INSERT INTO user_option (user_id, learning_language_id, First_Sec_language_id, option_selected) VALUES (4, 2, 3, 3);
 INSERT INTO user_option (user_id, learning_language_id, First_Sec_language_id, option_selected) VALUES (2, 2, 1, 1);
+INSERT INTO user_option (user_id, learning_language_id, First_Sec_language_id, option_selected) VALUES (3, 3, 2, 3);
 INSERT INTO user_option (user_id, learning_language_id, First_Sec_language_id, option_selected) VALUES (4, 1, 2, 1);
-
-
