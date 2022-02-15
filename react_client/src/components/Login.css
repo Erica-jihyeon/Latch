@@ -10,7 +10,7 @@
 }
 
 
-.main {
+.login-main {
   width: 90%;
   height: 90%;
   display: flex;
@@ -21,20 +21,20 @@
 }
 
 
-img {
+.login-main > img {
   width: 80%;
   margin-top: 200px;
 }
 
-.main > p {
-  margin-bottom: 100px;
+.login-main > p {
+  margin-bottom: 150px;
 }
 
-.bottom-container {
+.login-container .bottom-container {
   width:100%;
 }
 
-.button-container {
+.login-container .button-container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -42,7 +42,7 @@ img {
   margin-left: 30px;
 }
 
-button {
+.login-container button {
   background-color: #45acc9; /* Green */
   border: none;
   color: white;
@@ -52,4 +52,12 @@ button {
   display: inline-block;
   font-size: 16px;
   border-radius: 50px;
+}
+
+.login-container > button:hover {
+  cursor: pointer;
+  border: 1px solid;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+  outline-color: rgba(255, 255, 255, 0);
+  outline-offset: 15px;
 }

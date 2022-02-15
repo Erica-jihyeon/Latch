@@ -1,0 +1,76 @@
+.options-container {
+  width: 375px;
+  height: 812px;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.options-header {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-top: 30px;
+  padding-right: 180px;
+}
+
+.options-header > p {
+  font-size: 20px;
+  color: rgb(58, 58, 58);
+}
+
+
+.options-container > img {
+  width: 50%;
+  margin-top: 80px;
+  margin-bottom: 30px;
+}
+
+.learning-dropdown {
+  width: 80%;
+  padding-bottom: 10px;
+}
+
+.speaking-dropdown {
+  width: 80%;
+  padding-bottom: 10px;
+}
+
+
+
+.chat-option-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chat-option-selection > p {
+  margin-bottom: 10px;
+  color: rgb(58, 58, 58);
+}
+
+
+.button-container {
+  margin-bottom: 40px;
+}
+.button-container > button {
+  background-color: #ff6d23; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 50px;
+  margin-top: 10px;
+}
+.button-container > button:hover {
+  cursor: pointer;
+  border: 1px solid;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+  outline-color: rgba(255, 255, 255, 0);
+  outline-offset: 15px;
+}
