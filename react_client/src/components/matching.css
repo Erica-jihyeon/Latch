@@ -1,8 +1,48 @@
-.matching_main {
-  width: 90%;
-  height: 90%;
+.matchin_container {
+  width: 375px;
+  height: 812px;
+  background-color: #ededed;
+  border-radius: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.matching_main {
+  width: 70%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   text-align: center;
+  border: 6px solid #aeb5bd;
+  border-radius: 30px;
+  background-color: white;
+}
+
+.matching_body {
+  justify-content: space-between;
+}
+
+#logo {
+  width: 70%;
+  height: 60%;
+  padding-top: 20%;
+}
+
+#cancel_button {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color:  white;
+  background-color: #2596be;
+  border-radius: 30px;
+  
+}
+
+.matchin_container #top_sentence {
+  position: absolute;
+  top: 25px;
+  left: 20px;
 }

@@ -1,19 +1,21 @@
 import React from 'react';
 import latching_logo from '../img/latching_logo.png'
 import Button from '@mui/material/Button';
-import './matching.css';
+import './Matching.css';
 
-function matching() {
+function Matching() {
   return (
-    <div className="login-container">
+    <div className="matchin_container">
+      <span id="top_sentence">Find Latches</span>
       <div className="matching_main">
-        <img src={latching_logo} alt="latching_logo" id='logo' />
+        <div className='matching_body'>
+          <img src={latching_logo} alt="latching_logo" id='logo' />
 
-        <Button variant="outlined" id='cancel_button'>Cancel</Button>
-        
+          <Button variant="outlined" id='cancel_button'>Cancel</Button>
+        </div>
       </div>
     </div>
   )
 };
 
-export default matching
+export default Matching
