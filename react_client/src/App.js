@@ -5,13 +5,21 @@ import './App.css';
 import axios from 'axios';
 import Login from './components/Login';
 import Matching from './components/matching';
+import Options from './components/Options';
+
+
 
 function App() {
 
   return (
+
     <div className="app-background">
+
       <Matching />
+      {/* <Login /> */}
+      {/* <Options /> */}
     </div>
+
   );
 }
 

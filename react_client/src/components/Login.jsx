@@ -5,7 +5,7 @@ import login_pic from '../img/login_pic.png';
 function Login() {
   return (
     <div className="login-container">
-      <div className="main">
+      <div className="login-main">
 
         <img src={login_pic} alt="login_pic" />
 
