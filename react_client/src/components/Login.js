@@ -7,7 +7,7 @@ function Login() {
     <div className="login-container">
       <div className="main">
 
-        <img src={login_pic} alt="login_pic" />
+        <img className='homepage-logo' src={login_pic} alt="login_pic" />
 
         <p>Find your language<br />exchange partner today</p>
 
