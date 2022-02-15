@@ -11,6 +11,8 @@ const morgan = require("morgan");
 const cookieSession = require('cookie-session');
 const { Pool } = require('pg');
 const { v1: uuidv1 } = require('uuid');
+const { findMatching, queue, paired } = require('./routes/helper');
+
 
 const io = require("socket.io")(server, {
   cors: {
@@ -59,51 +61,73 @@ db.connect()
 
 
 //login
-app.get('/login/:id', (req, res) => {
-  req.session.user_id = req.params.id;
-  console.log('login')
-  res.redirect('/');
-});
+// app.get('/login/:id', (req, res) => {
+//   req.session.user_id = req.params.id;
+//   console.log('login')
+//   res.redirect('/');
+// });
+
+//
+const langList = require("./routes/lang_list");
+app.use("/lang_list", langList(db));
 
 
-// using router
-const test = require("./routes/test");
-
-app.use("/test", test(db, io));
-
-
-const queue = [];
-const paired = [];
-let expectedOption = 0;
-let expectedLanguageKey = 0;
-let selectedLanguage = '';
+// using router for matching
+const matching = require("./routes/matching_router(ref)");
+app.use("/matching", matching(db, io));
 
 
-
+// using websocket for matching
 io.on('connection', (socket) => {
-  io.emit('usercount', io.engine.clientsCount);
-
-  console.log(socket.id)
+  console.log('usercount', io.engine.clientsCount);
 
 
   socket.on('matchReq', (client) => {
-    queue.push(client);
-    console.log(client);
-    io.to(socket.id).emit({roomId: roomId});
+    // Track socket.id and matching result
+    client.socketId = socket.id;
+    client.isMatched = false;
+    // console.log(client);
 
+    /**
+     * Found matching?
+     * client will be paired array with matched client : client will be  in queue array
+     */
+    findMatching(client);
+
+    const indexOfPair = paired.findIndex(pair => pair.match1.userId === client.userId || pair.match2.userId === client.userId);
+
+    if (indexOfPair >= 0) {
+      paired[indexOfPair].match1.isMatched = true;
+      paired[indexOfPair].match2.isMatched = true;
+      io.to(paired[indexOfPair].match1.socketId).emit('roomId', { roomId: paired[indexOfPair].roomId });
+      io.to(paired[indexOfPair].match2.socketId).emit('roomId', { roomId: paired[indexOfPair].roomId });
+      // paired.splice(indexOfPair, 1);
+      // console.log(paired);
+    }
 
     setTimeout(() => {
-      let roomId = uuidv1();
-      io.to(socket.id).emit({roomId: roomId});
-      // io.emit('roomId', ({ roomId: 1 }));
-    }, 3000)
+      if (!client.isMatched) {
+        // console.log(queue);
+        const clientIndex = queue.findIndex((queueUser => queueUser.userId === client.userId));
+        queue.splice(clientIndex, 1);
+        // console.log(queue);
+        io.to(client.socketId).emit('roomId', { roomId: 'not found' });
+      } else {
+        const indexOfPair = paired.findIndex(pair => pair.match1.userId === client.userId || pair.match2.userId === client.userId);
+        if (indexOfPair >= 0) {
+          paired.splice(indexOfPair, 1);
+          // console.log(paired);
+        }
+      }
+    }, 5000);
+
   });
 
-  socket.on('disconnect', function () {
-    console.log('user disconnected')
-    // //update user count
-    // io.emit('usercount', io.engine.clientsCount);
+
+  socket.on('disconnect', function (client) {
+    console.log('user disconnected');
   })
+  
 
 });
 
@@ -118,66 +142,6 @@ io.on('connection', (socket) => {
 
 // const matchingIo = io.of('/matching')
 // matchingIo.on('connection', (socket) => {
-
-
-
-//   socket.on('matchReq', (client) => {
-
-//     queue.push(client);
-//     console.log(queue);
-
-//     // if (user.option === 1) {
-//     //   expectedOption = 2;
-//     //   expectedLanguageKey = 'learning';
-//     //   selectedLanguage = user.speaking;
-
-//     // } else if (user.option === 2) {
-//     //   expectedOption = 1;
-//     //   expectedLanguageKey = 'speaking';
-//     //   selectedLanguage = user.learning;
-
-//     // } else if (user.option === 3) {
-//     //   expectedOption = 3;
-//     //   expectedLanguageKey = 'speaking';
-//     //   selectedLanguage = user.learning;
-
-//     // } else {
-//     //   //send error to the client
-//     //   expectedOption = null;
-//     //   expectedLanguageKey = null;
-//     //   selectedLanguage = null;
-//     // }
-
-//     // //const expectedOption = user.option === 1 ? 2 : 1;
-//     // //const expectedLanguageKey = user.option === 1 ? 'learning' : 'speaking';
-//     // // const selectedLanguage = user.option === 1 ? user.speaking : user.learning;
-
-//     // const matchedUser = queue.find(client => client.option === expectedOption && client[expectedLanguageKey] === selectedLanguage);
-
-
-//     // if (matchedUser) {
-//     //   // if find the matched user send them to created room
-//     //   paired.push([user, matchedUser]);
-
-//     //   const userIndex = queue.findIndex((index => index === matchedUser));
-
-//     //   queue.splice(userIndex, 1);
-
-
-//     // } else {
-//     //   // if can not find matched user, add to the queue
-//     //   queue.push(user);
-//     // }
-
-//     setTimeout(() => {
-
-//       let roomId = uuidv1();
-//       matchingIo.emit('roomId', ({ roomId: 1 }));
-//     }, 3000)
-
-
-//   })
-
 
 // matchingIo.emit('usercount', io.engine.clientsCount);
 // // socket.join('room1');
