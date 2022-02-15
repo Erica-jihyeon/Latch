@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Options.css';
 import logo from '../img/logo.png';
 import Select from '@mui/material/Select';
@@ -6,6 +6,8 @@ import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import { ButtonGroup, Button } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import IconButton from '@mui/material/IconButton';
+import axios from 'axios';
+import io from 'socket.io-client';
 
 const styles = {
   "&.MuiButton-root": {
@@ -38,6 +40,8 @@ function Options() {
   const [learning, setLearning] = useState('');
   const [speaking, setSpeaking] = useState('');
   const [chatOpt, setChatOpt] = useState('');
+  const socketRef = useRef();
+
 
 
   console.log('learning ' + learning);
@@ -49,18 +53,56 @@ function Options() {
   //   setChatOpt(e.target.value);
   // }
 
+  const randomUserId = () => {
+    const userId = Math.floor((Math.random() * 100) + 1);
+    return userId;
+  }
+  const userId = randomUserId();
+
   const matchingStart = () => {
     const data = {
-      userId: 1,
-      learning: { learning },
-      speaking: { speaking },
-      option: { chatOpt }
+      userId: userId,
+      learning: learning,
+      speaking: speaking,
+      option: chatOpt
     }
     console.log(data);
+
+    if (!userId || !learning || !speaking || !chatOpt) {
+      alert('please select all the matching options');
+    } else {
+      // socketRef.current = io.connect('http://localhost:8080');
+      // socketRef.current.emit('matchReq', data);
+      // socketRef.current.on("roomId", ({ roomId }) => {
+      //   console.log('roomId: ' + roomId);
+      // });
+      axios.post('http://localhost:8080/test', data)
+        .then((res) => {
+          setTimeout(() => {
+            console.log(res)
+          }, 3000);
+
+        })
+        .catch(err => {
+          console.log(err.message);
+        })
+    }
+    //data send
+    //change to the matching page
+    //timer(5s)
+    //get data
+    //fail or succeed -> option 2 way
+    //succeed -> timer 10sec -> join room -> mode = matchingchat
+
+
   }
 
   const back = () => {
     console.log('back');
+  }
+
+  const chatOptHandler = (e) => {
+    setChatOpt(e.target.value);
   }
 
   return (
@@ -111,9 +153,9 @@ function Options() {
 
         <div className="chat-option-buttons">
           <ButtonGroup size="large" aria-label="large button group">
-            <Button sx={styles} variant="multi-selection" value={1} onClick={e => setChatOpt(e.target.value)}>{learning || "Learning"}</Button>
-            <Button sx={styles} variant="multi-selection-mid" value={2} onClick={e => setChatOpt(e.target.value)}>{speaking || "Speaking"}</Button>
-            <Button sx={styles} variant="multi-selection" value={3} onClick={e => setChatOpt(e.target.value)}>Both</Button>
+            <Button sx={styles} variant="multi-selection" value={1} onClick={chatOptHandler}>{learning || "Learning"}</Button>
+            <Button sx={styles} variant="multi-selection-mid" value={2} onClick={chatOptHandler}>{speaking || "Speaking"}</Button>
+            <Button sx={styles} variant="multi-selection" value={3} onClick={chatOptHandler}>Both</Button>
           </ButtonGroup>
         </div>
       </div>
@@ -121,7 +163,6 @@ function Options() {
       <div className="button-container">
         <button onClick={matchingStart}>Start Latching!</button>
       </div>
-
 
     </div>
   )
