@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 
 
 function MatchingStartButton(props) {
@@ -8,6 +8,7 @@ function MatchingStartButton(props) {
   const { userId, learning, speaking, chatOpt } = props.matchingData;
   const [matchRoomId, setMatchRoomId] = useState(null);
   const socketRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (matchRoomId) {
@@ -35,6 +36,7 @@ function MatchingStartButton(props) {
       socketRef.current.on("roomId", ({ roomId }) => {
         console.log('roomId: ' + roomId);
         setMatchRoomId(roomId);
+        navigate('/matching/finding');
         // socketRef.current.disconnect();
       });
     }
