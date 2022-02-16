@@ -27,7 +27,7 @@ function LanguageInput(props) {
 
     <div className="learning-dropdown">
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">language you want to learn</InputLabel>
+        <InputLabel id="demo-simple-select-label">{props.label}</InputLabel>
         <Select
           value={props.purpose}
           onChange={e => props.onChange(e.target.value)}

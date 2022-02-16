@@ -8,9 +8,7 @@ const getAllLangs = (db) => {
   return db
     .query(queryStr)
     .then((data) => {
-      console.log(data.rows);
       const result = data.rows.map(item => item = item.language_name);
-      console.log(result);
       return result;
     })
     .catch(err => {
