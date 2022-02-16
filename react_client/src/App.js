@@ -17,13 +17,12 @@ function App() {
 
     <div className="app-background">
 
-      {/* <Matching /> */}
-      {/* <Login /> */}
-
           <div className="matchin_container">
       <span id="top_sentence">Find Latches</span>
       <div className="matching_main">
-        <MatchingTimeout />
+        {/* <MatchingTimeout /> */}
+        <Matching />
+        {/* <Matched /> */}
       </div>
     </div>
     </div>
