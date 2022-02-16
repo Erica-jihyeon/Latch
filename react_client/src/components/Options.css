@@ -31,12 +31,10 @@
 
 .learning-dropdown {
   width: 80%;
-  padding-bottom: 10px;
 }
 
 .speaking-dropdown {
   width: 80%;
-  padding-bottom: 10px;
 }
 
 
@@ -47,15 +45,16 @@
   align-items: center;
 }
 .chat-option-selection > p {
+  margin-top: 15px;
   margin-bottom: 10px;
   color: rgb(58, 58, 58);
 }
 
 
-.button-container {
+.options-button-container {
   margin-bottom: 40px;
 }
-.button-container > button {
+.options-button-container > button {
   background-color: #ff6d23; /* Green */
   border: none;
   color: white;
@@ -67,7 +66,7 @@
   border-radius: 50px;
   margin-top: 10px;
 }
-.button-container > button:hover {
+.options-button-container > button:hover {
   cursor: pointer;
   border: 1px solid;
   box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
