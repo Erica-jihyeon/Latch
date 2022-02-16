@@ -17,8 +17,8 @@ CREATE TABLE languages (
 CREATE TABLE user_option (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id integer REFERENCES users(id),
-  learning_language_id integer REFERENCES languages(id),
-  First_Sec_language_id integer REFERENCES languages(id),
+  learning_language VARCHAR(255),
+  First_Sec_language VARCHAR(255),
   option_selected integer NOT NULL,
   CHECK (option_selected BETWEEN 1 AND 3)
 );
