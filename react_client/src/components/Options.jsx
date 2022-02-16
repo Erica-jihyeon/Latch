@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Options.css';
 import logo from '../img/logo.png';
 import { ButtonGroup, Button } from '@mui/material';
@@ -30,7 +30,15 @@ function Options() {
   const [learning, setLearning] = useState('');
   const [speaking, setSpeaking] = useState('');
   const [chatOpt, setChatOpt] = useState('');
+  const [matchRoomId, setMatchRoomId] = useState(null);
   const socketRef = useRef();
+
+  useEffect(() => {
+    if (matchRoomId) {
+      console.log('ready');
+      setMatchRoomId(null);
+    }
+  }, [matchRoomId])
 
   const randomUserId = () => {
     const userId = Math.floor((Math.random() * 5) + 1);
@@ -54,6 +62,7 @@ function Options() {
       socketRef.current.emit('matchReq', data);
       socketRef.current.on("roomId", ({ roomId }) => {
         console.log('roomId: ' + roomId);
+        setMatchRoomId(roomId);
         socketRef.current.disconnect();
       });
     }
@@ -84,8 +93,8 @@ function Options() {
       </div>
       <img src={logo} alt="logo" />
 
-      <LanguageInput purpose={learning} onChange={setLearning}/>
-      <LanguageInput purpose={speaking} onChange={setSpeaking}/>
+      <LanguageInput purpose={learning} onChange={setLearning} label={'language you want to learn'}/>
+      <LanguageInput purpose={speaking} onChange={setSpeaking} label={'pick your first language'}/>
 
       <div className="chat-option-selection">
         <p>Which language would you like to chat in?</p>
