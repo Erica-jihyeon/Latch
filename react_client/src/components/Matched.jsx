@@ -31,7 +31,7 @@ function Matched() {
 
 
   return (
-    <div className="matchin_container">
+    <div className="matching_container">
       <span id="top_sentence">Find Latches</span>
       <div className="matching_main">
         <div className='matching_body'>
