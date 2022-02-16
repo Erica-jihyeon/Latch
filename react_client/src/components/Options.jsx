@@ -1,26 +1,16 @@
 import React, { useState, useRef } from 'react';
 import './Options.css';
 import logo from '../img/logo.png';
-import Select from '@mui/material/Select';
-import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import { ButtonGroup, Button } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import IconButton from '@mui/material/IconButton';
-import axios from 'axios';
 import io from 'socket.io-client';
+import LanguageInput from './LanguageInput';
+
 
 const styles = {
   "&.MuiButton-root": {
     border: "2px #45acc9 solid",
-  },
-  "&.MuiButton-text": {
-    color: "grey"
-  },
-  "&.MuiButton-contained": {
-    color: "yellow"
-  },
-  "&.MuiButton-outlined": {
-    color: "brown"
   },
   "&.MuiButton-multi-selection": {
     color: "#45acc9",
@@ -42,19 +32,8 @@ function Options() {
   const [chatOpt, setChatOpt] = useState('');
   const socketRef = useRef();
 
-
-
-  console.log('learning ' + learning);
-  console.log('speaking ' + speaking);
-  console.log('chatOpt ' + chatOpt);
-
-  // const chatOptHandle = (e) => {
-  //   e.preventDefault();
-  //   setChatOpt(e.target.value);
-  // }
-
   const randomUserId = () => {
-    const userId = Math.floor((Math.random() * 100) + 1);
+    const userId = Math.floor((Math.random() * 5) + 1);
     return userId;
   }
   const userId = randomUserId();
@@ -77,17 +56,6 @@ function Options() {
         console.log('roomId: ' + roomId);
         socketRef.current.disconnect();
       });
-
-      // axios.post('http://localhost:8080/matching', data)
-      //   .then((res) => {
-      //     setTimeout(() => {
-      //       console.log(res)
-      //     }, 3000);
-
-      //   })
-      //   .catch(err => {
-      //     console.log(err.message);
-      //   })
     }
     //data send
     //change to the matching page
@@ -95,8 +63,6 @@ function Options() {
     //get data
     //fail or succeed -> option 2 way
     //succeed -> timer 10sec -> join room -> mode = matchingchat
-
-
   }
 
   const back = () => {
@@ -107,6 +73,7 @@ function Options() {
     setChatOpt(e.target.value);
   }
 
+
   return (
     <div className="options-container">
       <div className="options-header">
@@ -116,43 +83,12 @@ function Options() {
         <p>Match Options</p>
       </div>
       <img src={logo} alt="logo" />
-      <div className="learning-dropdown">
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">language you want to learn</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={learning}
-            label="Age"
-            onChange={e => setLearning(e.target.value)}
-          >
-            <MenuItem value={'English'}>English</MenuItem>
-            <MenuItem value={'Spanish'}>Spanish</MenuItem>
-            <MenuItem value={'Korean'}>Korean</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
 
-      <div className="speaking-dropdown">
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">pick your first language</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={speaking}
-            label="Age"
-            onChange={e => setSpeaking(e.target.value)}
-          >
-            <MenuItem value={'English'}>English</MenuItem>
-            <MenuItem value={'Spanish'}>Spanish</MenuItem>
-            <MenuItem value={'Korean'}>Korean</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
+      <LanguageInput purpose={learning} onChange={setLearning}/>
+      <LanguageInput purpose={speaking} onChange={setSpeaking}/>
 
       <div className="chat-option-selection">
         <p>Which language would you like to chat in?</p>
-
         <div className="chat-option-buttons">
           <ButtonGroup size="large" aria-label="large button group">
             <Button sx={styles} variant="multi-selection" value={1} onClick={chatOptHandler}>{learning || "Learning"}</Button>
@@ -168,6 +104,8 @@ function Options() {
 
     </div>
   )
+
+
 }
 
 export default Options;

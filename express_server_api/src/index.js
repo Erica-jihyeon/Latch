@@ -12,6 +12,7 @@ const cookieSession = require('cookie-session');
 const { Pool } = require('pg');
 const { v1: uuidv1 } = require('uuid');
 const { findMatching, queue, paired } = require('./routes/helper');
+const { AddUserOptionsToDB } = require('./matching_dbquery.js');
 
 
 const io = require("socket.io")(server, {
@@ -33,9 +34,6 @@ app.use(cookieSession({
   keys: ['this is the key', 'key2']
 }));
 
-
-
-
 const db = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
@@ -48,18 +46,6 @@ db.connect()
   .then(() => console.log('db connected'))
   .catch(err => console.error('db connection error', err.stack));
 
-// database test
-// const testQuery = `SELECT id, first_name FROM users`;
-// db.query(testQuery)
-//     .then((result) => {
-//       console.log(`db test: ${result.rows}`);
-//     })
-//     .catch((err) => {
-//       console.log(err.message)
-//     })
-
-
-
 //login
 // app.get('/login/:id', (req, res) => {
 //   req.session.user_id = req.params.id;
@@ -68,8 +54,13 @@ db.connect()
 // });
 
 //
+
+//TEST
+// const clientTest = {userId:5, learning:'Korean', speaking:'English', option:'3'}
+// AddUserOptionsToDB(clientTest, db);
+
 const langList = require("./routes/lang_list");
-app.use("/lang_list", langList(db));
+app.use("/api/lang_list", langList(db));
 
 
 // using router for matching
@@ -88,11 +79,13 @@ io.on('connection', (socket) => {
     client.isMatched = false;
     // console.log(client);
 
+    AddUserOptionsToDB(client, db);
+
     /**
      * Found matching?
      * client will be paired array with matched client : client will be  in queue array
      */
-    findMatching(client);
+    findMatching(client, db);
 
     const indexOfPair = paired.findIndex(pair => pair.match1.userId === client.userId || pair.match2.userId === client.userId);
 
@@ -111,7 +104,7 @@ io.on('connection', (socket) => {
         const clientIndex = queue.findIndex((queueUser => queueUser.userId === client.userId));
         queue.splice(clientIndex, 1);
         // console.log(queue);
-        io.to(client.socketId).emit('roomId', { roomId: 'not found' });
+        io.to(client.socketId).emit('roomId', { roomId: false });
       } else {
         const indexOfPair = paired.findIndex(pair => pair.match1.userId === client.userId || pair.match2.userId === client.userId);
         if (indexOfPair >= 0) {
