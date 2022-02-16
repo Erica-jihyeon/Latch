@@ -6,6 +6,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import IconButton from '@mui/material/IconButton';
 import io from 'socket.io-client';
 import LanguageInput from './LanguageInput';
+import MatchingStartButton from './MatchingStartButton';
 
 
 const styles = {
@@ -33,12 +34,14 @@ function Options() {
   const [matchRoomId, setMatchRoomId] = useState(null);
   const socketRef = useRef();
 
-  useEffect(() => {
-    if (matchRoomId) {
-      console.log('ready');
-      setMatchRoomId(null);
-    }
-  }, [matchRoomId])
+  // useEffect(() => {
+  //   if (matchRoomId) {
+  //     setTimeout(() => {
+  //       console.log('will go to the match room after 5sec');
+  //     }, 5000)
+  //     setMatchRoomId(null);
+  //   }
+  // }, [matchRoomId])
 
   const randomUserId = () => {
     const userId = Math.floor((Math.random() * 5) + 1);
@@ -46,33 +49,33 @@ function Options() {
   }
   const userId = randomUserId();
 
-  const matchingStart = () => {
-    const data = {
-      userId: userId,
-      learning: learning,
-      speaking: speaking,
-      option: chatOpt
-    }
-    console.log(data);
+  // const matchingStart = () => {
+  //   const data = {
+  //     userId: userId,
+  //     learning: learning,
+  //     speaking: speaking,
+  //     option: chatOpt
+  //   }
+  //   console.log(data);
 
-    if (!userId || !learning || !speaking || !chatOpt) {
-      alert('please select all the matching options');
-    } else {
-      socketRef.current = io.connect('http://localhost:8080');
-      socketRef.current.emit('matchReq', data);
-      socketRef.current.on("roomId", ({ roomId }) => {
-        console.log('roomId: ' + roomId);
-        setMatchRoomId(roomId);
-        socketRef.current.disconnect();
-      });
-    }
-    //data send
-    //change to the matching page
-    //timer(5s)
-    //get data
-    //fail or succeed -> option 2 way
-    //succeed -> timer 10sec -> join room -> mode = matchingchat
-  }
+  //   if (!userId || !learning || !speaking || !chatOpt) {
+  //     alert('please select all the matching options');
+  //   } else {
+  //     socketRef.current = io.connect('http://localhost:8080');
+  //     socketRef.current.emit('matchReq', data);
+  //     socketRef.current.on("roomId", ({ roomId }) => {
+  //       console.log('roomId: ' + roomId);
+  //       setMatchRoomId(roomId);
+  //       // socketRef.current.disconnect();
+  //     });
+  //   }
+  //   // data send
+  //   // change to the matching page
+  //   // timer(5s)
+  //   // get data
+  //   // fail or succeed -> option 2 way
+  //   // succeed -> timer 10sec -> join room -> mode = matchingchat
+  // }
 
   const back = () => {
     console.log('back');
@@ -107,9 +110,10 @@ function Options() {
         </div>
       </div>
 
-      <div className="options-button-container">
+      <MatchingStartButton matchingData={{userId, learning, speaking, chatOpt}}/>
+      {/* <div className="options-button-container">
         <button onClick={matchingStart}>Start Latching!</button>
-      </div>
+      </div> */}
 
     </div>
   )
