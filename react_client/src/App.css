@@ -46,33 +46,3 @@
   height: 100vh;
   width: 100vw;
 }
-.matchin_container {
-  width: 375px;
-  height: 812px;
-  background-color: #ededed;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.matching_main {
-  width: 70%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  border: 6px solid #aeb5bd;
-  border-radius: 30px;
-  background-color: white;
-}
-
-.matchin_container #top_sentence {
-  position: absolute;
-  top: 25px;
-  left: 20px;
-}
