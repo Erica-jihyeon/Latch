@@ -1,34 +1,13 @@
-.matchin_container {
-  width: 375px;
-  height: 812px;
-  background-color: #ededed;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-.matching_main {
-  width: 70%;
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  border: 6px solid #aeb5bd;
-  border-radius: 30px;
-  background-color: white;
-}
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap');
 
 .matching_body {
   justify-content: space-between;
+  width: 100%;
 }
 
 #logo {
   width: 70%;
-  height: 60%;
+  height: 55%;
   padding-top: 20%;
 }
 
@@ -38,11 +17,26 @@
   color:  white;
   background-color: #2596be;
   border-radius: 30px;
-  
 }
 
-.matchin_container #top_sentence {
-  position: absolute;
-  top: 25px;
-  left: 20px;
+#join_button {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color:  white;
+  background-color: #2596be;
+  border-radius: 30px;
+}
+
+.matched_buttons {
+  width: 80%;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.logo_text {
+  font-size: 30px ;
+  color: #FF6D23;
+  font-family: 'Rancho', cursive;
 }
