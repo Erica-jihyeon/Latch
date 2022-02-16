@@ -22,3 +22,10 @@ CREATE TABLE user_option (
   option_selected integer NOT NULL,
   CHECK (option_selected BETWEEN 1 AND 3)
 );
+
+CREATE TABLE matching (
+  id SERIAL PRIMARY KEY NOT NULL,
+  roomname VARCHAR(255) NOT NULL,
+  user1_id integer REFERENCES users(id),
+  user2_id integer REFERENCES users(id)
+);

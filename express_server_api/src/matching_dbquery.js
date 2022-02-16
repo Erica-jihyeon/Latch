@@ -6,7 +6,7 @@ const AddUserOptionsToDB = (client, db) => {
   const queryUpdateUserOpt = `UPDATE user_option SET learning_language=$1, First_Sec_language=$2, option_selected=$3 WHERE user_id=$4 RETURNING*`;
   const paramUpdateUserOpt = [client.learning, client.speaking, Number(client.option), client.userId]
 
-  const queryInsertUserOpt = `INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES ($1, $2, $3, $4);`;
+  const queryInsertUserOpt = `INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES ($1, $2, $3, $4)`;
   const paramInsertUserOpt = [Number(client.userId), client.learning, client.speaking, Number(client.option)]
 
 
@@ -32,4 +32,18 @@ const AddUserOptionsToDB = (client, db) => {
       })
 };
 
-module.exports = { AddUserOptionsToDB }
+const AddMatchToDB = (data, db) => {
+  const queryAddMatch = `INSERT INTO matching (roomname, user1_id, user2_id) VALUES ($1, $2, $3)`;
+  const paramAddMatch = [data.roomname, data.user1Id, data.user2Id];
+
+  return db
+    .query(queryAddMatch, paramAddMatch)
+      .then((data) => {
+        console.log('match inserted to DB');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+}
+
+module.exports = { AddUserOptionsToDB, AddMatchToDB }

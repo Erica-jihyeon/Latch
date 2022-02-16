@@ -1,9 +1,10 @@
+const { AddMatchToDB } = require('../matching_dbquery');
 
 let queue = []; //all the playlist who pressed the start button
 let paired = [];
 const { v1: uuidv1 } = require('uuid');
 
-const findMatching = (user) => {
+const findMatching = (user, db) => {
 
   let expectedOption = 0;
   let expectedLanguageKey = 0;
@@ -43,6 +44,12 @@ const findMatching = (user) => {
     const userIndex = queue.findIndex((index => index === matchedUser));
     queue.splice(userIndex, 1);
     // add to the DB!!!
+    const data = {
+      roomname: roomId,
+      user1Id: user.userId,
+      user2Id: matchedUser.userId
+    }
+    AddMatchToDB(data, db);
 
     // console.log(paired);
   } else {
