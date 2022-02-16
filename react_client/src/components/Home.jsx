@@ -1,19 +1,19 @@
 import React from 'react';
-import './Login.css';
+import './Home.css';
 import login_pic from '../img/login_pic.png';
 
-function Login() {
+function Home() {
   return (
-    <div className="login-container">
-      <div className="login-main">
+    <div className="home-container">
+      <div className="home-main">
 
         <img className='homepage-logo' src={login_pic} alt="login_pic" />
 
         <p>Find your language<br />exchange partner today</p>
 
-        <div className="bottom-container">
+        <div className="home-bottom-container">
           <p>Terms & Privacy Policy</p>
-          <div className="button-container">
+          <div className="home-button-container">
             <button>SIGN UP</button>
             <button>SIGN IN</button>
           </div>
@@ -24,4 +24,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Home

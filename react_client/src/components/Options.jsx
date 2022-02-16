@@ -98,7 +98,7 @@ function Options() {
         </div>
       </div>
 
-      <div className="button-container">
+      <div className="options-button-container">
         <button onClick={matchingStart}>Start Latching!</button>
       </div>
 

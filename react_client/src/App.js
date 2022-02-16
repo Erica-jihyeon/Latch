@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import TextField from '@material-ui/core/TextField';
 import './App.css';
 import axios from 'axios';
-import Login from './components/Login';
+import Home from './components/Home';
 import Matching from './components/Matching';
 import Options from './components/Options';
 
@@ -16,7 +16,7 @@ function App() {
     <div className="app-background">
 
       {/* <Matching /> */}
-      {/* <Login /> */}
+      {/* <Home /> */}
       <Options />
     </div>
 
