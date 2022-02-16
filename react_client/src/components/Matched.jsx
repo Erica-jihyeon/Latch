@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import default_logo from '../img/default_logo.png'
 import Button from '@mui/material/Button';
 import './matching.css';
-import { useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
+
 
 
 const styles = {
@@ -11,9 +12,13 @@ const styles = {
   }
 };
 
-//starts chat in 10 sec
-function Matched() {
+//starts chat in 5 sec
+function Matched(props) {
+  const roomId = useRef(props.roomId);
+  const optionReset = props.optionReset;
+  // setRoomId(props.roomId);
   const [seconds, setSeconds] = useState(5);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let countdown = setInterval(() => {
@@ -21,29 +26,35 @@ function Matched() {
         setSeconds(seconds - 1);
       }
       if (seconds === 0) {
-        clearInterval(countdown)
+        clearInterval(countdown);
       }
     }, 1000)
     return () => {
-      clearInterval(countdown)
+      clearInterval(countdown);
     }
   });
 
+  useEffect(() => {
+    if (seconds === 0) {
+      navigate(`/matching/chatroom/${roomId.current}`);
+    }
+  },[seconds, navigate])
+
+
+  const clickHandler = () => {
+    optionReset();
+  }
 
   return (
-    <div className="matchin_container">
-      <span id="top_sentence">Find Latches</span>
+
       <div className="matching_main">
         <div className='matching_body'>
           <img src={default_logo} alt="latching_logo" id='logo' />
           <p className='logo_text'>Match is found</p>
           <p>{seconds}</p>
-
-          <Button variant="outlined" id='cancel_button' sx={styles} >Cancel</Button>
-
+          <Button variant="outlined" id='cancel_button' sx={styles} onClick={clickHandler}>Cancel</Button>
         </div>
       </div>
-    </div>
   )
 };
 

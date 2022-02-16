@@ -15,17 +15,16 @@ function Timeout() {
   // },[navigate])
 
   return (
-    <div className="matchin_container">
-      <span id="top_sentence">Find Latches</span>
-      <div className="matching_main">
-        <div className='matching_body'>
-          <img src={default_logo} alt="default_logo" id='logo' />
-          <p className='logo_text'>Not found...</p>
 
-          <Button variant="outlined" id='cancel_button' onClick={() => { navigate('/') }}>Close</Button>
-        </div>
+    <div className="matching_main">
+      <div className='matching_body'>
+        <img src={default_logo} alt="default_logo" id='logo' />
+        <p className='logo_text'>Not found...</p>
+
+        <Button variant="outlined" id='cancel_button' onClick={() => { navigate('/') }}>Close</Button>
       </div>
-    </div >
+    </div>
+
   )
 };
 

@@ -4,9 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import './App.css';
 import axios from 'axios';
 import Home from './components/Home';
-import Matching from './components/matching';
-import Matched from './components/Matched';
-import MatchingTimeout from './components/Matching_timeout'
 import Options from './components/Options';
 import { BrowserRouter as Router, Link, Route, Routes, Navigate } from 'react-router-dom';
 import SignIn from './components/SignIn';
@@ -32,10 +29,11 @@ function App() {
           <Route path="/login" element={<SignIn />} />
           {/* <Route path="/main" element={<Main />} /> */}
           <Route path="/matching" element={<Options />} />
+          <Route path="/matching/chatroom/*" element={<Home />} />
           <Route path="*" element={<Navigate to="/home" />} />
-          <Route path="/matching/finding" element={<Matching />} />
-          <Route path="/matching/found" element={<Matched />} />
-          <Route path="/matching/notfound" element={<MatchingTimeout />} />
+          {/* <Route path="/matching/finding" element={<Matching />} />
+          <Route path="/matching/found" element={<Matched />} /> */}
+          {/* <Route path="/matching/notfound" element={<MatchingTimeout />} /> */}
 
         </Routes>
       </Router>

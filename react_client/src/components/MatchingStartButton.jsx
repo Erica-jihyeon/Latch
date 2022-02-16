@@ -1,23 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import io from 'socket.io-client';
-import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 
 
 function MatchingStartButton(props) {
 
-  const { userId, learning, speaking, chatOpt } = props.matchingData;
-  const [matchRoomId, setMatchRoomId] = useState(null);
-  const socketRef = useRef();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (matchRoomId) {
-      setTimeout(() => {
-        console.log('will go to the match room after 5sec');
-      }, 5000)
-      setMatchRoomId(null);
-    }
-  }, [matchRoomId]);
+  const { setMatchingResult, setMatchRoomId, socketRef, setMode, userId, learning, speaking, chatOpt } = props.matchingData;
 
   const matchingStart = () => {
     const data = {
@@ -33,15 +20,34 @@ function MatchingStartButton(props) {
     } else {
       socketRef.current = io.connect('http://localhost:8080');
       socketRef.current.emit('matchReq', data);
-      socketRef.current.on("roomId", ({ roomId }) => {
-        console.log('roomId: ' + roomId);
-        setMatchRoomId(roomId);
-        navigate('/matching/finding');
-        // socketRef.current.disconnect();
-      });
+      setMode('matching');
+      if (socketRef.current !== null) {
+        socketRef.current.on("roomId", ({ roomId }) => {
+          console.log('roomId: ' + roomId);
+          setMatchRoomId(roomId);
+          socketRef.current.disconnect();
+          socketRef.current = null;
+          if (roomId) {
+            setMatchingResult('matched');
+          } else {
+            setMatchingResult('noMatch');
+          }
+        })
+      }
+      // socketRef.current.on("roomId", ({ roomId }) => {
+      //   console.log('roomId: ' + roomId);
+      //   setMatchRoomId(roomId);
+      //   if (socketRef.current !== null) {
+      //     socketRef.current.disconnect();
+      //     socketRef.current = null;
+      //     if (roomId) {
+      //       setMatchingResult('matched');
+      //     } else {
+      //       setMatchingResult('noMatch');
+      //     }
+      //   }
     }
   }
-
 
   return (
     <div className="options-button-container">
