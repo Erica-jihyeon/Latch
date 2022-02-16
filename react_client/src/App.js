@@ -8,6 +8,7 @@ import Matching from './components/Matching';
 import Matched from './components/Matched';
 import MatchingTimeout from './components/Matching_timeout'
 import Options from './components/Options';
+import {BrowserRouter as Router, Link, Route, Routes, Navigate} from 'react-router-dom';
 
 
 
@@ -15,14 +16,27 @@ function App() {
 
   return (
 
+
     <div className="app-background">
 
           <div className="matchin_container">
       <span id="top_sentence">Find Latches</span>
       <div className="matching_main">
-        {/* <MatchingTimeout /> */}
-        <Matching />
-        {/* <Matched /> */}
+        <Router>
+          {/* <nav>
+            <Link to="/">Matching</Link>
+            <Link to="/matched">Matched</Link>
+            <Link to="/matchTimeout">Fail</Link>
+          </nav> */}
+
+          <Routes>
+            <Route path="/" element={<Matching />} />
+            <Route path="/matched" element={<Matched />} />
+            <Route path="/matchTimeout" element={<MatchingTimeout />} />
+            {/* <Route path="*" element={<h2>Wrong path</h2>} /> */}
+            <Route path="*" element={<Navigate to="matchTimeout" />} />
+          </Routes>
+        </Router>
       </div>
     </div>
     </div>

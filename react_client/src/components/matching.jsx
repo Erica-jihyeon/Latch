@@ -10,7 +10,7 @@ function Matching() {
           <img src={default_logo} alt="latching_logo" id='logo' />
           <p className='logo_text'>Latching...</p>
 
-          <Button variant="outlined" id='cancel_button'>Cancel</Button>
+          <Button variant="outlined" id='cancel_button' onClick={() => console.log("hello")}>Cancel</Button>
         </div>
   )
 };
