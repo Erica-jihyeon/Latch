@@ -112,6 +112,7 @@ io.on('connection', (socket) => {
           // console.log(paired);
         }
       }
+      socket.disconnect();
     }, 5000);
 
   });
