@@ -7,10 +7,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* padding: 5%; */
 }
 
 
-.main {
+.signin-main {
   width: 90%;
   height: 90%;
   display: flex;
@@ -18,6 +19,9 @@
   align-items: center;
   justify-content: space-between;
   text-align: center;
+  top: 0;
+  margin: 5%;
+  margin-top: 0;
 }
 
 
@@ -41,7 +45,7 @@ img.signin-logo {
   margin-left: 30px;
 }
 
-button {
+.main button {
   background-color: #45acc9; /* Green */
   border: none;
   color: white;
