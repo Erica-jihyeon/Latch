@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { borderRadius, borders } from '@mui/system';
 import { FilledInput } from '@material-ui/core';
+import Header from './Header';
 
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -41,7 +42,8 @@ function SignIn() {
 
   return (
     <div className="login-container">
-      <div className="main">
+      <Header title="Sign in" />
+      <div className="signin-main">
 
         <img className='signin-logo' src={logo} alt="" />
         <div>
@@ -71,7 +73,7 @@ function SignIn() {
         </div>
         <div className="bottom-container">
           <p>Terms & Privacy Policy</p>
-          <div>
+          <div className="button-container">
             <Submit />
           </div>
         </div>
