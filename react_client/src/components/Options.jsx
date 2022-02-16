@@ -12,15 +12,6 @@ const styles = {
   "&.MuiButton-root": {
     border: "2px #45acc9 solid",
   },
-  "&.MuiButton-text": {
-    color: "grey"
-  },
-  "&.MuiButton-contained": {
-    color: "yellow"
-  },
-  "&.MuiButton-outlined": {
-    color: "brown"
-  },
   "&.MuiButton-multi-selection": {
     color: "#45acc9",
     borderRadius: "20px",
@@ -42,7 +33,7 @@ function Options() {
   const socketRef = useRef();
 
   const randomUserId = () => {
-    const userId = Math.floor((Math.random() * 100) + 1);
+    const userId = Math.floor((Math.random() * 5) + 1);
     return userId;
   }
   const userId = randomUserId();
@@ -98,7 +89,6 @@ function Options() {
 
       <div className="chat-option-selection">
         <p>Which language would you like to chat in?</p>
-
         <div className="chat-option-buttons">
           <ButtonGroup size="large" aria-label="large button group">
             <Button sx={styles} variant="multi-selection" value={1} onClick={chatOptHandler}>{learning || "Learning"}</Button>

@@ -15,9 +15,9 @@ function App() {
 
     <div className="app-background">
 
-      <Matching />
+      {/* <Matching /> */}
       {/* <Login /> */}
-      {/* <Options /> */}
+      <Options />
     </div>
 
   );
