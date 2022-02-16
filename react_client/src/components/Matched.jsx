@@ -29,6 +29,7 @@ function Matched() {
     }
   });
 
+
   return (
     <div className="matchin_container">
       <span id="top_sentence">Find Latches</span>
