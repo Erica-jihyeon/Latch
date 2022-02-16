@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import TextField from '@material-ui/core/TextField';
 import './App.css';
 import axios from 'axios';
-import Login from './components/Login';
+import Home from './components/Home';
 import Matching from './components/Matching';
 import Matched from './components/Matched';
 import MatchingTimeout from './components/Matching_timeout'
@@ -18,6 +18,7 @@ function App() {
 
 
     <div className="app-background">
+
 
           <div className="matchin_container">
       <span id="top_sentence">Find Latches</span>
@@ -39,6 +40,7 @@ function App() {
         </Router>
       </div>
     </div>
+
     </div>
 
   );

@@ -1,0 +1,24 @@
+header {
+  width: inherit;
+  height: 75px;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+
+header div {
+  display: inherit;
+  min-width: 60px;
+  max-width: 60px;
+  min-height: 60px;
+  max-height: 60px;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  justify-content: center;
+  align-items: center;
+}
