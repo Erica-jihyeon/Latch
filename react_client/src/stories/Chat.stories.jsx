@@ -2,14 +2,14 @@ import React from "react";
 
 // import "Login.css";
 
-import  Home  from "../components/Home";
+import  Chat  from "../components/Chat";
 
 export default {
-  title: 'Home',
-  component: Home,
+  title: 'Chat',
+  component: Chat,
 };
 
-const Template = (args) => <Home {...args} />;
+const Template = (args) => <Chat {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};

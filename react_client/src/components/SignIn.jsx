@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { borderRadius, borders } from '@mui/system';
 import { FilledInput } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Header from './Header';
 
 
@@ -41,10 +43,19 @@ function SignIn() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const classes = useStyles();
+  const back = () => {
+    console.log('back');
+  }
+
 
   return (
     <div className="login-container">
-      <Header title="Sign in" />
+      <Header title="Sign in"
+        back={
+          <IconButton onClick={back}>
+            <ArrowBackIosNewIcon fontSize="large" />
+          </IconButton>
+        } />
       <div className="signin-main">
 
         <img className='signin-logo' src={logo} alt="" />

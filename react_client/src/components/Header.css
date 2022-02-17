@@ -6,6 +6,7 @@ header {
   justify-content: space-between;
   align-items: center;
   z-index: 1;
+  background-color: white;
 }
 
 header > .header-back-button {
@@ -16,6 +17,7 @@ header > .header-back-button {
   max-height: 60px;
   justify-content: center;
   align-items: center;
+  padding: 5px;
 }
 
 header > .header-close-button {
