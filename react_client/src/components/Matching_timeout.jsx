@@ -5,13 +5,6 @@ import './matching.css';
 
 function Timeout(props) {
 
-  // const navigate = useNavigate();
-  // // useEffect(() => {
-  // //   setTimeout(() => {
-  // //     navigate('/');
-  // //   }, 3000);
-  // // },[navigate])
-
   const optionReset = props.optionReset;
   
   const clickHandler = () => {

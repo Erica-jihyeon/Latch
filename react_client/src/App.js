@@ -31,10 +31,6 @@ function App() {
           <Route path="/matching" element={<Options />} />
           <Route path="/matching/chatroom/*" element={<Home />} />
           <Route path="*" element={<Navigate to="/home" />} />
-          {/* <Route path="/matching/finding" element={<Matching />} />
-          <Route path="/matching/found" element={<Matched />} /> */}
-          {/* <Route path="/matching/notfound" element={<MatchingTimeout />} /> */}
-
         </Routes>
       </Router>
     </div>

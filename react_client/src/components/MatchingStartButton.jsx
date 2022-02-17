@@ -32,19 +32,6 @@ function MatchingStartButton(props) {
           setMatchingResult('noMatch');
         }
       })
-
-      // socketRef.current.on("roomId", ({ roomId }) => {
-      //   console.log('roomId: ' + roomId);
-      //   setMatchRoomId(roomId);
-      //   if (socketRef.current !== null) {
-      //     socketRef.current.disconnect();
-      //     socketRef.current = null;
-      //     if (roomId) {
-      //       setMatchingResult('matched');
-      //     } else {
-      //       setMatchingResult('noMatch');
-      //     }
-      //   }
     }
   }
 

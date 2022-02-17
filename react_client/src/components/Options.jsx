@@ -2,8 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import './Options.css';
 import logo from '../img/logo.png';
 import { ButtonGroup, Button } from '@mui/material';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import IconButton from '@mui/material/IconButton';
 import LanguageInput from './LanguageInput';
 import MatchingStartButton from './MatchingStartButton';
 import './matching.css';
@@ -47,21 +45,13 @@ function Options() {
   const userId = randomUserId();
 
   const back = () => {
+    //reset options and go to main page
     console.log('back');
   }
 
   const chatOptHandler = (e) => {
     setChatOpt(e.target.value);
   }
-
-  // useEffect(() => {
-  //   if (matchRoomId) {
-  //     setTimeout(() => {
-  //       console.log('will go to the match room after 5sec');
-  //     }, 5000)
-  //     setMatchRoomId(null);
-  //   }
-  // }, [matchRoomId]);
   
   const optionReset = () => {
     setLearning('');
@@ -77,7 +67,7 @@ function Options() {
   return (
     <div className="options-container">
       {mode === 'options' &&
-        <> <Header title={'Match Options'} />
+        <> <Header title={'Match Options'} onClick={back} />
           <img src={logo} alt="logo" /><LanguageInput purpose={learning} onChange={setLearning} label={'language you want to learn'} /><LanguageInput purpose={speaking} onChange={setSpeaking} label={'pick your first language'} />
           <div className="chat-option-selection">
             <p>Which language would you like to chat in?</p>

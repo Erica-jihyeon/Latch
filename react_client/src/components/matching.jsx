@@ -5,23 +5,20 @@ import './matching.css';
 
 function Matching(props) {
   const optionReset = props.optionReset;
-  
+
   const clickHandler = () => {
     optionReset();
   }
 
   return (
-    // <div className="matching_container">
-    //   <span id="top_sentence">Find Latches</span>
-      <div className="matching_main">
-        <div className='matching_body'>
-          <img src={default_logo} alt="latching_logo" id='logo' />
-          <p className='logo_text'>Latching...</p>
+    <div className="matching_main">
+      <div className='matching_body'>
+        <img src={default_logo} alt="latching_logo" id='logo' />
+        <p className='logo_text'>Latching...</p>
 
-          <Button variant="outlined" id='cancel_button' onClick={clickHandler}>Cancel</Button>
-        </div>
+        <Button variant="outlined" id='cancel_button' onClick={clickHandler}>Cancel</Button>
       </div>
-    // </div>
+    </div>
   )
 };
 
