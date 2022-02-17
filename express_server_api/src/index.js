@@ -98,7 +98,15 @@ io.on('connection', (socket) => {
       // console.log(paired);
     }
 
+    //cancel from the client before starting a match chat
+    socket.on('cancelMatchChat', function () {
+      paired[indexOfPair].match1.socketId === socket.id ? io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' }) : io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' });
+    })
+
+    
+
     setTimeout(() => {
+
       if (!client.isMatched) {
         // console.log(queue);
         const clientIndex = queue.findIndex((queueUser => queueUser.userId === client.userId));
@@ -117,11 +125,10 @@ io.on('connection', (socket) => {
 
   });
 
-
   socket.on('disconnect', function (client) {
     console.log('user disconnected');
   })
-  
+
 
 });
 
@@ -137,30 +144,30 @@ io.on('connection', (socket) => {
 const matchingIo = io.of('/matching')
 matchingIo.on('connection', (socket) => {
 
-matchingIo.emit('usercount', io.engine.clientsCount);
-// socket.join('room1');
-console.log(io.engine.clientsCount);
-
-// socket.on('message', ({ name, message }) => {
-//   console.log('Message received: ' + message);
-//   matchingIo.emit('message', ({ name, message }))
-//   // socket.emit('message', ({ name, message }))
-// })
-
-socket.on('joinRoom', ({roomId}) => {
-  console.log('Room joined: ' + roomId);
-  socket.join(roomId);
-})
-
-socket.on('message', ({ name, message, roomId }) => {
-  matchingIo.in(roomId).emit('message', ({ name, message }))
-})
-
-socket.on('disconnect', function () {
-  console.log('user disconnected')
-  //update user count
   matchingIo.emit('usercount', io.engine.clientsCount);
-})
+  // socket.join('room1');
+  console.log(io.engine.clientsCount);
+
+  // socket.on('message', ({ name, message }) => {
+  //   console.log('Message received: ' + message);
+  //   matchingIo.emit('message', ({ name, message }))
+  //   // socket.emit('message', ({ name, message }))
+  // })
+
+  socket.on('joinRoom', ({ roomId }) => {
+    console.log('Room joined: ' + roomId);
+    socket.join(roomId);
+  })
+
+  socket.on('message', ({ name, message, roomId }) => {
+    matchingIo.in(roomId).emit('message', ({ name, message }))
+  })
+
+  socket.on('disconnect', function () {
+    console.log('user disconnected')
+    //update user count
+    matchingIo.emit('usercount', io.engine.clientsCount);
+  })
 
 })
 
