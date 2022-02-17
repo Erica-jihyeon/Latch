@@ -1,23 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import io from 'socket.io-client';
-import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 
 
 function MatchingStartButton(props) {
 
-  const { userId, learning, speaking, chatOpt } = props.matchingData;
-  const [matchRoomId, setMatchRoomId] = useState(null);
-  const socketRef = useRef();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (matchRoomId) {
-      setTimeout(() => {
-        console.log('will go to the match room after 5sec');
-      }, 5000)
-      setMatchRoomId(null);
-    }
-  }, [matchRoomId]);
+  const { setMatchingResult, setMatchRoomId, socketRef, setMode, userId, learning, speaking, chatOpt, optionReset } = props.matchingData;
 
   const matchingStart = () => {
     const data = {
@@ -33,15 +20,29 @@ function MatchingStartButton(props) {
     } else {
       socketRef.current = io.connect('http://localhost:8080');
       socketRef.current.emit('matchReq', data);
+      //show matching page
+      setMode('matching');
+
       socketRef.current.on("roomId", ({ roomId }) => {
         console.log('roomId: ' + roomId);
         setMatchRoomId(roomId);
-        navigate('/matching/finding');
+        // will be disconnected from the server after 5sec from matchReq
         // socketRef.current.disconnect();
-      });
+        if (roomId) {
+          setMatchingResult('matched');
+        } else {
+          setMatchingResult('noMatch');
+        }
+
+        // if match chat is canceled by the other user -> go back to option page
+        socketRef.current.on("cancelMatchChat", ({ message }) => {
+          alert(message);
+          optionReset();
+        })
+
+      })
     }
   }
-
 
   return (
     <div className="options-button-container">

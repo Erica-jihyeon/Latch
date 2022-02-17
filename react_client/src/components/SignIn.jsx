@@ -12,6 +12,7 @@ import Header from './Header';
 
 import { makeStyles } from '@material-ui/core/styles'
 import { withStyles } from '@material-ui/core/styles';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -32,8 +33,9 @@ const useStyles = makeStyles({
 })
 
 function Submit() {
+  const navigate = useNavigate();
   const classes = useStyles();
-  return <Button disableElevation variant='contained' className={classes.root}>Submit</Button>
+  return <Button disableElevation variant='contained' className={classes.root} onClick={() => {navigate('/main')}}>Submit</Button>
 }
 
 
