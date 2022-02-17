@@ -103,7 +103,13 @@ io.on('connection', (socket) => {
       paired[indexOfPair].match1.socketId === socket.id ? io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' }) : io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' });
     })
 
-    
+    //if client cancel the matching, then remove from the queue
+    socket.on('cancelMatching', () => {
+      const clientIndex = queue.findIndex((queueUser => queueUser.userId === client.userId));
+      if (clientIndex >= 0) {
+        queue.splice(clientIndex, 1);
+      }
+    })
 
     setTimeout(() => {
 
@@ -164,7 +170,7 @@ matchingIo.on('connection', (socket) => {
   })
 
   socket.on('disconnect', function () {
-    console.log('user disconnected')
+    console.log('user disconnected');
     //update user count
     matchingIo.emit('usercount', io.engine.clientsCount);
   })

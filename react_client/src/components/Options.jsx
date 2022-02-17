@@ -9,6 +9,7 @@ import Matching from './matching';
 import Matched from './Matched';
 import MatchingTimeout from './Matching_timeout';
 import Header from './Header';
+import {useNavigate} from 'react-router-dom';
 
 
 const styles = {
@@ -37,6 +38,7 @@ function Options() {
   const [matchRoomId, setMatchRoomId] = useState(null);
   const socketRef = useRef();
   const [matchingResult, setMatchingResult] = useState('matching');
+  const navigate = useNavigate();
 
   const randomUserId = () => {
     const userId = Math.floor((Math.random() * 5) + 1);
@@ -46,6 +48,7 @@ function Options() {
 
   const back = () => {
     //reset options and go to main page
+    navigate('/main');
     console.log('back');
   }
 
@@ -83,7 +86,7 @@ function Options() {
       {mode === 'matching' &&
         <div className="matching_container">
           <span id="top_sentence">Find Latches</span>
-          {matchingResult === 'matching' && <Matching optionReset={optionReset} />}
+          {matchingResult === 'matching' && <Matching optionReset={optionReset} socketRef={socketRef}/>}
           {matchingResult === 'matched' && <Matched roomId={matchRoomId} optionReset={optionReset} socketRef={socketRef} />}
           {matchingResult === 'noMatch' && <MatchingTimeout optionReset={optionReset} />}
         </div>
