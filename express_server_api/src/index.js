@@ -159,8 +159,12 @@ matchingIo.on('connection', (socket) => {
     socket.join(roomId);
   })
 
-  socket.on('message', ({ name, message, roomId }) => {
-    matchingIo.in(roomId).emit('message', ({ name, message }))
+  // socket.on('message', ({ name, message, roomId }) => {
+  //   matchingIo.in(roomId).emit('message', ({ name, message }))
+  // })
+
+  socket.on('message', ({ message, roomId }) => {
+    matchingIo.in(roomId).emit('message', ({ message }))
   })
 
   socket.on('disconnect', function () {

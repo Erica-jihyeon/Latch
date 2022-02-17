@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Link, Route, Routes, Navigate } from 'react-ro
 import SignIn from './components/SignIn';
 import Main from './components/Main';
 import Friend_req from './components/Friend_req';
+import Chat from './components/Chat';
 
 
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/matching/chatroom/*" element={<Home />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="/addfriend" element={<Friend_req />} />
+          <Route path="/chat" element={<Chat />} />
 
           
 

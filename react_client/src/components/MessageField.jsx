@@ -4,11 +4,26 @@ import { TextField } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
 import SendIcon from '@mui/icons-material/Send';
 import { makeStyles } from "@material-ui/core";
-function MessageField(props) {
-  const [input, setInput] = useState("");
+import { io } from 'socket.io-client';
+import {useParams} from 'react-router-dom';
 
-  const sendMessage = () => {
-    console.log(`Sent: ${input}`);
+function MessageField(props) {
+  const socketRef = props.socketRef;
+  const roomIdRef = props.roomIdRef;
+  const [message, setMessage] = useState("");
+
+
+  const sendMessage = (e) => {
+    // if (message) {
+      
+    //   console.log(`Sent: ${message}`);
+    //   setInput('');
+    // }
+    e.preventDefault();
+    //name = state.name, message = state.message
+    // const { name, message } = state;
+    socketRef.current.emit('message', { message, roomId: roomIdRef.current });
+    setMessage('');
   }
 
   const useStyles = makeStyles({
@@ -38,8 +53,8 @@ function MessageField(props) {
           size="small"
           placeholder="message"
           className={classes.textField}
-          value={input}
-          onChange={e => setInput(e.target.value)} />
+          value={message}
+          onChange={e => setMessage(e.target.value)} />
         <IconButton onClick={sendMessage}>
           <SendIcon sx={{ color: '#45acc9' }} fontSize='medium' />
         </IconButton>
