@@ -1,18 +1,17 @@
-.login-container {
+.chat-container {
   width: 375px;
   height: 812px;
-  background-color: white;
+  background-color: whitesmoke;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* padding: 5%; */
 }
 
 
-.signin-main {
+.chat-main {
   width: 90%;
   height: 90%;
   display: flex;
@@ -20,25 +19,23 @@
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  top: 0;
-  margin: 5%;
-  margin-top: 0;
 }
 
 
-img.signin-logo {
-  width: 50%;
+.chat-main > img {
+  width: 80%;
+  margin-top: 200px;
 }
 
-.main > p {
-  margin-bottom: 100px;
+.chat-main > p {
+  margin-bottom: 150px;
 }
 
-.bottom-container {
+.chat-container .chat-bottom-container {
   width:100%;
 }
 
-.button-container {
+.chat-container .chat-button-container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -46,7 +43,7 @@ img.signin-logo {
   margin-left: 30px;
 }
 
-.main button {
+.chat-button-container button {
   background-color: #45acc9; /* Green */
   border: none;
   color: white;
@@ -56,4 +53,12 @@ img.signin-logo {
   display: inline-block;
   font-size: 16px;
   border-radius: 50px;
+}
+
+.chat-button-container button:hover {
+  cursor: pointer;
+  border: 1px solid;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+  outline-color: rgba(255, 255, 255, 0);
+  outline-offset: 15px;
 }

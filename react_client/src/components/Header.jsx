@@ -10,13 +10,11 @@ function Header(props) {
   return (
     <header >
       <div>
-        <IconButton onClick={back}>
-          <ArrowBackIosNewIcon fontSize="large" />
-        </IconButton>
+        {props.back}
       </div>
-      <div>
+      <span>
         <p>{props.title}</p>
-      </div>
+      </span>
       <div>
         {props.button}
       </div>
