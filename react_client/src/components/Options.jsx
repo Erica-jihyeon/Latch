@@ -78,13 +78,13 @@ function Options() {
                 <Button sx={styles} variant="multi-selection" value={3} onClick={chatOptHandler}>Both</Button>
               </ButtonGroup>
             </div>
-          </div><MatchingStartButton matchingData={{ setMatchingResult, matchRoomId, setMatchRoomId, socketRef, setMode, userId, learning, speaking, chatOpt }} /></>
+          </div><MatchingStartButton matchingData={{ setMatchingResult, matchRoomId, setMatchRoomId, socketRef, setMode, userId, learning, speaking, chatOpt, optionReset }} /></>
       }
       {mode === 'matching' &&
         <div className="matching_container">
           <span id="top_sentence">Find Latches</span>
           {matchingResult === 'matching' && <Matching optionReset={optionReset} />}
-          {matchingResult === 'matched' && <Matched roomId={matchRoomId} optionReset={optionReset} />}
+          {matchingResult === 'matched' && <Matched roomId={matchRoomId} optionReset={optionReset} socketRef={socketRef} />}
           {matchingResult === 'noMatch' && <MatchingTimeout optionReset={optionReset} />}
         </div>
       }

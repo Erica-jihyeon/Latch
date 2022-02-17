@@ -16,6 +16,8 @@ const styles = {
 function Matched(props) {
   const roomId = useRef(props.roomId);
   const optionReset = props.optionReset;
+  const socketRef = props.socketRef;
+
   // setRoomId(props.roomId);
   const [seconds, setSeconds] = useState(5);
   const navigate = useNavigate();
@@ -42,6 +44,8 @@ function Matched(props) {
 
 
   const clickHandler = () => {
+    // send status to the server to show the alert to the other user(matched)
+    socketRef.current.emit("cancelMatchChat", () => {});
     optionReset();
   }
 
