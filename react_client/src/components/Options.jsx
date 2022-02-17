@@ -10,6 +10,7 @@ import './matching.css';
 import Matching from './matching';
 import Matched from './Matched';
 import MatchingTimeout from './Matching_timeout';
+import Header from './Header';
 
 
 const styles = {
@@ -61,13 +62,14 @@ function Options() {
   //     setMatchRoomId(null);
   //   }
   // }, [matchRoomId]);
-
+  
   const optionReset = () => {
     setLearning('');
     setSpeaking('');
     setChatOpt('');
     setMode('options');
     setMatchRoomId(null);
+    socketRef.current.disconnect();
     socketRef.current = null;
     setMatchingResult('matching');
   }
@@ -75,12 +77,9 @@ function Options() {
   return (
     <div className="options-container">
       {mode === 'options' &&
-        <><div className="options-header">
-          <IconButton onClick={back}>
-            <ArrowBackIosIcon />
-          </IconButton>
-          <p>Match Options</p>
-        </div><img src={logo} alt="logo" /><LanguageInput purpose={learning} onChange={setLearning} label={'language you want to learn'} /><LanguageInput purpose={speaking} onChange={setSpeaking} label={'pick your first language'} /><div className="chat-option-selection">
+        <> <Header title={'Match Options'} />
+          <img src={logo} alt="logo" /><LanguageInput purpose={learning} onChange={setLearning} label={'language you want to learn'} /><LanguageInput purpose={speaking} onChange={setSpeaking} label={'pick your first language'} />
+          <div className="chat-option-selection">
             <p>Which language would you like to chat in?</p>
             <div className="chat-option-buttons">
               <ButtonGroup size="large" aria-label="large button group">
@@ -96,14 +95,11 @@ function Options() {
           <span id="top_sentence">Find Latches</span>
           {matchingResult === 'matching' && <Matching optionReset={optionReset} />}
           {matchingResult === 'matched' && <Matched roomId={matchRoomId} optionReset={optionReset} />}
-          {matchingResult === 'noMatch' && <MatchingTimeout />}
+          {matchingResult === 'noMatch' && <MatchingTimeout optionReset={optionReset} />}
         </div>
       }
     </div>
-
   )
-
-
 }
 
 export default Options;

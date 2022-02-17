@@ -2,17 +2,21 @@ import React from 'react';
 import default_logo from '../img/default_logo.png'
 import Button from '@mui/material/Button';
 import './matching.css';
-// import {useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
 
-function Timeout() {
+function Timeout(props) {
 
-  const navigate = useNavigate();
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     navigate('/');
-  //   }, 3000);
-  // },[navigate])
+  // const navigate = useNavigate();
+  // // useEffect(() => {
+  // //   setTimeout(() => {
+  // //     navigate('/');
+  // //   }, 3000);
+  // // },[navigate])
+
+  const optionReset = props.optionReset;
+  
+  const clickHandler = () => {
+    optionReset();
+  }
 
   return (
 
@@ -21,7 +25,7 @@ function Timeout() {
         <img src={default_logo} alt="default_logo" id='logo' />
         <p className='logo_text'>Not found...</p>
 
-        <Button variant="outlined" id='cancel_button' onClick={() => { navigate('/') }}>Close</Button>
+        <Button variant="outlined" id='cancel_button' onClick={clickHandler}>Close</Button>
       </div>
     </div>
 

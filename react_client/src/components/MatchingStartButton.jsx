@@ -21,19 +21,18 @@ function MatchingStartButton(props) {
       socketRef.current = io.connect('http://localhost:8080');
       socketRef.current.emit('matchReq', data);
       setMode('matching');
-      if (socketRef.current !== null) {
-        socketRef.current.on("roomId", ({ roomId }) => {
-          console.log('roomId: ' + roomId);
-          setMatchRoomId(roomId);
-          socketRef.current.disconnect();
-          socketRef.current = null;
-          if (roomId) {
-            setMatchingResult('matched');
-          } else {
-            setMatchingResult('noMatch');
-          }
-        })
-      }
+
+      socketRef.current.on("roomId", ({ roomId }) => {
+        console.log('roomId: ' + roomId);
+        setMatchRoomId(roomId);
+        socketRef.current.disconnect();
+        if (roomId) {
+          setMatchingResult('matched');
+        } else {
+          setMatchingResult('noMatch');
+        }
+      })
+
       // socketRef.current.on("roomId", ({ roomId }) => {
       //   console.log('roomId: ' + roomId);
       //   setMatchRoomId(roomId);
