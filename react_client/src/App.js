@@ -7,7 +7,7 @@ import Home from './components/Home';
 import Options from './components/Options';
 import { BrowserRouter as Router, Link, Route, Routes, Navigate } from 'react-router-dom';
 import SignIn from './components/SignIn';
-// import Main from './components/Main';
+import Main from './components/Main';
 
 
 
@@ -27,7 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<SignIn />} />
-          {/* <Route path="/main" element={<Main />} /> */}
+          <Route path="/main" element={<Main />} />
           <Route path="/matching" element={<Options />} />
           <Route path="/matching/chatroom/*" element={<Home />} />
           <Route path="*" element={<Navigate to="/home" />} />
