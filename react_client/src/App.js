@@ -11,6 +11,7 @@ import Options from './components/Options';
 import { BrowserRouter as Router, Link, Route, Routes, Navigate } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import Main from './components/Main';
+import Friend_req from './components/Friend_req';
 
 
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/matching/found" element={<Matched />} />
           <Route path="/matching/notfound" element={<MatchingTimeout />} />
           <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/addfriend" element={<Friend_req />} />
 
         </Routes>
       </Router>
