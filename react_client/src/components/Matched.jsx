@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import default_logo from '../img/default_logo.png'
 import Button from '@mui/material/Button';
 import './matching.css';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -39,26 +39,27 @@ function Matched(props) {
   useEffect(() => {
     if (seconds === 0) {
       navigate(`/matching/chatroom/${roomId.current}`);
+      // optionReset();
     }
-  },[seconds, navigate])
+  }, [seconds, navigate])
 
 
   const clickHandler = () => {
     // send status to the server to show the alert to the other user(matched)
-    socketRef.current.emit("cancelMatchChat", () => {});
+    socketRef.current.emit("cancelMatchChat", () => { });
     optionReset();
   }
 
   return (
 
-      <div className="matching_main">
-        <div className='matching_body'>
-          <img src={default_logo} alt="latching_logo" id='logo' />
-          <p className='logo_text'>Match is found</p>
-          <p>{seconds}</p>
-          <Button variant="outlined" id='cancel_button' sx={styles} onClick={clickHandler}>Cancel</Button>
-        </div>
+    <div className="matching_main">
+      <div className='matching_body'>
+        <img src={default_logo} alt="latching_logo" id='logo' />
+        <p className='logo_text'>Match is found</p>
+        <p>{seconds}</p>
+        <Button variant="outlined" id='cancel_button' sx={styles} onClick={clickHandler}>Cancel</Button>
       </div>
+    </div>
   )
 };
 
