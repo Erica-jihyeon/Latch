@@ -9,6 +9,7 @@ import { IconButton } from '@material-ui/core';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { io } from 'socket.io-client';
+import { useNavigate } from 'react-router-dom';
 
 function Chat() {
   const [seed, setSeed] = useState("");
@@ -18,20 +19,24 @@ function Chat() {
   // const [{ user }, dispatch] = useStateValue();
 
   const params = useParams();
-  console.log(params);
-  const randomId = () => {
-    const id = Math.floor((Math.random() * 3) + 1);
-    return id;
-  }
+  // console.log(params);
 
-  const roomIdRef = useRef(null);
-  const socketRef = useRef;
+  const roomIdRef = useRef(params);
+  const socketRef = useRef();
+  const navigate = useNavigate();
+
+  const randomUserId = () => {
+    return Math.floor((Math.random() * 10) + 1);
+  }
 
   useEffect(() => {
     socketRef.current = io.connect('http://localhost:8080/matching');
-    roomIdRef.current = randomId();
+    // roomIdRef.current = params;
     console.log(roomIdRef);
-    socketRef.current.emit('joinRoom', { roomId: roomIdRef.current });
+    socketRef.current.emit('joinRoom', { roomId: roomIdRef.current.roomId, userId: randomUserId() });
+    setTimeout(() => {
+      socketRef.current.disconnect();
+    }, 60000);
   }, [])
 
   useEffect(() => {
@@ -40,6 +45,14 @@ function Chat() {
     });
     socketRef.current.on('usercount', (data) => {
       console.log(data);
+    });
+    socketRef.current.on('leaveChat', ({ message }) => {
+      console.log(message);
+      alert(message);
+      leaveChat();
+    });
+    socketRef.current.on('friendRequest', () => {
+      navigate('/addfriend')
     })
   }, [messages]);
 
@@ -51,12 +64,25 @@ function Chat() {
     ))
   }
 
+  // socketRef.current.on('leaveChat', ({message}) => {
+  //   alert(message);
+  // })
+
+  const leaveChat = () => {
+
+    socketRef.current.emit('leaveChat', {roomId: roomIdRef.current.roomId});
+    socketRef.current.disconnect();
+    // socketRef.current = null;
+    navigate('/main');
+
+  }
+
   return (
     <div className="chat-container">
       <Header title="Latching Chat"
         button={
           <IconButton >
-            <CancelRoundedIcon onClick={() => console.log("Leave chat")} sx={{ fontSize: 50 }} color='error' />
+            <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 50 }} color='error' />
           </IconButton>
         } />
       <div className="chat-main">

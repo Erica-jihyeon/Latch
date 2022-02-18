@@ -22,7 +22,7 @@ function MessageField(props) {
     e.preventDefault();
     //name = state.name, message = state.message
     // const { name, message } = state;
-    socketRef.current.emit('message', { message, roomId: roomIdRef.current });
+    socketRef.current.emit('message', { message, roomId: roomIdRef.current.roomId });
     setMessage('');
   }
 
