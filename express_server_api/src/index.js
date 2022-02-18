@@ -62,6 +62,9 @@ db.connect()
 const langList = require("./routes/lang_list");
 app.use("/api/lang_list", langList(db));
 
+const user = require("./routes/current_user");
+app.use("/api/current_user", user(db));
+
 
 // using router for matching
 const matching = require("./routes/matching_router(ref)");
