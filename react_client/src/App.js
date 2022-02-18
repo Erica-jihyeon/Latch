@@ -11,6 +11,7 @@ import Main from './components/Main';
 import Friend_req from './components/Friend_req';
 import LoginProvider from './Providers/LoginProviders';
 import Chat from './components/Chat';
+import LearningBotPage from './components/learningBot/LearningBotPage';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path="/matching/chatroom/*" element={<Home />} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/addfriend" element={<Friend_req />} />
+            <Route path="/learningbot" element={<LearningBotPage />} />
 
           </Routes>
         </LoginProvider>
