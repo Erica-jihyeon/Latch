@@ -5,8 +5,10 @@ import './matching.css';
 
 function Matching(props) {
   const optionReset = props.optionReset;
+  const socketRef = props.socketRef;
 
   const clickHandler = () => {
+    socketRef.current.emit("cancelMatching", () => {});
     optionReset();
   }
 
