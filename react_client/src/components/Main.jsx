@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import default_logo from '../img/default_logo.png'
 import Button from '@mui/material/Button';
 import './main.css';
 import Header from './Header';
 import { useNavigate} from 'react-router-dom';
+import  { loginContext } from '../Providers/LoginProviders';
 
 function Main() {
+
+  const {user} = useContext(loginContext);
+  console.log(user);
+
+
   const navigate = useNavigate()
   return (
     <div className="login-container">

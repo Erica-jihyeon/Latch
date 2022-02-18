@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Link, Route, Routes, Navigate } from 'react-ro
 import SignIn from './components/SignIn';
 import Main from './components/Main';
 import Friend_req from './components/Friend_req';
-
+import LoginProvider from './Providers/LoginProviders';
 
 
 function App() {
@@ -23,20 +23,22 @@ function App() {
       {/* <Login /> */}
       {/* <Home /> */}
       {/* <Options /> */}
+      {/* <LoginProvider>
+        <SignIn />
+      </LoginProvider> */}
       <Router>
+        <LoginProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/matching" element={<Options />} />
+            <Route path="/matching/chatroom/*" element={<Home />} />
+            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/addfriend" element={<Friend_req />} />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/main" element={<Main />} />
-          <Route path="/matching" element={<Options />} />
-          <Route path="/matching/chatroom/*" element={<Home />} />
-          <Route path="*" element={<Navigate to="/" />} />
-          <Route path="/addfriend" element={<Friend_req />} />
-
-          
-
-        </Routes>
+          </Routes>
+        </LoginProvider>
       </Router>
     </div>
 
