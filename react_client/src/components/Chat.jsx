@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useParams } from "react-router-dom";
 
 import './Chat.css';
@@ -10,6 +10,8 @@ import CallEndIcon from '@mui/icons-material/CallEnd';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { io } from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
+import  { loginContext } from '../Providers/LoginProviders';
+
 
 function Chat() {
   const [seed, setSeed] = useState("");
@@ -17,6 +19,8 @@ function Chat() {
   // const [roomName, setRoomName] = useState("");
   const [messages, setMessages] = useState([]);
   // const [{ user }, dispatch] = useStateValue();
+  const {user} = useContext(loginContext);
+  console.log("USER", user);
 
   const params = useParams();
   // console.log(params);
@@ -34,14 +38,14 @@ function Chat() {
     // roomIdRef.current = params;
     console.log(roomIdRef);
     socketRef.current.emit('joinRoom', { roomId: roomIdRef.current.roomId, userId: randomUserId() });
-    setTimeout(() => {
-      socketRef.current.disconnect();
-    }, 60000);
   }, [])
-
+let messageUser;
   useEffect(() => {
-    socketRef.current.on("message", ({ message }) => {
+    socketRef.current.on("message", ({ message, user }) => {
+      console.log("USER LINE 45", user);
+      messageUser = user;
       setMessages([...messages, { message }])
+      console.log(messages);
     });
     socketRef.current.on('usercount', (data) => {
       console.log(data);
@@ -58,9 +62,12 @@ function Chat() {
 
   const renderMessages = () => {
     return messages.map(({ message }, index) => (
-      <div key={index}>
-        <h3><span>{message}</span></h3>
-      </div>
+      <p className={`chat__message`} key={index}>
+        <span>{message}</span>
+      </p>
+      // <p className={`chat__message${user.userId === messageUser.userId ? '__sent' : '__received'}`} key={index}>
+      //   <span>{message}</span>
+      // </p>
     ))
   }
 
@@ -98,7 +105,7 @@ function Chat() {
         ))} */}
         {renderMessages()}
       </div>
-      <MessageField socketRef={socketRef} roomIdRef={roomIdRef} />
+      <MessageField socketRef={socketRef} roomIdRef={roomIdRef} user={user} />
     </div>
   )
 }
