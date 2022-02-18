@@ -1,4 +1,4 @@
-import { React, useContext, useEffect, useState } from 'react';
+import { React, useContext, useEffect, useState, useRef } from 'react';
 import './SignIn.css';
 import logo from '../img/logo.png'
 import Button from '@material-ui/core/Button';
@@ -7,12 +7,10 @@ import { IconButton } from '@material-ui/core';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Header from './Header';
 
-
 import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
 
-
-import  { loginContext } from '../Providers/LoginProviders';
+import { loginContext } from '../Providers/LoginProviders';
 import axios from 'axios';
 
 
@@ -34,59 +32,48 @@ const useStyles = makeStyles({
 })
 
 
+
+
 function SignIn() {
 
+  const { login, auth } = useContext(loginContext);
 
-
-  const {login, auth} = useContext(loginContext);
-  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  //const [userId, setUserId] = useState(0);
+  const userIdRef = useRef(null);
   const classes = useStyles();
   const navigate = useNavigate();
   const back = () => {
-    navigate('/')
+    navigate('/');
   };
 
 
+  useEffect(() => {
+    if (auth) {
+      console.log(auth);
+      navigate('/main');
+    }
+  }, [auth, navigate]);
 
-  // useEffect(() => {
-  //   // const {user} = useContext(loginContext);
-  //   axios.get('http://localhost:8080/api/all_users', {username: "hello"})
-  //     .then((res) => {
-  //       // const result = res.data.map((key) => {key.username})
-  //       setData(res.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err.message);
-  //     })
-  // }, [])
-
-  function onSubmit() {
-
-    axios.get('http://localhost:8080/api/current_user', {params: {username: username}})
+  const getUserId = (username) => {
+    return axios.get('http://localhost:8080/api/current_user', { params: { username: username } })
       .then((res) => {
         console.log(res.data);
-        // const result = res.data.map((key) => {key.username})
-        return res.data;
-      })
-      .then((data) => {
-        //data is userId
-        login(username, password, data);
-
-        if (auth) {
-          navigate('/main')
-        }
-
-      })
-      .catch(err => {
-        console.log(err.message);
+        userIdRef.current = res.data;
       })
   }
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    getUserId(username)
+      .then(() => { login(username, password, userIdRef.current) })
+      .catch(err => {
+        console.log(err.message);
+      })
+    navigate('/main');
+  }
 
-  
+
 
   return (
     <div className="login-container">
@@ -127,7 +114,7 @@ function SignIn() {
         <div className="bottom-container">
           <p>Terms & Privacy Policy</p>
           <div className="button-container">
-          <Button disableElevation variant='contained' className={classes.root} onClick={onSubmit}>Submit</Button>
+            <Button disableElevation variant='contained' className={classes.root} onClick={onSubmit}>Submit</Button>
           </div>
         </div>
 
