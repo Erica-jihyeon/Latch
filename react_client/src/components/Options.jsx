@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import './Options.css';
 import logo from '../img/logo.png';
 import { ButtonGroup, Button } from '@mui/material';
@@ -10,6 +10,7 @@ import Matched from './Matched';
 import MatchingTimeout from './Matching_timeout';
 import Header from './Header';
 import {useNavigate} from 'react-router-dom';
+import  { loginContext } from '../Providers/LoginProviders';
 
 
 const styles = {
@@ -40,11 +41,13 @@ function Options() {
   const [matchingResult, setMatchingResult] = useState('matching');
   const navigate = useNavigate();
 
-  const randomUserId = () => {
-    const userId = Math.floor((Math.random() * 5) + 1);
-    return userId;
-  }
-  const userId = randomUserId();
+  // const randomUserId = () => {
+  //   const userId = Math.floor((Math.random() * 5) + 1);
+  //   return userId;
+  // }
+
+  const {user} = useContext(loginContext);
+  const userId = user.userId;
 
   const back = () => {
     //reset options and go to main page
