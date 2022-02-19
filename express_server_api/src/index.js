@@ -178,10 +178,10 @@ matchingIo.on('connection', (socket) => {
     // console.log(numClients);
 
     // if (clients === 2) {
-      // setTimeout(() => {
-      //   matchingIo.in(roomId).emit('friendRequest');
-      //   socket.disconnect();
-      // }, 10000);
+      setTimeout(() => {
+        matchingIo.in(roomId).emit('friendRequest');
+        socket.disconnect();
+      }, 10000);
     // }
 
   })
