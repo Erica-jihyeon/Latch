@@ -66,7 +66,9 @@ function Chat() {
     const renderedMessage = renderMessages(message)
     setMessages([...messages, renderedMessage])
     // console.log(messages);
-    scrollpoint.current.scrollIntoView({behavior: 'smooth'})
+    setTimeout(() => {
+      scrollpoint.current.scrollIntoView({behavior: 'smooth'})
+    }, 100);
   }, [messageUser])
 
   const renderMessages = (message) => {

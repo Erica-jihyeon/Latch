@@ -18,7 +18,7 @@
   flex-direction: column;
   align-items: center;
   /* justify-content: space-between; */
-  text-align: center;
+  text-align: left;
   overflow: scroll;
   /* padding-top: 15px; */
   /* padding-bottom: 50px; */
@@ -72,6 +72,8 @@
 }
 
 .chat__message__sent {
+  max-width: 70%;
+  word-wrap: break-word;
   color: white;
   position: relative;
   font-size: 16px;
@@ -79,11 +81,13 @@
   background-color: #45acc9;
   border-radius: 10px;
   width: fit-content;
-  margin-top: 30px;
-  /* margin-bottom: 15px; */
+  margin-top: 15px;
+  margin-bottom: 15px;
   align-self: flex-end;
 }
 .chat__message__received {
+  max-width: 70%;
+  word-wrap: break-word;
   color: white;
   position: relative;
   font-size: 16px;
@@ -91,8 +95,8 @@
   background-color: #FF6D23;
   border-radius: 10px;
   width: fit-content;
-  margin-top: 30px;
-  /* margin-bottom: 15px; */
+  margin-top: 15px;
+  margin-bottom: 15px;
   align-self: flex-start;
 }
 
@@ -103,5 +107,9 @@
 }
 
 .scrollpoint {
-  margin-top: 75px;
+  /* margin-top: 50px; */
+}
+
+span {
+  font-size: larger;
 }
