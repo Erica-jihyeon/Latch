@@ -25,7 +25,7 @@ const styles = {
   "&.MuiButton-multi-selection-mid": {
     color: "#45acc9",
     width: "105px"
-  }
+  },
 };
 
 

@@ -29,3 +29,9 @@ CREATE TABLE matching (
   user1_id integer REFERENCES users(id),
   user2_id integer REFERENCES users(id)
 );
+
+CREATE TABLE bookmark (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id integer REFERENCES users(id),
+  answers VARCHAR(255)
+);

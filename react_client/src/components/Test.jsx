@@ -1,16 +1,15 @@
-import React from 'react';
-import './Test.css';
-import Header from './Header';
+// import React from 'react';
+// import './Test.css';
+// import Header from './Header';
+// import axios from 'axios';
 
-function Test() {
-  return (
-    <div className="test-container">
-      <Header></Header>
-      <div className="login-main">
+// function Test(username) {
+//   return (
+//     axios.get('http://localhost:8080/api/bookmark', {params: {userId: 3}})
+//       .then((res) => {
+//         console.log(res.data);
+//       })
+//   )
+// }
 
-      </div>
-    </div>
-  )
-}
-
-export default Test
+// export default Test

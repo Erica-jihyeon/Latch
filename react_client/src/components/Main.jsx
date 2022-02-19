@@ -5,6 +5,7 @@ import './main.css';
 import Header from './Header';
 import { useNavigate} from 'react-router-dom';
 import  { loginContext } from '../Providers/LoginProviders';
+import SimpleBottomNavigation from './bottom_nav';
 
 function Main() {
 
@@ -24,6 +25,8 @@ function Main() {
       </div>
 
           <Button variant="outlined" id='start_button' onClick={() => {navigate('/matching')}}>Start</Button>
+
+          <SimpleBottomNavigation />
     </div>
     </div>
   )

@@ -26,14 +26,18 @@
 
 
 #main_logo {
-  width: 80%;
+  width: 60%;
   justify-content: center;
 
+}
+.logo_text {
+  margin: 30px;
 }
 
 #start_button {
   justify-content: end;
-  margin-bottom: 5em;
+  padding: 10px 30px;
+  margin-bottom: 3em;
   color:  white;
   background-color: #2596be;
   border-radius: 30px;
