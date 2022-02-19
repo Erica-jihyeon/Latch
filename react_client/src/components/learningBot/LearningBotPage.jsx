@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { IconButton } from "@material-ui/core";
 import './LearningBotPage.css';
-import botSaying from '../../img/bot_saying.gif';
-import botAnswering from '../../img/bot_wink.gif';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useNavigate } from 'react-router-dom';
@@ -32,22 +30,14 @@ const useStyles = makeStyles({
   }
 });
 
-
-
-// {
-//   mode === 'answering' &&
-//     <img src={botAnswering} alt="bot-wink" />
-// }
-
 function LearningBotPage() {
 
   const [mode, setMode] = useState('first');
-  const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState([]);
+  const [answerIndex, setAnswerIndex] = useState(0);
   const navigate = useNavigate();
   const classes = useStyles();
 
-  console.log(question);
   const back = () => {
     navigate('/main');
   };
@@ -55,6 +45,29 @@ function LearningBotPage() {
   const getBookmarkData = () => {
 
   };
+
+  // useEffect(() => {
+  //   if (answer.length !== 0) {
+  //     setMode('answer');
+  //     console.log(answer);
+  //     console.log('hi');
+  //   }
+  // },[answer])
+
+  useEffect(() => {
+    if (mode === "noLikeAnswer") {
+      const timer = setTimeout(() => {
+        setMode('answer')
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [mode]);
+
+  // const reset = () => {
+  //   setQuestion('');
+  //   setAnswer([]);
+  //   setAnswerIndex(0);
+  // }
 
   return (
     <div className='learningbot-container'>
@@ -67,7 +80,15 @@ function LearningBotPage() {
           <BookmarkIcon className={classes.bookmark} />
         </IconButton>
       </div>
-      {mode === 'first' && <LearningBot botImg={botSaying} question={question} setQuestion={setQuestion} custom={classes.textField} mode={mode} setMode={setMode}/>}
+      <LearningBot
+        mode={mode}
+        answer={answer}
+        answerIndex={answerIndex}
+        custom={classes.textField}
+        setMode={setMode}
+        setAnswer={setAnswer}
+        setAnswerIndex={setAnswerIndex}
+        />
     </div>
   )
 }

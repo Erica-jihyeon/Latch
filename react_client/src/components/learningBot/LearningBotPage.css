@@ -43,6 +43,8 @@
   width: fit-content;
   margin-bottom: 30px;
   padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
   background: #51bec9;
   border-radius: 10px;
   text-align: center;
@@ -75,10 +77,58 @@
   display: inline-block;
   font-size: 16px;
   border-radius: 50px;
+  margin-top: 170px;
   margin-bottom: 40px;
 }
 
 .learningbot_button button:hover {
+  cursor: pointer;
+  border: 1px solid;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+  outline-color: rgba(255, 255, 255, 0);
+  outline-offset: 15px;
+}
+
+.learningbot-answer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.learningbot-answer-buttons {
+  padding-top: 20px;
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+  margin-bottom: 60px;
+}
+
+.learningbot-answer-buttons button:first-child {
+  background-color: #e45f2f;
+  border: none;
+  color: white;
+  padding: 13px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 50px;
+}
+
+.learningbot-answer-buttons button:last-child {
+  background-color: #45acc9;
+  border: none;
+  color: white;
+  padding: 13px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 50px;
+}
+
+
+.learningbot-answer-buttons button:hover {
   cursor: pointer;
   border: 1px solid;
   box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
