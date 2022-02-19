@@ -12,6 +12,7 @@ import Friend_req from './components/Friend_req';
 import LoginProvider from './Providers/LoginProviders';
 import Chat from './components/Chat';
 import BottomNav from './components/bottom_nav';
+// import Test from './components/Test';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/addfriend" element={<Friend_req />} />
             <Route path="/bottom" element={<BottomNav />} />
+            {/* <Route path="/test" element={<Test />} /> */}
           </Routes>
         </LoginProvider>
 

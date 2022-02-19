@@ -1,8 +1,8 @@
 require("dotenv").config();
 
-var app = require('express')();
+const app = require('express')();
 const express = require("express");
-var server = require('http').createServer(app);
+const server = require('http').createServer(app);
 const port = process.env.PORT || 8080;
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -65,6 +65,8 @@ app.use("/api/lang_list", langList(db));
 const user = require("./routes/current_user");
 app.use("/api/current_user", user(db));
 
+const bookmark = require('./routes/book_mark');
+app.use("/api/bookmark", bookmark(db));
 
 // using router for matching
 const matching = require("./routes/matching_router(ref)");
