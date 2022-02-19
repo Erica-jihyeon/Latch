@@ -192,9 +192,9 @@ matchingIo.on('connection', (socket) => {
   //   matchingIo.in(roomId).emit('message', ({ name, message }))
   // })
 
-  socket.on('message', ({ message, roomId }) => {
+  socket.on('message', ({ message, roomId, user }) => {
     console.log('message received');
-    matchingIo.in(roomId).emit('message', ({ message }));
+    matchingIo.in(roomId).emit('message', ({ message, user }));
   })
 
 
