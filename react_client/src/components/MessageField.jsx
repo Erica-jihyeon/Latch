@@ -10,6 +10,7 @@ import {useParams} from 'react-router-dom';
 function MessageField(props) {
   const socketRef = props.socketRef;
   const roomIdRef = props.roomIdRef;
+  const user = props.user
   const [message, setMessage] = useState("");
 
 
@@ -22,7 +23,7 @@ function MessageField(props) {
     e.preventDefault();
     //name = state.name, message = state.message
     // const { name, message } = state;
-    socketRef.current.emit('message', { message, roomId: roomIdRef.current.roomId });
+    socketRef.current.emit('message', { message, roomId: roomIdRef.current.roomId, user });
     setMessage('');
   }
 
