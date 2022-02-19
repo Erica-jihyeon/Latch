@@ -2,9 +2,11 @@ import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useParams } from "react-router-dom";
 
 import './Chat.css';
+import login_pic from '../img/login_pic.png';
 import Header from './Header';
 import MessageField from './MessageField';
 import { IconButton } from '@material-ui/core';
+import CallEndIcon from '@mui/icons-material/CallEnd';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { io } from 'socket.io-client';
 import { useNavigate } from 'react-router-dom';
@@ -12,22 +14,23 @@ import { loginContext } from '../Providers/LoginProviders';
 
 
 function Chat() {
+  const [seed, setSeed] = useState("");
+  // const { roomId } = useParams();
+  // const [roomName, setRoomName] = useState("");
   const [messages, setMessages] = useState([]);
-  const { user } = useContext(loginContext);
   const [message, setMessage] = useState([]);
-  const [messageUser, setMessageUser] = useState({});
-  const [endMessage, setEndMessage] = useState(null);
-
+  const [messageUser, setMessageUser] = useState({})
+  // const [{ user }, dispatch] = useStateValue();
+  const { user } = useContext(loginContext);
+  console.log("USER", user);
 
   const params = useParams();
+  // console.log(params);
 
-
-  const roomIdRef = useRef();
-  roomIdRef.current = params['*'];
-
+  const roomIdRef = useRef(params);
   const socketRef = useRef();
   const navigate = useNavigate();
-  const scrollpoint = useRef();
+  const scrollpoint = useRef()
 
   const randomUserId = () => {
     return Math.floor((Math.random() * 10) + 1);
@@ -35,24 +38,28 @@ function Chat() {
 
   useEffect(() => {
     socketRef.current = io.connect('http://localhost:8080/matching');
-    socketRef.current.emit('joinRoom', { roomId: roomIdRef.current, userId: randomUserId() });
-
+    // roomIdRef.current = params;
+    console.log(roomIdRef);
+    socketRef.current.emit('joinRoom', { roomId: roomIdRef.current.roomId, userId: randomUserId() });
   }, [])
-
   useEffect(() => {
     socketRef.current.on("message", ({ message, user }) => {
-      setMessage(message);
-      setMessageUser(user);
+      // console.log("USER LINE 45", user);
+      setMessage(message)
+      setMessageUser(user)
+      // console.log("USER LINE 47", messageUser);
+    });
+    socketRef.current.on('usercount', (data) => {
+      console.log(data);
+    });
+    socketRef.current.on('leaveChat', ({ message }) => {
+      console.log(message);
+      alert(message);
+      leaveChat();
     });
     socketRef.current.on('friendRequest', () => {
       navigate('/addfriend')
     })
-    socketRef.current.on('leaveChat', ({ message }) => {
-      setEndMessage(message);
-      console.log(message);
-      // alert(message);
-      // leaveChat();
-    });
   }, [messages]);
 
   useEffect(() => {
@@ -60,23 +67,16 @@ function Chat() {
     setMessages([...messages, renderedMessage])
     // console.log(messages);
     setTimeout(() => {
-      scrollpoint.current.scrollIntoView({ behavior: 'smooth' })
+      scrollpoint.current.scrollIntoView({behavior: 'smooth'})
     }, 100);
-  }, [messageUser]);
-
-
-  useEffect(() => {
-    if(endMessage) {
-      alert(endMessage);
-      leaveChat();
-    }
-  }, [endMessage])
-
+  }, [messageUser])
 
   const renderMessages = (message) => {
     if (!message || messages.length === 0) {
       return
     }
+    console.log('USER LINE 64', user)
+    console.log('MESSAGEUSER LINE 65', messageUser)
     return (
       <p className={`chat__message${user.userId === messageUser.userId ? '__sent' : '__received'}`}>
         <span>{message}</span>
@@ -84,11 +84,16 @@ function Chat() {
     )
   }
 
+  // socketRef.current.on('leaveChat', ({message}) => {
+  //   alert(message);
+  // })
 
   const leaveChat = () => {
-    socketRef.current.emit('leaveChat', { roomId: roomIdRef.current });
+
+    socketRef.current.emit('leaveChat', { roomId: roomIdRef.current.roomId });
     socketRef.current.disconnect();
     navigate('/main');
+
   }
 
   return (
@@ -100,10 +105,20 @@ function Chat() {
           </IconButton>
         } />
       <div className="chat-main">
+        {/* {messages.map((message) => (
+          <p className={`chat__message ${message.name === user.displayName && 'chat__receiver'}`}>
+          <p className='chat__message'>
+            <span className="chat__name">{message.name}</span>
+            {message.message}
+            <span className="chat__timestamp">
+              {new Date(message.timestamp?.toDate()).toUTCString()}
+            </span>
+          </p>
+        ))} */}
         {messages}
         <div className='scrollpoint' ref={scrollpoint} ></div>
       </div>
-      <MessageField socketRef={socketRef} roomId={roomIdRef.current} user={user} />
+      <MessageField socketRef={socketRef} roomIdRef={roomIdRef} user={user} />
     </div>
   )
 }

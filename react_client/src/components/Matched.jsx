@@ -36,12 +36,12 @@ function Matched(props) {
     }
   });
 
-  // useEffect(() => {
-  //   if (seconds === 0) {
-  //     navigate(`/matching/chatroom/${roomId.current}`);
-  //     // optionReset();
-  //   }
-  // }, [seconds, navigate])
+  useEffect(() => {
+    if (seconds === 0) {
+      navigate(`/matching/chatroom/${roomId.current}`);
+      // optionReset();
+    }
+  }, [seconds, navigate])
 
 
   const clickHandler = () => {
@@ -52,7 +52,7 @@ function Matched(props) {
 
   return (
 
-    <div className="matching_main">
+    <div className="matching_main"> 
       <div className='matching_body'>
         <img src={default_logo} alt="latching_logo" id='logo' />
         <p className='matching_logo_text'>We found your latch!</p>
