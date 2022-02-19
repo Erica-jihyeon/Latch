@@ -156,14 +156,6 @@ const matchingIo = io.of('/matching')
 matchingIo.on('connection', (socket) => {
 
   matchingIo.emit('usercount', io.engine.clientsCount);
-  // socket.join('room1');
-  // console.log(io.engine.clientsCount);
-
-  // socket.on('message', ({ name, message }) => {
-  //   console.log('Message received: ' + message);
-  //   matchingIo.emit('message', ({ name, message }))
-  //   // socket.emit('message', ({ name, message }))
-  // })
 
   var numClients = {};
   socket.on('joinRoom', ({ roomId, userId }) => {
@@ -171,23 +163,14 @@ matchingIo.on('connection', (socket) => {
     console.log('Room joined: ' + roomId);
     socket.join(roomId);
 
-    // socket.roomId = roomId;
-    // if (!numClients[roomId]) {
-    //     numClients[roomId] = 1;
-    // } else {
-    //     numClients[roomId]++;
-    // }
-    // console.log(numClients);
+    setTimeout(() => {
+      matchingIo.in(roomId).emit('friendRequest');
+      socket.disconnect();
+    }, 10000);
 
-    // if (clients === 2) {
-      setTimeout(() => {
-        matchingIo.in(roomId).emit('friendRequest');
-        socket.disconnect();
-      }, 10000);
-    // }
 
   })
-  socket.on('leaveChat', ({roomId}) => {
+  socket.on('leaveChat', ({ roomId }) => {
     matchingIo.in(roomId).emit('leaveChat', ({ message: "matched user left the chat" }));
   })
   // socket.on('message', ({ name, message, roomId }) => {
@@ -195,7 +178,7 @@ matchingIo.on('connection', (socket) => {
   // })
 
   socket.on('message', ({ message, roomId, user }) => {
-    console.log('message received');
+    console.log('message received', {message, roomId, user});
     matchingIo.in(roomId).emit('message', ({ message, user }));
   })
 

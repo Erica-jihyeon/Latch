@@ -9,21 +9,14 @@ import {useParams} from 'react-router-dom';
 
 function MessageField(props) {
   const socketRef = props.socketRef;
-  const roomIdRef = props.roomIdRef;
+  const roomId= props.roomId;
   const user = props.user
   const [message, setMessage] = useState("");
 
 
   const sendMessage = (e) => {
-    // if (message) {
-      
-    //   console.log(`Sent: ${message}`);
-    //   setInput('');
-    // }
     e.preventDefault();
-    //name = state.name, message = state.message
-    // const { name, message } = state;
-    socketRef.current.emit('message', { message, roomId: roomIdRef.current.roomId, user });
+    socketRef.current.emit('message', { message, roomId, user });
     setMessage('');
   }
 
