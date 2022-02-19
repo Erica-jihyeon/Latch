@@ -20,6 +20,9 @@
   /* justify-content: space-between; */
   text-align: center;
   overflow: scroll;
+  /* padding-top: 15px; */
+  /* padding-bottom: 50px; */
+
 }
 
 .chat-main::-webkit-scrollbar {
@@ -69,26 +72,36 @@
 }
 
 .chat__message__sent {
+  color: white;
   position: relative;
   font-size: 16px;
   padding: 10px;
   background-color: #45acc9;
   border-radius: 10px;
   width: fit-content;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  /* margin-bottom: 15px; */
+  align-self: flex-end;
 }
 .chat__message__received {
+  color: white;
   position: relative;
   font-size: 16px;
   padding: 10px;
   background-color: #FF6D23;
   border-radius: 10px;
   width: fit-content;
-  margin-bottom: 30px;
+  margin-top: 30px;
+  /* margin-bottom: 15px; */
+  align-self: flex-start;
 }
 
 .chat__timestamp {
   margin-left: 10px;
   font-weight: 800px;
   font-size: xx-small;
+}
+
+.scrollpoint {
+  margin-top: 75px;
 }
