@@ -1,16 +1,16 @@
 import React from 'react';
 import './Test.css';
 import Header from './Header';
+import axios from 'axios';
 
-function Test() {
+function Test(username) {
   return (
-    <div className="test-container">
-      <Header></Header>
-      <div className="login-main">
-
-      </div>
-    </div>
+    axios.get('http://localhost:8080/api/bookmark', { params: { username: username } })
+      .then((res) => {
+        console.log(res.data);
+      })
   )
 }
+Test('hello')
 
 export default Test

@@ -6,11 +6,12 @@ import axios from 'axios';
 import Home from './components/Home';
 import Options from './components/Options';
 import { BrowserRouter as Router, Link, Route, Routes, Navigate } from 'react-router-dom';
-import SignIn from './components/SignIn';
+import SignIn from './components/Login';
 import Main from './components/Main';
 import Friend_req from './components/Friend_req';
 import LoginProvider from './Providers/LoginProviders';
 import Chat from './components/Chat';
+import BottomNav from './components/bottom_nav';
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
             <Route path="/matching/chatroom/*" element={<Home />} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/addfriend" element={<Friend_req />} />
-
+            <Route path="/bottom" element={<BottomNav />} />
           </Routes>
         </LoginProvider>
 
