@@ -7,6 +7,8 @@ header {
   align-items: center;
   z-index: 1;
   background-color: white;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
 header > .header-back-button {

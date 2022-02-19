@@ -11,6 +11,8 @@ import MatchingTimeout from './Matching_timeout';
 import Header from './Header';
 import {useNavigate} from 'react-router-dom';
 import  { loginContext } from '../Providers/LoginProviders';
+import { IconButton } from '@material-ui/core';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 
 const styles = {
@@ -73,7 +75,11 @@ function Options() {
   return (
     <div className="options-container">
       {mode === 'options' &&
-        <> <Header title={'Match Options'} onClick={back} />
+        <> <Header title='Match Options' back={
+          <IconButton onClick={back}>
+            <ArrowBackIosNewIcon fontSize="large" />
+          </IconButton>
+        } />
           <img src={logo} alt="logo" /><LanguageInput purpose={learning} onChange={setLearning} label={'language you want to learn'} /><LanguageInput purpose={speaking} onChange={setSpeaking} label={'pick your first language'} />
           <div className="chat-option-selection">
             <p>Which language would you like to chat in?</p>

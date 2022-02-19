@@ -36,12 +36,12 @@ function Matched(props) {
     }
   });
 
-  useEffect(() => {
-    if (seconds === 0) {
-      navigate(`/matching/chatroom/${roomId.current}`);
-      // optionReset();
-    }
-  }, [seconds, navigate])
+  // useEffect(() => {
+  //   if (seconds === 0) {
+  //     navigate(`/matching/chatroom/${roomId.current}`);
+  //     // optionReset();
+  //   }
+  // }, [seconds, navigate])
 
 
   const clickHandler = () => {
@@ -55,8 +55,8 @@ function Matched(props) {
     <div className="matching_main">
       <div className='matching_body'>
         <img src={default_logo} alt="latching_logo" id='logo' />
-        <p className='logo_text'>Match is found</p>
-        <p>{seconds}</p>
+        <p className='matching_logo_text'>We found your latch!</p>
+        <p className='matching_found_text'>Chat starts in <span className='matching_found_timer'>{seconds}</span> seconds</p>
         <Button variant="outlined" id='cancel_button' sx={styles} onClick={clickHandler}>Cancel</Button>
       </div>
     </div>
