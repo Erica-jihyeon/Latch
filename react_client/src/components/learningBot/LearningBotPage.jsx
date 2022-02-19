@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 
 import { IconButton } from "@material-ui/core";
 import './LearningBotPage.css';
@@ -7,6 +7,10 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useNavigate } from 'react-router-dom';
 import LearningBot from './LearningBot';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import { loginContext } from '../../Providers/LoginProviders';
+import Table from 'react-bootstrap/Table'
+import Alert from 'react-bootstrap/Alert';
 
 
 const useStyles = makeStyles({
@@ -26,7 +30,8 @@ const useStyles = makeStyles({
     }
   },
   bookmark: {
-    marginRight: 15
+    marginRight: 15,
+    color: '#f48080',
   }
 });
 
@@ -35,39 +40,37 @@ function LearningBotPage() {
   const [mode, setMode] = useState('first');
   const [answer, setAnswer] = useState([]);
   const [answerIndex, setAnswerIndex] = useState(0);
+  const [bookmarkData, setBookmarkData] = useState([]);
   const navigate = useNavigate();
   const classes = useStyles();
 
+  const { user } = useContext(loginContext);
+
   const back = () => {
-    navigate('/main');
+    if (mode === 'bookmark') {
+      setMode('first');
+    } else {
+      navigate('/main');
+    }
   };
 
   const getBookmarkData = () => {
-
+    return axios.get('http://localhost:8080/api/bookmark', { params: { userId: user.userId } })
+      .then((res) => {
+        console.log(res.data);
+        setMode('bookmark');
+        setBookmarkData(res.data);
+      })
   };
-
-  // useEffect(() => {
-  //   if (answer.length !== 0) {
-  //     setMode('answer');
-  //     console.log(answer);
-  //     console.log('hi');
-  //   }
-  // },[answer])
 
   useEffect(() => {
     if (mode === "noLikeAnswer") {
       const timer = setTimeout(() => {
         setMode('answer')
-      }, 2000);
+      }, 1500);
       return () => clearTimeout(timer);
     }
   }, [mode]);
-
-  // const reset = () => {
-  //   setQuestion('');
-  //   setAnswer([]);
-  //   setAnswerIndex(0);
-  // }
 
   return (
     <div className='learningbot-container'>
@@ -80,15 +83,38 @@ function LearningBotPage() {
           <BookmarkIcon className={classes.bookmark} />
         </IconButton>
       </div>
-      <LearningBot
-        mode={mode}
-        answer={answer}
-        answerIndex={answerIndex}
-        custom={classes.textField}
-        setMode={setMode}
-        setAnswer={setAnswer}
-        setAnswerIndex={setAnswerIndex}
+      {mode === 'bookmark' &&
+      <div className='learningbot-bookmark-table'>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Learning Bot Answer</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookmarkData.map((data, index) => {
+              return (<tr key={index}>
+                <td>{index}</td>
+                <td>{data.answers}</td>
+                </tr>);
+            })}
+          </tbody>
+        </Table>
+      </div>
+        
+      }
+      {mode !== 'bookmark' &&
+        <LearningBot
+          mode={mode}
+          answer={answer}
+          answerIndex={answerIndex}
+          custom={classes.textField}
+          setMode={setMode}
+          setAnswer={setAnswer}
+          setAnswerIndex={setAnswerIndex}
         />
+      }
     </div>
   )
 }

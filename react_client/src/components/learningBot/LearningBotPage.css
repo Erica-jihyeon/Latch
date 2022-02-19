@@ -27,13 +27,18 @@
   align-items: center;
   flex:1;
   justify-content: space-between;
+  overflow: scroll;
+}
+
+.learningbot-main-container::-webkit-scrollbar {
+  display: none;
 }
 
 .learningbot{
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 150px;
+  margin-top: 130px;
 }
 
 
@@ -42,13 +47,15 @@
   position: relative;
   width: fit-content;
   margin-bottom: 30px;
-  padding: 20px;
+  padding: 15px;
   margin-left: 20px;
   margin-right: 20px;
   background: #51bec9;
-  border-radius: 10px;
+  border-radius: 20px;
   text-align: center;
   color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 .learningbot-message:after {
@@ -93,10 +100,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 50px;
+}
+
+.learningbot-answer p {
+  margin-top: 50px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #233257;
 }
 
 .learningbot-answer-buttons {
-  padding-top: 20px;
+  padding-top: 50px;
   display: flex;
   width: 200px;
   justify-content: space-between;
@@ -134,4 +149,30 @@
   box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
   outline-color: rgba(255, 255, 255, 0);
   outline-offset: 15px;
+}
+
+.learningbot-addbookmark button {
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  padding-left: 250px;
+}
+
+.learningbot-addbookmark button:hover {
+  cursor: pointer;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+  outline-color: rgba(255, 255, 255, 0);
+  outline-offset: 15px;
+}
+
+.learningbot-bookmark-table {
+  width: 95%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.learningbot-bookmark-table::-webkit-scrollbar {
+  display: none;
 }

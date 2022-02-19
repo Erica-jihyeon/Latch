@@ -16,8 +16,7 @@ function Matching(props) {
     <div className="matching_main">
       <div className='matching_body'>
         <img src={default_logo} alt="latching_logo" id='logo' />
-        <p className='logo_text'>Latching...</p>
-
+        <p className='matching_logo_text'>Latching...</p>
         <Button variant="outlined" id='cancel_button' onClick={clickHandler}>Cancel</Button>
       </div>
     </div>

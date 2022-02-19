@@ -22,7 +22,7 @@ export default function SimpleBottomNavigation() {
           // console.log(value)
         }}
       >
-        <BottomNavigationAction label="Learing Bot" icon={<SmartToyIcon />} />
+        <BottomNavigationAction label="Learing Bot" icon={<SmartToyIcon />} onClick={() => navigate('/learningbot')} />
         <BottomNavigationAction label="Home" icon={<HomeIcon />} />
         <BottomNavigationAction label="Friend List" onClick={() => navigate('/')} icon={<PeopleIcon />} />
       </BottomNavigation>

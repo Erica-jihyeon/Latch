@@ -25,10 +25,13 @@
   background-color: white;
 }
 
-.matchin_container #top_sentence {
+.matching_container #top_sentence {
   position: absolute;
   top: 25px;
   left: 20px;
+  font-weight: 500;
+  color: #6b7a8e;
+  padding-left: 10px;
 }
 
 
@@ -38,13 +41,12 @@
 }
 
 #logo {
-  width: 70%;
-  height: 55%;
+  width: 60%;
+  height: 58%;
   padding-top: 20%;
 }
 
 #cancel_button {
-  margin-top: 30px;
   margin-bottom: 10px;
   color:  white;
   background-color: #2596be;
@@ -52,7 +54,6 @@
 }
 
 #join_button {
-  margin-top: 30px;
   margin-bottom: 10px;
   color:  white;
   background-color: #2596be;
@@ -67,8 +68,28 @@
   margin: 0 auto;
 }
 
-.logo_text {
+.matching_logo_text{
+  padding-top: 10px;
   font-size: 30px ;
   color: #FF6D23;
   font-family: 'Rancho', cursive;
+}
+
+.matching_found_timer {
+  font-size: 1.3rem;
+  color: #FF6D23;
+  font-weight: 500;
+}
+
+.matching_found_text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #6b7a8e;
+}
+
+.matching_logo_text--fail {
+  padding-top: 10px;
+  font-size: 1rem ;
+  font-weight: 500px;
+  color: #265e6f
 }
