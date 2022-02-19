@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import botSaying from '../../img/bot_saying.gif';
 import botAnswering from '../../img/bot_wink.gif';
@@ -6,7 +6,18 @@ import botNoLikeAnswer from '../../img/bot_sad.gif';
 import botLast from '../../img/bot_happy.gif';
 import BottomButton from './BottomButton';
 import axios from 'axios';
+import { IconButton } from "@material-ui/core";
+import './LearningBotPage.css';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { makeStyles } from '@material-ui/core/styles';
+import  { loginContext } from '../../Providers/LoginProviders';
 
+
+const useStyles = makeStyles({
+  bookmark: {
+    color: 'white',
+  }
+});
 
 
 function LearningBot(props) {
@@ -14,6 +25,10 @@ function LearningBot(props) {
   const [botImg, setBotImg] = useState(null);
   const [message, setMessage] = useState(null)
   const [question, setQuestion] = useState('');
+  const classes = useStyles();
+
+  const {user} = useContext(loginContext);
+
 
   useEffect(() => {
     const { answer, answerIndex, mode } = props;
@@ -22,7 +37,9 @@ function LearningBot(props) {
       setMessage(<p className='learningbot-message'>Hi, I’m a Learning Bot!<br />Do you have any questions?</p>)
     } else if (mode === 'answer') {
       setBotImg(botAnswering);
-      setMessage(<p className="learningbot-message">{answer[answerIndex] === ' ' ? "I'm sorry, I don't know now" : answer[answerIndex]}</p>)
+      setMessage(<p className="learningbot-message"><span className="learningbot-addbookmark"><IconButton onClick={addBookmark}>
+      <BookmarkIcon className={classes.bookmark} />
+    </IconButton></span><br />{answer[answerIndex] === ' ' ||  answer[answerIndex] === ''? "I'm sorry, I don't know now" : answer[answerIndex]}</p>)
     } else if (mode === "noLikeAnswer") {
       setBotImg(botNoLikeAnswer);
       setMessage(<p className='learningbot-message'>Oh...I'm sorry,<br />I'll find another answer!<br />Please give me one second!</p>)
@@ -31,6 +48,8 @@ function LearningBot(props) {
       setMessage(<p className='learningbot-message'>Thanks!<br />Do you have any other questions?</p>)
     }
   }, [props.mode]);
+
+
 
   const getAnswerFromAPI = () => {
     var options = {
@@ -54,10 +73,24 @@ function LearningBot(props) {
     });
   }
 
+  const addBookmark = () => {
+    return axios.post('http://localhost:8080/api/bookmark', { userId: user.userId, message:message })
+      .then((res) => {
+        console.log(res.data);
+        alert('added to the bookmark');
+      })
+  }
+
+
 
   return (
     <div className='learningbot-main-container'>
       <div className='learningbot'>
+        {/* {props.mode === 'answer' &&
+          <div className="learningbot-addbookmark">
+            <button onClick={addBookmark}>add bookmark</button>
+          </div>
+        } */}
         {message}
         <img src={botImg} alt="bot-saying" />
 
@@ -92,7 +125,7 @@ function LearningBot(props) {
                 }
                 props.setMode('noLikeAnswer');
               }}>No</button>
-              <button onClick={() => { setQuestion(''); props.setMode('last')}}>Yes</button>
+              <button onClick={() => { setQuestion(''); props.setMode('last') }}>Yes</button>
             </div>
           </div>
         }
