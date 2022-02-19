@@ -9,7 +9,7 @@ import LearningBot from './LearningBot';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { loginContext } from '../../Providers/LoginProviders';
-import ListGroup from 'react-bootstrap/ListGroup';
+import Table from 'react-bootstrap/Table'
 import Alert from 'react-bootstrap/Alert';
 
 
@@ -40,13 +40,18 @@ function LearningBotPage() {
   const [mode, setMode] = useState('first');
   const [answer, setAnswer] = useState([]);
   const [answerIndex, setAnswerIndex] = useState(0);
+  const [bookmarkData, setBookmarkData] = useState([]);
   const navigate = useNavigate();
   const classes = useStyles();
 
   const { user } = useContext(loginContext);
 
   const back = () => {
-    navigate('/main');
+    if (mode === 'bookmark') {
+      setMode('first');
+    } else {
+      navigate('/main');
+    }
   };
 
   const getBookmarkData = () => {
@@ -54,6 +59,7 @@ function LearningBotPage() {
       .then((res) => {
         console.log(res.data);
         setMode('bookmark');
+        setBookmarkData(res.data);
       })
   };
 
@@ -78,10 +84,25 @@ function LearningBotPage() {
         </IconButton>
       </div>
       {mode === 'bookmark' &&
-        <Alert variant="primary" dismissible>
-        <Alert.Heading>Translation</Alert.Heading>
-        <p>alert</p>
-      </Alert>
+      <div className='learningbot-bookmark-table'>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Learning Bot Answer</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bookmarkData.map((data, index) => {
+              return (<tr key={index}>
+                <td>{index}</td>
+                <td>{data.answers}</td>
+                </tr>);
+            })}
+          </tbody>
+        </Table>
+      </div>
+        
       }
       {mode !== 'bookmark' &&
         <LearningBot

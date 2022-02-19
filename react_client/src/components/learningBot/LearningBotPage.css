@@ -166,3 +166,13 @@
   outline-color: rgba(255, 255, 255, 0);
   outline-offset: 15px;
 }
+
+.learningbot-bookmark-table {
+  width: 95%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.learningbot-bookmark-table::-webkit-scrollbar {
+  display: none;
+}

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 
-const userBookmark = (db, userId) => {
+const getBookmark = (db, userId) => {
   const queryStr = `SELECT answers FROM bookmark where user_id = $1`;
   const user = [userId];
 
@@ -10,7 +10,23 @@ const userBookmark = (db, userId) => {
     .query(queryStr, user)
     .then((data) => {
       console.log("++++",data.rows[0].answers);
-      return data.rows[0];
+      return data.rows;
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+};
+
+const addBookmark = (db, userId, answer) => {
+  const queryStr = `INSERT INTO bookmark (user_id, answers) VALUES ($1, $2) RETURNING*`;
+  const queryParam = [userId, answer];
+
+  return db
+    .query(queryStr, queryParam)
+    .then((data) => {
+      console.log(data);
+      console.log('add answer to the bookmark')
+      return data;
     })
     .catch(err => {
       console.log(err.message);
@@ -18,12 +34,22 @@ const userBookmark = (db, userId) => {
 };
 
 
-
-module.exports = (db, io) => {
+module.exports = (db) => {
 
   router.get("/", (req, res) => {
-    userBookmark(db, req.query.userId)
+    getBookmark(db, req.query.userId)
       .then((result) => {
+        res.json(result);
+      });
+  });
+
+  router.post("/", (req, res) => {
+    const userId = req.body.userId;
+    const answer = req.body.message.props.children[2];
+    console.log(req.body.userId, req.body.message.props.children[2])
+    addBookmark(db, userId, answer)
+      .then((result) => {
+        console.log(result);
         res.json(result);
       });
   });
