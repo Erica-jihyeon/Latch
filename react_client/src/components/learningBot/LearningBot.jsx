@@ -74,7 +74,8 @@ function LearningBot(props) {
   }
 
   const addBookmark = () => {
-    return axios.post('http://localhost:8080/api/bookmark', { userId: user.userId, message:message })
+    const answer = props.answer[props.answerIndex];
+    return axios.post('http://localhost:8080/api/bookmark', { userId: user.userId, answer: answer})
       .then((res) => {
         console.log(res.data);
         alert('added to the bookmark');
