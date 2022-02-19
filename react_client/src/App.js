@@ -36,7 +36,7 @@ function App() {
             <Route path="/login" element={<SignIn />} />
             <Route path="/main" element={<Main />} />
             <Route path="/matching" element={<Options />} />
-            <Route path="/matching/chatroom/*" element={<Home />} />
+            <Route path="/matching/chatroom/*" element={<Chat />} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="/addfriend" element={<Friend_req />} />
             <Route path="/bottom" element={<BottomNav />} />

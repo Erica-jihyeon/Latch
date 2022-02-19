@@ -13,7 +13,7 @@ function Header(props) {
         {props.back}
       </div>
       <div className='header-title'>
-        <p>{props.title}</p>
+        <span>{props.title}</span>
       </div>
       <div className='header-close-button'>
         {props.button}
