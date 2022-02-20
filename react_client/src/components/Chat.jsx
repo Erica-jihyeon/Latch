@@ -21,8 +21,7 @@ import Friend_req from './Friend_req';
 function Chat() {
   const [messages, setMessages] = useState([]);
   const { user } = useContext(loginContext);
-  const [message, setMessage] = useState([]);
-  const [messageUser, setMessageUser] = useState({});
+  const [message, setMessage] = useState(null);
   const [userLearning, setUserLearning] = useState(null);
   const [userSpeaking, setUserSpeaking] = useState(null);
   //show and translation is for the translation feature
@@ -64,10 +63,11 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    socketRef.current.on("message", ({ message, user }) => {
+    socketRef.current.on("message", ({ message, userFromWS }) => {
       setMessage(message);
-      setMessageUser(user);
       setShow(false);
+      const renderedMessage = renderMessages(message, userFromWS);
+      setMessages([...messages, renderedMessage]);
     });
     socketRef.current.on('friendRequest', () => {
       navigate('/addfriend')
@@ -75,23 +75,18 @@ function Chat() {
     socketRef.current.on('leaveChat', ({ message }) => {
       setMode('endedByOtherUser');
     });
+
+    return () => { socketRef.current.off("message"); };
+
   }, [messages]);
 
-  useEffect(() => {
-    const renderedMessage = renderMessages(message)
-    setMessages([...messages, renderedMessage])
-    setTimeout(() => {
-      scrollpoint.current.scrollIntoView({ behavior: 'smooth' })
-    }, 100);
-  }, [messageUser]);
 
-
-  const renderMessages = (message) => {
-    if (!message || messages.length === 0) {
-      return
-    }
+  const renderMessages = (message, userFromWS) => {
+    // if (!message || messages.length === 0) {
+    //   return
+    // }
     return (
-      <p className={`chat__message${user.userId === messageUser.userId ? '__sent' : '__received'}`}>
+      <p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
         <span>{message}<a className='matchchat-translation' onClick={() => { getTranslation(message) }}><TranslateIcon /></a></span>
       </p>
     )
@@ -186,11 +181,11 @@ function Chat() {
       }
 
       {mode === 'endedByOtherUser' &&
-      <div className='chat-endedByOtherUser'>
-        <img src={default_logo} alt="default_logo" />
-        <p>Oops...I'm sorry, <br />This chat is ended by the matched user.</p>
-        <button className='chat-endedByOtherUser-button' onClick={endedChatByOtherUser}>back to Main</button>
-      </div>
+        <div className='chat-endedByOtherUser'>
+          <img src={default_logo} alt="default_logo" />
+          <p>Oops...I'm sorry, <br />This chat is ended by the matched user.</p>
+          <button className='chat-endedByOtherUser-button' onClick={endedChatByOtherUser}>back to Main</button>
+        </div>
       }
 
       {mode === 'friends' &&
