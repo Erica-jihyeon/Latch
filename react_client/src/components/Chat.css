@@ -145,3 +145,42 @@ span {
   font-size: 1.1rem;
   font-weight: 500;
 } */
+
+.chat-endedByOtherUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat-endedByOtherUser > img {
+  width: 50%;
+}
+
+.chat-endedByOtherUser > p {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #555556;
+  font-weight: 500;
+}
+
+.chat-endedByOtherUser button {
+  background-color: #45acc9; /* Green */
+  border: none;
+  color: white;
+  padding: 13px 35px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 50px;
+}
+
+.chat-endedByOtherUser button:hover {
+  cursor: pointer;
+  border: 1px solid;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, .5), 0 0 20px rgba(255, 255, 255, .2);
+  outline-color: rgba(255, 255, 255, 0);
+  outline-offset: 15px;
+}

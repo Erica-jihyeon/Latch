@@ -49,7 +49,6 @@ module.exports = (db) => {
     console.log(userId, answer)
     addBookmark(db, userId, answer)
       .then((result) => {
-        console.log('result' + result.rows);
         res.json(result);
       });
   });
