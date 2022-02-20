@@ -1,0 +1,19 @@
+.item_box {
+  width: 355px;
+  height: 80px;
+  display: flex;
+  border-bottom: 2px solid #E5E5E5;
+  margin: 10px 0;
+}
+#avater {
+  width: 70px;
+  height: 70px;
+}
+
+div.item_text .friendList_detail {
+  font-size: 10px;
+}
+
+.item_text {
+  margin-left: 15px;
+};

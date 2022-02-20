@@ -37,7 +37,7 @@ function Main() {
 
         <Button variant="outlined" id='start_button' onClick={() => { navigate('/matching') }}>Start</Button>
 
-        <SimpleBottomNavigation />
+        <SimpleBottomNavigation location='1' />
       </div>
     </div>
   )
