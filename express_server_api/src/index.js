@@ -68,6 +68,9 @@ app.use("/api/current_user", user(db));
 const bookmark = require('./routes/book_mark');
 app.use("/api/bookmark", bookmark(db));
 
+const userOptions = require('./routes/user_options');
+app.use("/api/user_options", userOptions(db));
+
 // using router for matching
 const matching = require("./routes/matching_router(ref)");
 app.use("/matching", matching(db, io));
@@ -163,10 +166,10 @@ matchingIo.on('connection', (socket) => {
     console.log('Room joined: ' + roomId);
     socket.join(roomId);
 
-    setTimeout(() => {
-      matchingIo.in(roomId).emit('friendRequest');
-      socket.disconnect();
-    }, 10000);
+    // setTimeout(() => {
+    //   matchingIo.in(roomId).emit('friendRequest');
+    //   socket.disconnect();
+    // }, 10000);
 
 
   })
