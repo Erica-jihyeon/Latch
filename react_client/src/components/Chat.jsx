@@ -13,6 +13,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import TranslateIcon from '@mui/icons-material/Translate';
 import TagFacesRoundedIcon from '@mui/icons-material/TagFacesRounded';
+import Counter from './Counter';
 
 
 function Chat() {
@@ -25,8 +26,8 @@ function Chat() {
   const [userSpeaking, setUserSpeaking] = useState(null);
   const [show, setShow] = useState(false);
   const [translation, setTranslation] = useState('');
-  const countSecond = 1000;
-  const [seconds, setSeconds] = useState(countSecond);
+  // const countSecond = 1000;
+  // const [seconds, setSeconds] = useState(countSecond);
 
 
   const params = useParams();
@@ -61,6 +62,13 @@ function Chat() {
   }, []);
 
   useEffect(() => {
+    if (endMessage) {
+      console.log('end')
+      endedChatByOtherUser();
+    }
+  }, [endMessage]);
+
+  useEffect(() => {
     socketRef.current.on("message", ({ message, user }) => {
       setMessage(message);
       setMessageUser(user);
@@ -86,27 +94,19 @@ function Chat() {
   }, [messageUser]);
 
 
-  useEffect(() => {
-    if (endMessage) {
-      console.log('end')
-      alert(endMessage);
-      endedChatByOtherUser();
-    }
-  }, [endMessage]);
-
-  useEffect(() => {
-    let countdown = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      }
-      if (seconds === 0) {
-        clearInterval(countdown);
-      }
-    }, countSecond)
-    return () => {
-      clearInterval(countdown);
-    }
-  });
+  // useEffect(() => {
+  //   let countdown = setInterval(() => {
+  //     if (seconds > 0) {
+  //       setSeconds(seconds - 1);
+  //     }
+  //     if (seconds === 0) {
+  //       clearInterval(countdown);
+  //     }
+  //   }, countSecond)
+  //   return () => {
+  //     clearInterval(countdown);
+  //   }
+  // });
 
 
   const renderMessages = (message) => {
@@ -128,7 +128,9 @@ function Chat() {
   }
 
   const endedChatByOtherUser = () => {
+    alert(endMessage);
     socketRef.current.disconnect();
+    setEndMessage(null);
     navigate('/main');
   }
 
@@ -157,7 +159,7 @@ function Chat() {
       headers: {
         'content-type': 'application/json',
         'x-rapidapi-host': 'deep-translate1.p.rapidapi.com',
-        'x-rapidapi-key': 'b33bf5d7f4msh256f184d8a1960ep11ae96jsnd29609668e33'
+        'x-rapidapi-key': 'e8d6c2fd03msh66bf61617e980abp136823jsn6a763ce3d902'
       },
       data: { q: message, source: languages[0], target: languages[1] }
     };
@@ -173,10 +175,10 @@ function Chat() {
 
   return (
     <div className="chat-container">
-      <Header title="Latching Chat"
+      <Header title={"Latching Chat"}
         back={
           <IconButton>
-            <TagFacesRoundedIcon sx={{ color: '#c3c3c3cc', fontSize: 40 }}/>
+            <TagFacesRoundedIcon sx={{ color: '#c3c3c3cc', fontSize: 40 }} />
           </IconButton>
         }
         button={
@@ -184,7 +186,7 @@ function Chat() {
             <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
           </IconButton>
         } />
-        <p>{seconds}</p>
+      <Counter />
       <div className="chat-main">
         {messages}
         <div className='scrollpoint' ref={scrollpoint} ></div>
