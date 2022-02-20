@@ -13,6 +13,7 @@ import LoginProvider from './Providers/LoginProviders';
 import Chat from './components/Chat';
 import BottomNav from './components/bottom_nav';
 import LearningBotPage from './components/learningBot/LearningBotPage';
+import FriendList from './components/FriendList/Friends_main';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
             <Route path="/addfriend" element={<Friend_req />} />
             <Route path="/bottom" element={<BottomNav />} />
             <Route path="/learningbot" element={<LearningBotPage />} />
+            <Route path="/friendlist" element={<FriendList />} />
 
           </Routes>
         </LoginProvider>
