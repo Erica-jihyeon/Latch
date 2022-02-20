@@ -183,7 +183,9 @@ matchingIo.on('connection', (socket) => {
 
   socket.on('message', ({ message, roomId, user }) => {
     console.log('message received', {message, roomId, user});
-    matchingIo.in(roomId).emit('message', ({ message, user }));
+    console.log(user.userId);
+    let userFromWS = user.userId;
+    matchingIo.in(roomId).emit('message', ({ message, userFromWS }));
   })
 
 

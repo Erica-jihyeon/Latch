@@ -6,10 +6,10 @@ import axios from 'axios';
 import Home from './components/Home';
 import Options from './components/Options';
 import { BrowserRouter as Router, Link, Route, Routes, Navigate } from 'react-router-dom';
-import SignIn from './components/Login';
+import LogIn from './components/Login';
 import Main from './components/Main';
 import Friend_req from './components/Friend_req';
-import LoginProvider from './Providers/LoginProviders';
+import LoginProvider, { loginContext } from './Providers/LoginProviders';
 import Chat from './components/Chat';
 import BottomNav from './components/bottom_nav';
 import LearningBotPage from './components/learningBot/LearningBotPage';
@@ -33,7 +33,7 @@ function App() {
         <LoginProvider>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<SignIn />} />
+            <Route path="/login" element={<LogIn />} />
             <Route path="/main" element={<Main />} />
             <Route path="/matching" element={<Options />} />
             <Route path="/matching/chatroom/*" element={<Chat />} />
