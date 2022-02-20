@@ -12,7 +12,7 @@
 }
 
 
-.signin-main {
+.login-main {
   width: 90%;
   height: 90%;
   display: flex;
@@ -26,7 +26,7 @@
 }
 
 
-img.signin-logo {
+img.login-logo {
   padding-top: 100px;
   width: 50%;
 }
@@ -35,11 +35,11 @@ img.signin-logo {
   margin-bottom: 100px;
 }
 
-.bottom-container {
+.login-bottom-container {
   width:100%;
 }
 
-.button-container {
+.login-button-container {
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
@@ -47,14 +47,14 @@ img.signin-logo {
   margin-left: 30px;
 }
 
-.main button {
+.login-main button {
   background-color: #45acc9; /* Green */
   border: none;
   color: white;
-  padding: 13px 35px;
+  padding: 10px 30px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 50px;
 }

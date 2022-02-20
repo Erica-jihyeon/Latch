@@ -20,7 +20,7 @@ function Main() {
   };
 
   return (
-    <div className="login-container">
+    <div className="mainpage_container">
       <Header title="Find Matches"
         back={
           <IconButton onClick={back}>
