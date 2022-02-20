@@ -113,3 +113,35 @@
 span {
   font-size: larger;
 }
+
+.matchchat-translation {
+  padding-left: 10px;
+  color: rgb(255, 255, 255);
+  opacity: 0.8;
+}
+
+.matchchat-translation:hover {
+  cursor: pointer;
+}
+
+.translation-message {
+  position:fixed; 
+  top: 400px; 
+  width: 300px;
+  z-index:9999; 
+  border-radius:20px;
+  background-color: rgb(255, 255, 255);
+  color: #20515e;
+  border: 3px dashed #20515e;
+  opacity: 0.8;
+}
+
+.translation-message p {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.translation-message .alert-heading {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
