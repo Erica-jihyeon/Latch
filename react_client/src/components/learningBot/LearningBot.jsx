@@ -37,9 +37,9 @@ function LearningBot(props) {
       setMessage(<p className='learningbot-message'>Hi, I’m a Learning Bot!<br />Do you have any questions?</p>)
     } else if (mode === 'answer') {
       setBotImg(botAnswering);
-      setMessage(<p className="learningbot-message"><span className="learningbot-addbookmark"><IconButton onClick={addBookmark}>
+      setMessage(<p className="learningbot-message">{answer[answerIndex] === ' ' ||  answer[answerIndex] === ''? "I'm sorry, I don't know now" : answer[answerIndex]}<span className="learningbot-addbookmark"><IconButton onClick={addBookmark}>
       <BookmarkIcon className={classes.bookmark} />
-    </IconButton></span><br />{answer[answerIndex] === ' ' ||  answer[answerIndex] === ''? "I'm sorry, I don't know now" : answer[answerIndex]}</p>)
+    </IconButton></span></p>)
     } else if (mode === "noLikeAnswer") {
       setBotImg(botNoLikeAnswer);
       setMessage(<p className='learningbot-message'>Oh...I'm sorry,<br />I'll find another answer!<br />Please give me one second!</p>)

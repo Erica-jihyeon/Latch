@@ -26,8 +26,6 @@ function Chat() {
   const [userSpeaking, setUserSpeaking] = useState(null);
   const [show, setShow] = useState(false);
   const [translation, setTranslation] = useState('');
-  // const countSecond = 1000;
-  // const [seconds, setSeconds] = useState(countSecond);
 
 
   const params = useParams();
@@ -87,26 +85,10 @@ function Chat() {
   useEffect(() => {
     const renderedMessage = renderMessages(message)
     setMessages([...messages, renderedMessage])
-    // console.log(messages);
     setTimeout(() => {
       scrollpoint.current.scrollIntoView({ behavior: 'smooth' })
     }, 100);
   }, [messageUser]);
-
-
-  // useEffect(() => {
-  //   let countdown = setInterval(() => {
-  //     if (seconds > 0) {
-  //       setSeconds(seconds - 1);
-  //     }
-  //     if (seconds === 0) {
-  //       clearInterval(countdown);
-  //     }
-  //   }, countSecond)
-  //   return () => {
-  //     clearInterval(countdown);
-  //   }
-  // });
 
 
   const renderMessages = (message) => {
@@ -130,7 +112,6 @@ function Chat() {
   const endedChatByOtherUser = () => {
     alert(endMessage);
     socketRef.current.disconnect();
-    setEndMessage(null);
     navigate('/main');
   }
 
