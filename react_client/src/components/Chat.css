@@ -124,9 +124,9 @@ span {
   cursor: pointer;
 }
 
-.translation-message {
+/* .translation-message {
   position:fixed; 
-  top: 400px; 
+  top: 200px; 
   width: 300px;
   z-index:9999; 
   border-radius:20px;
@@ -144,4 +144,4 @@ span {
 .translation-message .alert-heading {
   font-size: 1.1rem;
   font-weight: 500;
-}
+} */

@@ -69,9 +69,8 @@ function Chat() {
     })
     socketRef.current.on('leaveChat', ({ message }) => {
       setEndMessage(message);
-      console.log(message);
+      // console.log(message);
       // alert(message);
-      // leaveChat();
     });
   }, [messages]);
 
@@ -87,8 +86,9 @@ function Chat() {
 
   useEffect(() => {
     if (endMessage) {
+      console.log('end')
       alert(endMessage);
-      leaveChat();
+      endedChatByOtherUser();
     }
   }, [endMessage]);
 
@@ -107,6 +107,11 @@ function Chat() {
 
   const leaveChat = () => {
     socketRef.current.emit('leaveChat', { roomId: roomIdRef.current });
+    socketRef.current.disconnect();
+    navigate('/main');
+  }
+
+  const endedChatByOtherUser = () => {
     socketRef.current.disconnect();
     navigate('/main');
   }
@@ -167,7 +172,7 @@ function Chat() {
         {messages}
         <div className='scrollpoint' ref={scrollpoint} ></div>
         {show === true &&
-          <Alert className='translation-message' variant="primary" onClose={() => setShow(false)} dismissible>
+          <Alert className='translation-message' onClose={() => setShow(false)} dismissible>
             <Alert.Heading>Translation</Alert.Heading>
             <p>{translation}</p>
           </Alert>
