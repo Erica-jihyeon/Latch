@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useParams } from "react-router-dom";
+import default_logo from '../img/default_logo.png'
 
 import './Chat.css';
 import Header from './Header';
@@ -21,11 +22,13 @@ function Chat() {
   const { user } = useContext(loginContext);
   const [message, setMessage] = useState([]);
   const [messageUser, setMessageUser] = useState({});
-  const [endMessage, setEndMessage] = useState(null);
   const [userLearning, setUserLearning] = useState(null);
   const [userSpeaking, setUserSpeaking] = useState(null);
+  //show and translation is for the translation feature
   const [show, setShow] = useState(false);
   const [translation, setTranslation] = useState('');
+
+  const [mode, setMode] = useState('chat');
 
 
   const params = useParams();
@@ -60,13 +63,6 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    if (endMessage) {
-      console.log('end')
-      endedChatByOtherUser();
-    }
-  }, [endMessage]);
-
-  useEffect(() => {
     socketRef.current.on("message", ({ message, user }) => {
       setMessage(message);
       setMessageUser(user);
@@ -76,9 +72,7 @@ function Chat() {
       navigate('/addfriend')
     })
     socketRef.current.on('leaveChat', ({ message }) => {
-      setEndMessage(message);
-      // console.log(message);
-      // alert(message);
+      setMode('endedByOtherUser');
     });
   }, [messages]);
 
@@ -110,7 +104,6 @@ function Chat() {
   }
 
   const endedChatByOtherUser = () => {
-    alert(endMessage);
     socketRef.current.disconnect();
     navigate('/main');
   }
@@ -155,30 +148,41 @@ function Chat() {
 
 
   return (
+
     <div className="chat-container">
-      <Header title={"Latching Chat"}
-        back={
-          <IconButton>
-            <TagFacesRoundedIcon sx={{ color: '#c3c3c3cc', fontSize: 40 }} />
-          </IconButton>
-        }
-        button={
-          <IconButton >
-            <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
-          </IconButton>
-        } />
-      <Counter />
-      <div className="chat-main">
-        {messages}
-        <div className='scrollpoint' ref={scrollpoint} ></div>
-        {show === true &&
-          <Alert className='translation-message' onClose={() => setShow(false)} dismissible>
-            <Alert.Heading>Translation</Alert.Heading>
-            <p>{translation}</p>
-          </Alert>
-        }
+      {mode === 'chat' &&
+        <><Header title={"Latching Chat"}
+          back={
+            <IconButton>
+              <TagFacesRoundedIcon sx={{ color: '#c3c3c3cc', fontSize: 40 }} />
+            </IconButton>
+          }
+          button={
+            <IconButton >
+              <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
+            </IconButton>
+          } />
+          <Counter />
+          <div className="chat-main">
+            {messages}
+            <div className='scrollpoint' ref={scrollpoint} ></div>
+            {show === true &&
+              <Alert className='translation-message' onClose={() => setShow(false)} dismissible>
+                <Alert.Heading>Translation</Alert.Heading>
+                <p>{translation}</p>
+              </Alert>
+            }
+          </div>
+          <MessageField socketRef={socketRef} roomId={roomIdRef.current} user={user} /></>
+      }
+
+      {mode === 'endedByOtherUser' &&
+      <div className='chat-endedByOtherUser'>
+        <img src={default_logo} alt="default_logo" />
+        <p>Oops...I'm sorry, <br />This chat is ended by the matched user.</p>
+        <button className='chat-endedByOtherUser-button' onClick={endedChatByOtherUser}>back to Main</button>
       </div>
-      <MessageField socketRef={socketRef} roomId={roomIdRef.current} user={user} />
+      }
 
     </div>
   )
