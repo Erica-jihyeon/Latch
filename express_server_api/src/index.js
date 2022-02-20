@@ -68,9 +68,12 @@ app.use("/api/current_user", user(db));
 const bookmark = require('./routes/book_mark');
 app.use("/api/bookmark", bookmark(db));
 
-// using router for matching
-const matching = require("./routes/matching_router(ref)");
-app.use("/matching", matching(db, io));
+const userOptions = require('./routes/user_options');
+app.use("/api/user_options", userOptions(db));
+
+// using router for matching(just reference) -> using websocket instead
+// const matching = require("./routes/matching_router(ref)");
+// app.use("/matching", matching(db, io));
 
 
 // using websocket for matching
@@ -116,6 +119,7 @@ io.on('connection', (socket) => {
       }
     })
 
+    //matching finding time
     setTimeout(() => {
 
       if (!client.isMatched) {
@@ -132,7 +136,7 @@ io.on('connection', (socket) => {
         }
       }
       socket.disconnect();
-    }, 5000);
+    }, 10000);
 
   });
 
@@ -151,7 +155,7 @@ io.on('connection', (socket) => {
 
 
 
-
+//matching chat namespace
 const matchingIo = io.of('/matching')
 matchingIo.on('connection', (socket) => {
 
@@ -163,10 +167,10 @@ matchingIo.on('connection', (socket) => {
     console.log('Room joined: ' + roomId);
     socket.join(roomId);
 
-    setTimeout(() => {
-      matchingIo.in(roomId).emit('friendRequest');
-      socket.disconnect();
-    }, 10000);
+    // setTimeout(() => {
+    //   matchingIo.in(roomId).emit('friendRequest');
+    //   socket.disconnect();
+    // }, 10000);
 
 
   })

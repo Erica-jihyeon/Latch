@@ -19,7 +19,7 @@ function Matched(props) {
   const socketRef = props.socketRef;
 
   // setRoomId(props.roomId);
-  const [seconds, setSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(3);
   const navigate = useNavigate();
 
   useEffect(() => {

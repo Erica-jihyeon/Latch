@@ -7,10 +7,37 @@
   align-items: center;
   z-index: 1;
   background-color: white;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
 }
 
-.message-container > div {
+.message-container div {
   display: inherit;
-  width: 95%;
+  width: 100%;
   align-items: center;
+}
+
+.message-container form {
+  margin-left: 20px;
+  margin-right: 20px;
+  flex: 1;
+  display: flex;
+  /* border-radius: 20px;
+  border: 2px solid lightgray; */
+}
+
+.message-container form > input {
+  flex: 1;
+  border-radius: 30px;
+  border: none;
+  padding: 10px;
+}
+
+.message-container form > input:focus {
+  outline:none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
 }

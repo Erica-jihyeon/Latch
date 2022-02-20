@@ -45,11 +45,10 @@ module.exports = (db) => {
 
   router.post("/", (req, res) => {
     const userId = req.body.userId;
-    const answer = req.body.message.props.children[2];
-    console.log(req.body.userId, req.body.message.props.children[2])
+    const answer = req.body.answer;
+    console.log(userId, answer)
     addBookmark(db, userId, answer)
       .then((result) => {
-        console.log(result);
         res.json(result);
       });
   });

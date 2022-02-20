@@ -1,0 +1,15 @@
+.matched-chat-counter-text span {
+  font-size: 0.8rem;
+  color: #FF6D23;
+  font-weight: 500;
+}
+
+.matched-chat-counter-text {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6b7a8e;
+}
+
+.matched-chat-counter {
+  margin-top: 5px;
+}
