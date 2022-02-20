@@ -35,3 +35,9 @@ CREATE TABLE bookmark (
   user_id integer REFERENCES users(id),
   answers VARCHAR(255)
 );
+
+CREATE TABLE friends_list (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user1_id integer REFERENCES users(id),
+  user2_id integer REFERENCES users(id)
+)
