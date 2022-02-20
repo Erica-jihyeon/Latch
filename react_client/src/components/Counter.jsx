@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import './Counter.css';
 
-function Counter() {
+function Counter(props) {
 
   const [seconds, setSeconds] = useState(120);
 
@@ -12,6 +12,7 @@ function Counter() {
       }
       if (seconds === 0) {
         clearInterval(countdown);
+        props.chatTimeout();
       }
     }, 1000)
     return () => {

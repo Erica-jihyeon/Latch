@@ -15,6 +15,7 @@ import Alert from 'react-bootstrap/Alert';
 import TranslateIcon from '@mui/icons-material/Translate';
 import TagFacesRoundedIcon from '@mui/icons-material/TagFacesRounded';
 import Counter from './Counter';
+import Friend_req from './Friend_req';
 
 
 function Chat() {
@@ -107,6 +108,14 @@ function Chat() {
     socketRef.current.disconnect();
     navigate('/main');
   }
+  const addfriend = () => {
+    console.log("you add friend");
+    navigate('/main')
+  }
+  const notAddfriend = () => {
+    console.log("you did not add friend");
+    navigate('/main')
+  }
 
 
   const getTranslation = (message) => {
@@ -162,7 +171,7 @@ function Chat() {
               <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
             </IconButton>
           } />
-          <Counter />
+          <Counter chatTimeout={() => setMode('friends')} />
           <div className="chat-main">
             {messages}
             <div className='scrollpoint' ref={scrollpoint} ></div>
@@ -182,6 +191,10 @@ function Chat() {
         <p>Oops...I'm sorry, <br />This chat is ended by the matched user.</p>
         <button className='chat-endedByOtherUser-button' onClick={endedChatByOtherUser}>back to Main</button>
       </div>
+      }
+
+      {mode === 'friends' &&
+      <Friend_req addfriend notAddfriend/>
       }
 
     </div>
