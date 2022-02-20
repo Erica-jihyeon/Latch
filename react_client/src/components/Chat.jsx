@@ -25,6 +25,8 @@ function Chat() {
   const [userSpeaking, setUserSpeaking] = useState(null);
   const [show, setShow] = useState(false);
   const [translation, setTranslation] = useState('');
+  const countSecond = 1000;
+  const [seconds, setSeconds] = useState(countSecond);
 
 
   const params = useParams();
@@ -91,6 +93,20 @@ function Chat() {
       endedChatByOtherUser();
     }
   }, [endMessage]);
+
+  useEffect(() => {
+    let countdown = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+      if (seconds === 0) {
+        clearInterval(countdown);
+      }
+    }, countSecond)
+    return () => {
+      clearInterval(countdown);
+    }
+  });
 
 
   const renderMessages = (message) => {
@@ -168,6 +184,7 @@ function Chat() {
             <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
           </IconButton>
         } />
+        <p>{seconds}</p>
       <div className="chat-main">
         {messages}
         <div className='scrollpoint' ref={scrollpoint} ></div>
