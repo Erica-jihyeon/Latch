@@ -32,7 +32,7 @@ function Main() {
       <div className="mainpage_container">
         <div className='logo_with_text'>
           <img src={default_logo} alt="default_logo" id='main_logo' />
-          <p className='logo_text'>Ready?</p>
+          <p className='mainpage_logo_text'>Ready?</p>
         </div>
 
         <Button variant="outlined" id='start_button' onClick={() => { navigate('/matching') }}>Start</Button>

@@ -30,8 +30,11 @@
   justify-content: center;
 
 }
-.logo_text {
+.logo_with_text p {
   margin: 30px;
+  font-size: 30px ;
+  color: #FF6D23;
+  font-family: 'Rancho', cursive;
 }
 
 #start_button {
