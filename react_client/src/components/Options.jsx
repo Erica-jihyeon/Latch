@@ -96,7 +96,7 @@ function Options() {
         <div className="matching_container">
           <span id="top_sentence">Find Latches</span>
           {matchingResult === 'matching' && <Matching optionReset={optionReset} socketRef={socketRef}/>}
-          {matchingResult === 'matched' && <Matched roomId={matchRoomId} optionReset={optionReset} socketRef={socketRef} />}
+          {matchingResult === 'matched' && <Matched roomId={matchRoomId} optionReset={optionReset} socketRef={socketRef} userId={userId}/>}
           {matchingResult === 'noMatch' && <MatchingTimeout optionReset={optionReset} />}
         </div>
       }

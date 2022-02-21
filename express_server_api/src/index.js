@@ -97,7 +97,7 @@ io.on('connection', (socket) => {
      */
     findMatching(client, db);
 
-    const indexOfPair = paired.findIndex(pair => pair.match1.userId === client.userId || pair.match2.userId === client.userId);
+    let indexOfPair = paired.findIndex(pair => pair.match1.userId === client.userId || pair.match2.userId === client.userId);
 
     if (indexOfPair >= 0) {
       paired[indexOfPair].match1.isMatched = true;
@@ -109,8 +109,17 @@ io.on('connection', (socket) => {
     }
 
     //cancel from the client before starting a match chat
-    socket.on('cancelMatchChat', function () {
-      paired[indexOfPair].match1.socketId === socket.id ? io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' }) : io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' });
+    socket.on('cancelMatchChat', ({userId}) => {
+      indexOfPair = paired.findIndex(pair => pair.match1.userId === userId || pair.match2.userId === userId);
+      // console.log('cancelMatchChat')
+      // console.log(indexOfPair)
+      // console.log(paired);
+      // console.log(userId);
+      io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled', cancelUser: userId })
+      io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled', cancelUser: userId });
+    
+
+      // paired[indexOfPair].match1.socketId === socket.id ? io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' }) : io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' });
     })
 
     //if client cancel the matching, then remove from the queue

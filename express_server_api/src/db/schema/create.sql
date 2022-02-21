@@ -1,6 +1,6 @@
 -- Drop and recreate Users table (Example)
 
-DROP TABLE IF EXISTS users, languages, user_option CASCADE;
+DROP TABLE IF EXISTS users, languages, user_option, matching, bookmark, friends_list CASCADE;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
