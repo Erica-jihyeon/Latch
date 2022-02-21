@@ -81,14 +81,17 @@ function Chat() {
 
 
   const renderMessages = (message, userFromWS) => {
-    // if (!message || messages.length === 0) {
-    //   return
-    // }
-    return (
-      <p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
+
+    if (user.userId === userFromWS) {
+      return (<p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
+      <span>{message}</span>
+    </p>)
+    } else {
+      return (<p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
         <span>{message}<a className='matchchat-translation' onClick={() => { getTranslation(message) }}><TranslateIcon /></a></span>
-      </p>
-    )
+      </p>)
+    }
+
   }
 
 
