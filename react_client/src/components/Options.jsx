@@ -43,7 +43,7 @@ function Options() {
   const [matchingResult, setMatchingResult] = useState('matching');
   const navigate = useNavigate();
 
-  const [formats, setFormats] = useState(() => ['bold', 'italic']);
+  const [formats, setFormats] = useState(null);
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
   };
@@ -75,6 +75,7 @@ function Options() {
     socketRef.current.disconnect();
     socketRef.current = null;
     setMatchingResult('matching');
+    setFormats(null)
   }
 
   return (
