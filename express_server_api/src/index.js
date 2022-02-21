@@ -197,29 +197,26 @@ matchingIo.on('connection', (socket) => {
     //update user count
     matchingIo.emit('usercount', io.engine.clientsCount);
   })
-
-  const checkResponses = (roomId, userId, friends) => {
-    console.log('ROOMID',roomId);
-    if (!responses.roomId) {
-      console.log('INSIDE IF STATEMENT');
-      responses.roomId = [];
-    }
-    responses.roomId.push({userId, friends})
-    console.log(responses.roomId);
-    if (responses.roomId.length > 1) {
-      console.log('LENGTH > 1');
-      if (responses.roomId[0].friends && responses.roomId[1].friends) {
-        console.log('MATCH');
-        addUsersToFriendsList(responses.roomId[0].userId, responses.roomId[1].userId, db)
-        delete responses.roomId;
-      }
-    }
-
-  }
   
 
   socket.on('friendRequestResponse', ({roomId, userId, friends}) => {
-    checkResponses(roomId, userId, friends)
+    console.log('ROOMID',roomId);
+    if (!responses[roomId]) {
+      console.log('INSIDE IF STATEMENT');
+      responses[roomId] = [];
+    }
+    responses[roomId].push({userId, friends})
+    console.log(responses[roomId]);
+    console.log(responses);
+    if (responses[roomId].length > 1) {
+      console.log('LENGTH > 1');
+      if (responses[roomId][0].friends && responses[roomId][1].friends) {
+        console.log('MATCH');
+        addUsersToFriendsList(responses[roomId][0].userId, responses[roomId][1].userId, db)
+      }
+      delete responses[roomId];
+      console.log(responses);
+    }
   })
 
 })
