@@ -142,7 +142,7 @@ function Chat() {
       case 'French': languages.push('fr'); break;
       default: languages.push('en');
     }
-    console.log(languages)
+    // console.log(languages)
 
     var options = {
       method: 'POST',

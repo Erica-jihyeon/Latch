@@ -78,7 +78,7 @@ function LearningBotPage() {
         <IconButton onClick={back}>
           <ArrowBackIosNewIcon sx={{ color: '#9d9d9d'}} fontSize="large" />
         </IconButton>
-        <h4>Learning Bot</h4>
+        <p>Learning Bot</p>
         <IconButton onClick={getBookmarkData}>
           <BookmarkIcon className={classes.bookmark} />
         </IconButton>
