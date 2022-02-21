@@ -7,6 +7,7 @@ import SimpleBottomNavigation from '../bottom_nav';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import FriendListItem from './Friend';
+import axios from 'axios';
 
 function Main() {
 
@@ -18,6 +19,23 @@ function Main() {
     navigate('/login');
   };
 
+  const ListRequest = (userId) => {
+    return axios.get('http://localhost:8080/api/friendlist', {params: {userId: userId}})
+      .then((res) => {
+        console.log(res.data)
+      })
+  }
+
+  ListRequest(user.userId);
+
+  // const getUserId = (username) => {
+  //   return axios.get('http://localhost:8080/api/current_user', { params: { username: username } })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       userIdRef.current = res.data;
+  //     })
+  // }
+  
   return (
     <div className="mainpage_container">
       <Header title="Friends"
@@ -34,6 +52,7 @@ function Main() {
         <FriendListItem />
         <FriendListItem />
         <FriendListItem />
+
       </div>
 
       <div className="bottom_nav_bar">

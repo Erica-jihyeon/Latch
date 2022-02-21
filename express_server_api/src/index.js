@@ -13,7 +13,7 @@ const { Pool } = require('pg');
 const { v1: uuidv1 } = require('uuid');
 const { findMatching, queue, paired } = require('./routes/helper');
 const { AddUserOptionsToDB } = require('./matching_dbquery.js');
-const addUsersToFriendsList = require('./routes/friends_list')
+const {addUsersToFriendsList, selectFriendList} = require('./routes/friends_list')
 
 
 const io = require("socket.io")(server, {
@@ -71,6 +71,10 @@ app.use("/api/bookmark", bookmark(db));
 
 const userOptions = require('./routes/user_options');
 app.use("/api/user_options", userOptions(db));
+
+//api/friend list page
+const friendListPage = require('./routes/friends_list_page');
+app.use("/api/friendlist", friendListPage(db));
 
 // using router for matching(just reference) -> using websocket instead
 // const matching = require("./routes/matching_router(ref)");
