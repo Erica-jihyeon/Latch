@@ -13,7 +13,7 @@ const { Pool } = require('pg');
 const { v1: uuidv1 } = require('uuid');
 const { findMatching, queue, paired } = require('./routes/helper');
 const { AddUserOptionsToDB } = require('./matching_dbquery.js');
-const addUsersToFriendsList = require('./routes/friends_list')
+const {addUsersToFriendsList, checkUsersAreFriends} = require('./routes/friends_list')
 
 
 const io = require("socket.io")(server, {
@@ -75,7 +75,6 @@ app.use("/api/user_options", userOptions(db));
 // using router for matching(just reference) -> using websocket instead
 // const matching = require("./routes/matching_router(ref)");
 // app.use("/matching", matching(db, io));
-const responses = {};
 
 
 // using websocket for matching
@@ -155,7 +154,8 @@ io.on('connection', (socket) => {
 
 
 
-
+const responses = {};
+const joinRoomUsers = {};
 
 //matching chat namespace
 const matchingIo = io.of('/matching')
@@ -165,10 +165,19 @@ matchingIo.on('connection', (socket) => {
 
   var numClients = {};
   socket.on('joinRoom', ({ roomId, userId }) => {
-
+    console.log('USERID SERVER SIDE', userId);
     console.log('Room joined: ' + roomId);
     socket.join(roomId);
-
+    if (!joinRoomUsers[roomId]) {
+      joinRoomUsers[roomId] = [];
+    }
+    joinRoomUsers[roomId].push(userId)
+    if (joinRoomUsers[roomId].length > 1) {
+      checkUsersAreFriends(joinRoomUsers[roomId], roomId, matchingIo, db)
+      // console.log('USERS ARE FRIENDS SERVER', usersAreFriends);
+      // matchingIo.in(roomId).emit('usersAreFriends', ({ usersAreFriends }));
+      // delete joinRoomUsers[roomId];
+    }
     // setTimeout(() => {
     //   matchingIo.in(roomId).emit('friendRequest');
     //   socket.disconnect();
