@@ -108,7 +108,7 @@ function Chat() {
     navigate('/main');
   }
 
-  const endedChatByOtherUser = () => {
+  const backToMain = () => {
     socketRef.current.disconnect();
     navigate('/main');
   }
@@ -197,12 +197,19 @@ function Chat() {
         <div className='chat-endedByOtherUser'>
           <img src={default_logo} alt="default_logo" />
           <p>Oops...I'm sorry, <br />This chat is ended by the matched user.</p>
-          <button className='chat-endedByOtherUser-button' onClick={endedChatByOtherUser}>back to Main</button>
+          <button className='chat-endedByOtherUser-button' onClick={backToMain}>back to Main</button>
         </div>
       }
 
       {mode === 'friends' && !friendshipStatus &&
         <Friend_req addfriend={addfriend} notAddfriend={notAddfriend} />
+      }
+      {mode === 'friends' && friendshipStatus &&
+        <div className='chat-endedByOtherUser'>
+          <img src={default_logo} alt="default_logo" />
+          <p>You are already friends with this user.</p>
+          <button className='chat-endedByOtherUser-button' onClick={backToMain}>back to Main</button>
+        </div>
       }
 
     </div>
