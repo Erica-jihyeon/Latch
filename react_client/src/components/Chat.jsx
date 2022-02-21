@@ -14,8 +14,8 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import TranslateIcon from '@mui/icons-material/Translate';
 import TagFacesRoundedIcon from '@mui/icons-material/TagFacesRounded';
-import Counter from './Counter';
 import Friend_req from './Friend_req';
+import Timer from './Timer';
 
 
 function Chat() {
@@ -85,14 +85,17 @@ function Chat() {
 
 
   const renderMessages = (message, userFromWS) => {
-    // if (!message || messages.length === 0) {
-    //   return
-    // }
-    return (
-      <p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
+
+    if (user.userId === userFromWS) {
+      return (<p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
+      <span>{message}</span>
+    </p>)
+    } else {
+      return (<p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
         <span>{message}<a className='matchchat-translation' onClick={() => { getTranslation(message) }}><TranslateIcon /></a></span>
-      </p>
-    )
+      </p>)
+    }
+
   }
 
 
@@ -169,7 +172,7 @@ function Chat() {
               <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
             </IconButton>
           } />
-          <Counter chatTimeout={() => setMode('friends')} />
+          {<Timer chatTimeout={() => setMode('friends')} />}
           <div className="chat-main">
             {messages}
             <div className='scrollpoint' ref={scrollpoint} ></div>
