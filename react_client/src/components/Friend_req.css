@@ -1,7 +1,7 @@
 
 .Friend_req_container {
-  width: 375px;
-  height: 812px;
+  width: 90%;
+  height: 90%;
   background-color: white;
   border-radius: 30px;
   display: flex;
@@ -24,7 +24,7 @@
 }
 
 img {
-  width: 60%;
+  width: 90%;
 }
 
 .img_with_text {
@@ -33,6 +33,13 @@ img {
   align-items: center;
   margin: 10% 0;
 }
+
+/* .img_with_text:hover {
+  background-color: whitesmoke;
+}
+.img_with_text:active {
+  background-color: lightgray;
+} */
 
 #images {
   display: flex;
@@ -45,5 +52,5 @@ img {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding-top: 250px;
+  padding-top: 200px;
 }

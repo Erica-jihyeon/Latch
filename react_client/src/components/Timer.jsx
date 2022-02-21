@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './Timer.css';
 
-function Timer() {
+function Timer(props) {
   const [time, setTime] = useState({
-    m: 2,
-    s: 0,
+    m: 0,
+    s: 10,
   });
 
   const [timer, setTimer] = useState(null);
@@ -20,6 +20,7 @@ function Timer() {
         if (time.s === 0) {
           if (time.m === 0) {
             clearInterval(myInterval);
+            props.chatTimeout();
           } else if (time.m > 0) {
             updatedTime.m--;
             updatedTime.s = 59;

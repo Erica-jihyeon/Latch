@@ -14,6 +14,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import TranslateIcon from '@mui/icons-material/Translate';
 import TagFacesRoundedIcon from '@mui/icons-material/TagFacesRounded';
+import Friend_req from './Friend_req';
 import Timer from './Timer';
 
 
@@ -74,6 +75,9 @@ function Chat() {
     socketRef.current.on('leaveChat', ({ message }) => {
       setMode('endedByOtherUser');
     });
+    // setTimeout(() => {
+    scrollpoint.current.scrollIntoView({ behavior: 'smooth' })
+    // }, 100);
 
     return () => { socketRef.current.off("message"); };
 
@@ -84,8 +88,8 @@ function Chat() {
 
     if (user.userId === userFromWS) {
       return (<p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
-      <span>{message}</span>
-    </p>)
+        <span>{message}</span>
+      </p>)
     } else {
       return (<p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
         <span>{message}<a className='matchchat-translation' onClick={() => { getTranslation(message) }}><TranslateIcon /></a></span>
@@ -104,6 +108,18 @@ function Chat() {
   const endedChatByOtherUser = () => {
     socketRef.current.disconnect();
     navigate('/main');
+  }
+  const addfriend = () => {
+    socketRef.current.emit('friendRequestResponse', { roomId: roomIdRef.current, userId: user.userId, friends: true });
+    console.log("you add friend");
+    socketRef.current.disconnect();
+    navigate('/main')
+  }
+  const notAddfriend = () => {
+    socketRef.current.emit('friendRequestResponse', { roomId: roomIdRef.current, userId: user.userId, friends: false });
+    console.log("you did not add friend");
+    socketRef.current.disconnect();
+    navigate('/main')
   }
 
 
@@ -160,7 +176,7 @@ function Chat() {
               <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
             </IconButton>
           } />
-          {<Timer />}
+          {<Timer chatTimeout={() => setMode('friends')} />}
           <div className="chat-main">
             {messages}
             <div className='scrollpoint' ref={scrollpoint} ></div>
@@ -180,6 +196,10 @@ function Chat() {
           <p>Oops...I'm sorry, <br />This chat is ended by the matched user.</p>
           <button className='chat-endedByOtherUser-button' onClick={endedChatByOtherUser}>back to Main</button>
         </div>
+      }
+
+      {mode === 'friends' &&
+        <Friend_req addfriend={addfriend} notAddfriend={notAddfriend} />
       }
 
     </div>

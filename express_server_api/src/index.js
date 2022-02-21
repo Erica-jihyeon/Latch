@@ -13,6 +13,7 @@ const { Pool } = require('pg');
 const { v1: uuidv1 } = require('uuid');
 const { findMatching, queue, paired } = require('./routes/helper');
 const { AddUserOptionsToDB } = require('./matching_dbquery.js');
+const addUsersToFriendsList = require('./routes/friends_list')
 
 
 const io = require("socket.io")(server, {
@@ -74,6 +75,7 @@ app.use("/api/user_options", userOptions(db));
 // using router for matching(just reference) -> using websocket instead
 // const matching = require("./routes/matching_router(ref)");
 // app.use("/matching", matching(db, io));
+const responses = {};
 
 
 // using websocket for matching
@@ -194,6 +196,27 @@ matchingIo.on('connection', (socket) => {
     console.log('matchingIo user disconnected');
     //update user count
     matchingIo.emit('usercount', io.engine.clientsCount);
+  })
+  
+
+  socket.on('friendRequestResponse', ({roomId, userId, friends}) => {
+    console.log('ROOMID',roomId);
+    if (!responses[roomId]) {
+      console.log('INSIDE IF STATEMENT');
+      responses[roomId] = [];
+    }
+    responses[roomId].push({userId, friends})
+    console.log(responses[roomId]);
+    console.log(responses);
+    if (responses[roomId].length > 1) {
+      console.log('LENGTH > 1');
+      if (responses[roomId][0].friends && responses[roomId][1].friends) {
+        console.log('MATCH');
+        addUsersToFriendsList(responses[roomId][0].userId, responses[roomId][1].userId, db)
+      }
+      delete responses[roomId];
+      console.log(responses);
+    }
   })
 
 })

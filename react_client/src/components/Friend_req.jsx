@@ -4,8 +4,9 @@ import Friend_no from '../img/Friend_no.png';
 import './Friend_req.css';
 import Header from './Header';
 import { useNavigate} from 'react-router-dom';
+import { IconButton } from '@material-ui/core';
 
-function Friend_req() {
+function Friend_req(props) {
   const navigate = useNavigate()
   return (
     <div className="login-container">
@@ -18,12 +19,15 @@ function Friend_req() {
 
       <div id='images'>
         <div className ="img_with_text">
-          <img src={Friend_no} alt="no" onClick={() => {console.log("you did not add friend");}} />
+          <IconButton>
+          <img src={Friend_no} alt="no" onClick={props.notAddfriend} />
+          </IconButton>
           <h4>No</h4>
         </div>
-
         <div className ="img_with_text">
-          <img src={Friend_yes} alt="yes" onClick={() => {console.log("you add friend");}}/>
+        <IconButton>
+          <img src={Friend_yes} alt="yes" onClick={props.addfriend}/>
+        </IconButton>
           <h4>yes</h4>
         </div>
       </div>
