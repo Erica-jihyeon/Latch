@@ -75,6 +75,9 @@ function Chat() {
     socketRef.current.on('leaveChat', ({ message }) => {
       setMode('endedByOtherUser');
     });
+    // setTimeout(() => {
+      scrollpoint.current.scrollIntoView({behavior: 'smooth'})
+    // }, 100);
 
     return () => { socketRef.current.off("message"); };
 
@@ -189,7 +192,7 @@ function Chat() {
       }
 
       {mode === 'friends' &&
-      <Friend_req addfriend notAddfriend/>
+      <Friend_req addfriend={addfriend} notAddfriend={notAddfriend}/>
       }
 
     </div>
