@@ -14,7 +14,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import TranslateIcon from '@mui/icons-material/Translate';
 import TagFacesRoundedIcon from '@mui/icons-material/TagFacesRounded';
-import Counter from './Counter';
+import Timer from './Timer';
 
 
 function Chat() {
@@ -157,7 +157,7 @@ function Chat() {
               <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
             </IconButton>
           } />
-          <Counter />
+          {<Timer />}
           <div className="chat-main">
             {messages}
             <div className='scrollpoint' ref={scrollpoint} ></div>
