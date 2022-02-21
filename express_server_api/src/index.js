@@ -115,8 +115,8 @@ io.on('connection', (socket) => {
       // console.log(indexOfPair)
       // console.log(paired);
       // console.log(userId);
-      io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled', cancelUser: userId })
-      io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled', cancelUser: userId });
+      io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user', cancelUser: userId })
+      io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user', cancelUser: userId });
     
 
       // paired[indexOfPair].match1.socketId === socket.id ? io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' }) : io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' });
@@ -147,7 +147,7 @@ io.on('connection', (socket) => {
         }
       }
       socket.disconnect();
-    }, 10000);
+    }, 6000);
 
   });
 
