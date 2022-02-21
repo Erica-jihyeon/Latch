@@ -10,7 +10,7 @@ import { IconButton } from "@material-ui/core";
 import './LearningBotPage.css';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { makeStyles } from '@material-ui/core/styles';
-import  { loginContext } from '../../Providers/LoginProviders';
+import { loginContext } from '../../Providers/LoginProviders';
 
 
 const useStyles = makeStyles({
@@ -27,7 +27,7 @@ function LearningBot(props) {
   const [question, setQuestion] = useState('');
   const classes = useStyles();
 
-  const {user} = useContext(loginContext);
+  const { user } = useContext(loginContext);
 
 
   useEffect(() => {
@@ -37,9 +37,9 @@ function LearningBot(props) {
       setMessage(<p className='learningbot-message'>Hi, I’m a Learning Bot!<br />Do you have any questions?</p>)
     } else if (mode === 'answer') {
       setBotImg(botAnswering);
-      setMessage(<p className="learningbot-message">{answer[answerIndex] === ' ' ||  answer[answerIndex] === ''? "I'm sorry, I don't know now" : answer[answerIndex]}<span className="learningbot-addbookmark"><IconButton onClick={addBookmark}>
-      <BookmarkIcon className={classes.bookmark} />
-    </IconButton></span></p>)
+      setMessage(<p className="learningbot-message">{answer[answerIndex] === ' ' || answer[answerIndex] === '' ? "I'm sorry, I don't know now" : answer[answerIndex]}<span className="learningbot-addbookmark"><IconButton onClick={addBookmark}>
+        <BookmarkIcon className={classes.bookmark} />
+      </IconButton></span></p>)
     } else if (mode === "noLikeAnswer") {
       setBotImg(botNoLikeAnswer);
       setMessage(<p className='learningbot-message'>Oh...I'm sorry,<br />I'll find another answer!<br />Please give me one second!</p>)
@@ -52,30 +52,34 @@ function LearningBot(props) {
 
 
   const getAnswerFromAPI = () => {
-    var options = {
-      method: 'GET',
-      url: 'https://question-answer.p.rapidapi.com/question-answer',
-      params: { question: question },
-      headers: {
-        'x-rapidapi-host': 'question-answer.p.rapidapi.com',
-        'x-rapidapi-key': 'b33bf5d7f4msh256f184d8a1960ep11ae96jsnd29609668e33'
-      }
-    };
+    if (!question) {
+      alert('please enter the question!')
+    } else {
+      var options = {
+        method: 'GET',
+        url: 'https://question-answer.p.rapidapi.com/question-answer',
+        params: { question: question },
+        headers: {
+          'x-rapidapi-host': 'question-answer.p.rapidapi.com',
+          'x-rapidapi-key': 'b33bf5d7f4msh256f184d8a1960ep11ae96jsnd29609668e33'
+        }
+      };
 
-    axios.request(options).then(function (response) {
-      console.log(response.data)
-      if (response) {
-        props.setAnswer(response.data);
-        props.setMode('answer');
-      }
-    }).catch(function (error) {
-      console.error(error);
-    });
+      axios.request(options).then(function (response) {
+        console.log(response.data)
+        if (response) {
+          props.setAnswer(response.data);
+          props.setMode('answer');
+        }
+      }).catch(function (error) {
+        console.error(error);
+      });
+    }
   }
 
   const addBookmark = () => {
     const answer = props.answer[props.answerIndex];
-    return axios.post('http://localhost:8080/api/bookmark', { userId: user.userId, answer: answer})
+    return axios.post('http://localhost:8080/api/bookmark', { userId: user.userId, answer: answer })
       .then((res) => {
         console.log(res.data);
         alert('added to the bookmark');
@@ -87,11 +91,6 @@ function LearningBot(props) {
   return (
     <div className='learningbot-main-container'>
       <div className='learningbot'>
-        {/* {props.mode === 'answer' &&
-          <div className="learningbot-addbookmark">
-            <button onClick={addBookmark}>add bookmark</button>
-          </div>
-        } */}
         {message}
         <img src={botImg} alt="bot-saying" />
 

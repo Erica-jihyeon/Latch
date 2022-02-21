@@ -80,7 +80,7 @@ function LogIn() {
       <Header title="Log in"
         back={
           <IconButton onClick={back}>
-            <ArrowBackIosNewIcon fontSize="large" />
+            <ArrowBackIosNewIcon sx={{ color: '#9d9d9d'}} fontSize="large" />
           </IconButton>
         } />
       <div className="login-main">
@@ -89,7 +89,7 @@ function LogIn() {
         <div>
           <TextField
             fullWidth
-            placeholder='username'
+            placeholder='USERNAME'
             variant='outlined'
             size='small'
             className={classes.textField}
@@ -100,7 +100,7 @@ function LogIn() {
           />
           <TextField
             fullWidth
-            placeholder='password'
+            placeholder='PASSWORD'
             type='password'
             variant='outlined'
             size='small'
