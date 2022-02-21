@@ -29,6 +29,7 @@ function Chat() {
   const [translation, setTranslation] = useState('');
 
   const [mode, setMode] = useState('chat');
+  const [friendshipStatus, setFriendshipStatus] = useState(false);
 
 
   const params = useParams();
@@ -58,7 +59,7 @@ function Chat() {
 
   useEffect(() => {
     socketRef.current = io.connect('http://localhost:8080/matching');
-    socketRef.current.emit('joinRoom', { roomId: roomIdRef.current, userId: randomUserId() });
+    socketRef.current.emit('joinRoom', { roomId: roomIdRef.current, userId: user.userId });
 
   }, []);
 
@@ -75,9 +76,11 @@ function Chat() {
     socketRef.current.on('leaveChat', ({ message }) => {
       setMode('endedByOtherUser');
     });
-    // setTimeout(() => {
+    socketRef.current.on('usersAreFriends', ({ usersAreFriends }) => {
+      console.log('USERS ARE FRIENDS CHAT', usersAreFriends);
+      setFriendshipStatus(usersAreFriends);
+    });
     scrollpoint.current.scrollIntoView({ behavior: 'smooth' })
-    // }, 100);
 
     return () => { socketRef.current.off("message"); };
 
@@ -105,7 +108,7 @@ function Chat() {
     navigate('/main');
   }
 
-  const endedChatByOtherUser = () => {
+  const backToMain = () => {
     socketRef.current.disconnect();
     navigate('/main');
   }
@@ -194,12 +197,19 @@ function Chat() {
         <div className='chat-endedByOtherUser'>
           <img src={default_logo} alt="default_logo" />
           <p>Oops...I'm sorry, <br />This chat is ended by the matched user.</p>
-          <button className='chat-endedByOtherUser-button' onClick={endedChatByOtherUser}>back to Main</button>
+          <button className='chat-endedByOtherUser-button' onClick={backToMain}>back to Main</button>
         </div>
       }
 
-      {mode === 'friends' &&
+      {mode === 'friends' && !friendshipStatus &&
         <Friend_req addfriend={addfriend} notAddfriend={notAddfriend} />
+      }
+      {mode === 'friends' && friendshipStatus &&
+        <div className='chat-endedByOtherUser'>
+          <img src={default_logo} alt="default_logo" />
+          <p>You are already friends with this user.</p>
+          <button className='chat-endedByOtherUser-button' onClick={backToMain}>back to Main</button>
+        </div>
       }
 
     </div>

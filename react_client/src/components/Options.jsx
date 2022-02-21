@@ -97,6 +97,7 @@ function Options() {
 
               <ToggleButtonGroup
                 value={formats}
+                exclusive
                 onChange={handleFormat}
                 aria-label="text formatting"
               >
