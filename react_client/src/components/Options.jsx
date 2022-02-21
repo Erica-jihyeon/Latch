@@ -77,7 +77,7 @@ function Options() {
       {mode === 'options' &&
         <> <Header title='Match Options' back={
           <IconButton onClick={back}>
-            <ArrowBackIosNewIcon fontSize="large" />
+            <ArrowBackIosNewIcon sx={{ color: '#9d9d9d'}} fontSize="large" />
           </IconButton>
         } />
           <img src={logo} alt="logo" /><LanguageInput purpose={learning} onChange={setLearning} label={'language you want to learn'} /><LanguageInput purpose={speaking} onChange={setSpeaking} label={'pick your first language'} />

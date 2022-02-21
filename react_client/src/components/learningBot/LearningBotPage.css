@@ -19,6 +19,8 @@
 }
 .learningbot-header > h4 {
   flex: 1;
+  margin: 0;
+  color: #6c6c6c;
 }
 
 .learningbot-main-container {
@@ -103,42 +105,47 @@
 }
 
 .learningbot-answer p {
-  margin-top: 50px;
-  font-size: 1.2rem;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  font-size: 1.3rem;
   font-weight: 500;
   color: #233257;
 }
 
 .learningbot-answer-buttons {
-  padding-top: 50px;
+  padding-top: 30px;
   display: flex;
   width: 200px;
   justify-content: space-between;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
 .learningbot-answer-buttons button:first-child {
   background-color: #e45f2f;
   border: none;
   color: white;
-  padding: 13px 35px;
+  padding: 10px 35px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 25px;
   border-radius: 50px;
+  font-weight: 500;
+  margin-left: -15px;
 }
 
 .learningbot-answer-buttons button:last-child {
   background-color: #45acc9;
   border: none;
   color: white;
-  padding: 13px 35px;
+  padding: 10px 35px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 25px;
   border-radius: 50px;
+  font-weight: 500;
+  margin-left: 30px;
 }
 
 .learningbot-answer-buttons button:hover {
@@ -182,4 +189,11 @@
 
 .learningbot-bookmark-table::-webkit-scrollbar {
   display: none;
+}
+
+.learningbot-main-container textarea {
+  font-size: 1.3rem;
+  color: #384158;
+  font-weight: 500;
+  line-height: 110%;
 }

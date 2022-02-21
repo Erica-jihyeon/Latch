@@ -24,7 +24,7 @@ function Main() {
       <Header title="Find Matches"
         back={
           <IconButton onClick={back}>
-            <ArrowBackIosNewIcon fontSize="large" />
+            <ArrowBackIosNewIcon sx={{ color: '#9d9d9d'}} fontSize="large" />
           </IconButton>
         }
       />
