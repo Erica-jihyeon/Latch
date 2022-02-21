@@ -3,8 +3,8 @@ import './Timer.css';
 
 function Timer(props) {
   const [time, setTime] = useState({
-    m: 2,
-    s: 0,
+    m: 0,
+    s: 10,
   });
 
   const [timer, setTimer] = useState(null);

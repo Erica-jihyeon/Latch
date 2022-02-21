@@ -112,11 +112,13 @@ function Chat() {
   const addfriend = () => {
     socketRef.current.emit('friendRequestResponse', { roomId: roomIdRef.current, userId: user.userId, friends: true });
     console.log("you add friend");
+    socketRef.current.disconnect();
     navigate('/main')
   }
   const notAddfriend = () => {
     socketRef.current.emit('friendRequestResponse', { roomId: roomIdRef.current, userId: user.userId, friends: false });
     console.log("you did not add friend");
+    socketRef.current.disconnect();
     navigate('/main')
   }
 
