@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
   bookmark: {
     marginRight: 15,
-    color: '#f48080',
+    color: '#f48080'
   }
 });
 
@@ -76,7 +76,7 @@ function LearningBotPage() {
     <div className='learningbot-container'>
       <div className='learningbot-header'>
         <IconButton onClick={back}>
-          <ArrowBackIosNewIcon fontSize="large" />
+          <ArrowBackIosNewIcon sx={{ color: '#9d9d9d'}} fontSize="large" />
         </IconButton>
         <h4>Learning Bot</h4>
         <IconButton onClick={getBookmarkData}>
