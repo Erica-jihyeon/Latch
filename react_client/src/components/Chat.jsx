@@ -76,7 +76,7 @@ function Chat() {
       setMode('endedByOtherUser');
     });
     // setTimeout(() => {
-      scrollpoint.current.scrollIntoView({behavior: 'smooth'})
+    scrollpoint.current.scrollIntoView({ behavior: 'smooth' })
     // }, 100);
 
     return () => { socketRef.current.off("message"); };
@@ -88,8 +88,8 @@ function Chat() {
 
     if (user.userId === userFromWS) {
       return (<p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
-      <span>{message}</span>
-    </p>)
+        <span>{message}</span>
+      </p>)
     } else {
       return (<p className={`chat__message${user.userId === userFromWS ? '__sent' : '__received'}`}>
         <span>{message}<a className='matchchat-translation' onClick={() => { getTranslation(message) }}><TranslateIcon /></a></span>
@@ -110,10 +110,12 @@ function Chat() {
     navigate('/main');
   }
   const addfriend = () => {
+    socketRef.current.emit('friendRequestResponse', { roomId: roomIdRef.current, userId: user.userId, friends: true });
     console.log("you add friend");
     navigate('/main')
   }
   const notAddfriend = () => {
+    socketRef.current.emit('friendRequestResponse', { roomId: roomIdRef.current, userId: user.userId, friends: false });
     console.log("you did not add friend");
     navigate('/main')
   }
@@ -195,7 +197,7 @@ function Chat() {
       }
 
       {mode === 'friends' &&
-      <Friend_req addfriend={addfriend} notAddfriend={notAddfriend}/>
+        <Friend_req addfriend={addfriend} notAddfriend={notAddfriend} />
       }
 
     </div>

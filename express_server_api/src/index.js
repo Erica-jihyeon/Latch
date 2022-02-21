@@ -13,6 +13,7 @@ const { Pool } = require('pg');
 const { v1: uuidv1 } = require('uuid');
 const { findMatching, queue, paired } = require('./routes/helper');
 const { AddUserOptionsToDB } = require('./matching_dbquery.js');
+const addUsersToFriendsList = require('./routes/friends_list')
 
 
 const io = require("socket.io")(server, {
@@ -194,6 +195,20 @@ matchingIo.on('connection', (socket) => {
     console.log('matchingIo user disconnected');
     //update user count
     matchingIo.emit('usercount', io.engine.clientsCount);
+  })
+
+  socket.on('friendRequestResponse', ({roomId, userId, friends}) => {
+    const responses = {};
+    if (!responses[roomId]) {
+      responses[roomId] = [];
+    }
+    responses[roomId].push({userId, friends})
+    if (responses[roomId].length > 1) {
+      if (responses[roomId][0][friends] && responses[roomId][1][friends]) {
+        addUsersToFriendsList(responses[roomId][0][userId], responses[roomId][1][userId], db)
+        delete responses[roomId]
+      }
+    }
   })
 
 })
