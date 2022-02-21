@@ -35,12 +35,6 @@ function MatchingStartButton(props) {
           setMatchingResult('noMatch');
         }
 
-        // if match chat is canceled by the other user -> go back to option page
-        // socketRef.current.on("cancelMatchChat", ({ message }) => {
-        //   alert(message);
-        //   optionReset();
-        // })
-
       })
     }
   }
