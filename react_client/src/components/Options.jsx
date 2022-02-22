@@ -15,6 +15,8 @@ import { IconButton } from '@material-ui/core';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 
 // const styles = {
@@ -53,13 +55,18 @@ function Options() {
   //   return userId;
   // }
 
-  const { user } = useContext(loginContext);
+  const { user, logout } = useContext(loginContext);
   const userId = user.userId;
 
   const back = () => {
     //reset options and go to main page
     navigate('/main');
     console.log('back');
+  }
+
+  const handleClick = () => {
+    logout();
+    navigate('/login')
   }
 
   const chatOptHandler = (e) => {
@@ -85,7 +92,13 @@ function Options() {
           <IconButton onClick={back}>
             <ArrowBackIosNewIcon sx={{ color: '#9d9d9d' }} fontSize="large" />
           </IconButton>
-        } />
+        }
+          button={
+            <IconButton onClick={handleClick} >
+              <LogoutIcon fontSize='large' color='error' variant="filled" />
+            </IconButton>
+          }
+        />
           <img src={logo} alt="logo" /><LanguageInput purpose={learning} onChange={setLearning} label={'language you want to learn'} /><LanguageInput purpose={speaking} onChange={setSpeaking} label={'pick your first language'} />
           <div className="chat-option-selection">
             <p>Which language would you like to chat in?</p>
@@ -103,7 +116,8 @@ function Options() {
                 aria-label="text formatting"
               >
                 <ToggleButton sx={{
-                  border: "2px #45acc9 solid", borderRadius: "20px", width: "105px"}}
+                  border: "2px #45acc9 solid", borderRadius: "20px", width: "105px"
+                }}
                   value={1} onClick={chatOptHandler}>{learning || "Learning"}</ToggleButton>
                 <ToggleButton sx={{ border: "2px #45acc9 solid", width: "105px" }}
                   value={2} onClick={chatOptHandler}>{speaking || "Speaking"}</ToggleButton>
