@@ -46,13 +46,23 @@ function Matched(props) {
 
   const clickHandler = () => {
     // send status to the server to show the alert to the other user(matched)
-    socketRef.current.emit("cancelMatchChat", () => { });
-    optionReset();
+    socketRef.current.emit("cancelMatchChat", { userId: props.userId });
+    // props.setMode('options');
   }
+
+  useEffect(() => {
+    socketRef.current.on("cancelMatchChat", ({ message, cancelUser }) => {
+      if (cancelUser !== props.userId) {
+        alert(message);
+      }
+      optionReset();
+    })
+  }, [])
+
 
   return (
 
-    <div className="matching_main"> 
+    <div className="matching_main">
       <div className='matching_body'>
         <img src={default_logo} alt="latching_logo" id='logo' />
         <p className='matching_logo_text'>We found your latch!</p>

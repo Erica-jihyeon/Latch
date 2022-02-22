@@ -15,11 +15,13 @@
   height: 80px;
   justify-content: space-between;
   width: 100%;
-  color: #646464;
+  color: #6c6c6c;
 }
-.learningbot-header > h4 {
+.learningbot-header > p {
   flex: 1;
   margin: 0;
+  font-size: large;
+  text-align: center;
   color: #6c6c6c;
 }
 
@@ -40,7 +42,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 130px;
+  margin-top: 100px;
 }
 
 .learningbot-message {
@@ -83,7 +85,7 @@
   display: inline-block;
   font-size: 25px;
   border-radius: 50px;
-  margin-top: 130px;
+  margin-top: 80px;
   margin-bottom: 30px;
   font-weight: 500;
 }

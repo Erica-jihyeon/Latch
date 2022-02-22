@@ -36,6 +36,7 @@ header > .header-close-button {
 .header-title {
   flex: 1;
   color:  #6c6c6c;
+  text-align: center;
 }
 
 p {

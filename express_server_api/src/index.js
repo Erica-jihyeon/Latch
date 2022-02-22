@@ -13,7 +13,7 @@ const { Pool } = require('pg');
 const { v1: uuidv1 } = require('uuid');
 const { findMatching, queue, paired } = require('./routes/helper');
 const { AddUserOptionsToDB } = require('./matching_dbquery.js');
-const {addUsersToFriendsList, selectFriendList} = require('./routes/friends_list')
+const {addUsersToFriendsList, checkUsersAreFriends} = require('./routes/friends_list')
 
 
 const io = require("socket.io")(server, {
@@ -79,7 +79,6 @@ app.use("/api/friendlist", friendListPage(db));
 // using router for matching(just reference) -> using websocket instead
 // const matching = require("./routes/matching_router(ref)");
 // app.use("/matching", matching(db, io));
-const responses = {};
 
 
 // using websocket for matching
@@ -101,7 +100,7 @@ io.on('connection', (socket) => {
      */
     findMatching(client, db);
 
-    const indexOfPair = paired.findIndex(pair => pair.match1.userId === client.userId || pair.match2.userId === client.userId);
+    let indexOfPair = paired.findIndex(pair => pair.match1.userId === client.userId || pair.match2.userId === client.userId);
 
     if (indexOfPair >= 0) {
       paired[indexOfPair].match1.isMatched = true;
@@ -113,8 +112,17 @@ io.on('connection', (socket) => {
     }
 
     //cancel from the client before starting a match chat
-    socket.on('cancelMatchChat', function () {
-      paired[indexOfPair].match1.socketId === socket.id ? io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' }) : io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' });
+    socket.on('cancelMatchChat', ({userId}) => {
+      indexOfPair = paired.findIndex(pair => pair.match1.userId === userId || pair.match2.userId === userId);
+      // console.log('cancelMatchChat')
+      // console.log(indexOfPair)
+      // console.log(paired);
+      // console.log(userId);
+      io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user', cancelUser: userId })
+      io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user', cancelUser: userId });
+    
+
+      // paired[indexOfPair].match1.socketId === socket.id ? io.to(paired[indexOfPair].match2.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' }) : io.to(paired[indexOfPair].match1.socketId).emit('cancelMatchChat', { message: 'this chat is canceled by other user' });
     })
 
     //if client cancel the matching, then remove from the queue
@@ -142,7 +150,7 @@ io.on('connection', (socket) => {
         }
       }
       socket.disconnect();
-    }, 10000);
+    }, 6000);
 
   });
 
@@ -159,7 +167,8 @@ io.on('connection', (socket) => {
 
 
 
-
+const responses = {};
+const joinRoomUsers = {};
 
 //matching chat namespace
 const matchingIo = io.of('/matching')
@@ -169,10 +178,19 @@ matchingIo.on('connection', (socket) => {
 
   var numClients = {};
   socket.on('joinRoom', ({ roomId, userId }) => {
-
+    console.log('USERID SERVER SIDE', userId);
     console.log('Room joined: ' + roomId);
     socket.join(roomId);
-
+    if (!joinRoomUsers[roomId]) {
+      joinRoomUsers[roomId] = [];
+    }
+    joinRoomUsers[roomId].push(userId)
+    if (joinRoomUsers[roomId].length > 1) {
+      checkUsersAreFriends(joinRoomUsers[roomId], roomId, matchingIo, db)
+      // console.log('USERS ARE FRIENDS SERVER', usersAreFriends);
+      // matchingIo.in(roomId).emit('usersAreFriends', ({ usersAreFriends }));
+      // delete joinRoomUsers[roomId];
+    }
     // setTimeout(() => {
     //   matchingIo.in(roomId).emit('friendRequest');
     //   socket.disconnect();
