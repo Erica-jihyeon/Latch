@@ -26,7 +26,7 @@ module.exports = (db, io) => {
     console.log(req.query);
     getUserOptions(db, req.query.userId)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         res.json(result);
       });
   });

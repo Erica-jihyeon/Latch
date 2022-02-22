@@ -207,7 +207,6 @@ matchingIo.on('connection', (socket) => {
 
   socket.on('message', ({ message, roomId, user }) => {
     console.log('message received', {message, roomId, user});
-    console.log(user.userId);
     let userFromWS = user.userId;
     matchingIo.in(roomId).emit('message', ({ message, userFromWS }));
   })
@@ -224,12 +223,12 @@ matchingIo.on('connection', (socket) => {
   socket.on('friendRequestResponse', ({roomId, userId, friends}) => {
     console.log('ROOMID',roomId);
     if (!responses[roomId]) {
-      console.log('INSIDE IF STATEMENT');
+      // console.log('INSIDE IF STATEMENT');
       responses[roomId] = [];
     }
     responses[roomId].push({userId, friends})
-    console.log(responses[roomId]);
-    console.log(responses);
+    // console.log(responses[roomId]);
+    // console.log(responses);
     if (responses[roomId].length > 1) {
       console.log('LENGTH > 1');
       if (responses[roomId][0].friends && responses[roomId][1].friends) {

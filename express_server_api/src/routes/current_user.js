@@ -10,7 +10,7 @@ const currentUser = (db, username)  => {
     .query(queryStr, queryParam)
     .then((data) => {
       // const result = data.rows.map(item => item = item.username);
-      console.log(data.rows[0].id);
+      // console.log(data.rows[0].id);
       return data.rows[0].id;
     })
     .catch(err => {
@@ -26,7 +26,7 @@ module.exports = (db, io) => {
     console.log(req.query);
     currentUser(db, req.query.username)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         res.json(result);
       });
   });

@@ -46,7 +46,8 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     const userId = req.body.userId;
     const answer = req.body.answer;
-    console.log(userId, answer)
+    console.log(userId, answer);
+    
     addBookmark(db, userId, answer)
       .then((result) => {
         res.json(result);
