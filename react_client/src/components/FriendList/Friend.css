@@ -1,17 +1,21 @@
 .item_box {
   width: 355px;
-  height: 80px;
+  height: 70px;
   display: flex;
   border-bottom: 2px solid #E5E5E5;
-  margin: 10px 0;
+  margin-bottom: 10px;
 }
 #avater {
   width: 70px;
   height: 70px;
 }
+.item_text {
+  flex: 1;
+}
 
 div.item_text .friendList_detail {
   font-size: 15px;
+  margin-bottom: 5px;
 }
 
 .item_text {

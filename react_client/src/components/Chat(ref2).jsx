@@ -144,6 +144,25 @@ function Chat() {
       default: languages.push('en');
     }
     // console.log(languages)
+
+    // var options = {
+    //   method: 'POST',
+    //   url: 'https://deep-translate1.p.rapidapi.com/language/translate/v2',
+    //   headers: {
+    //     'content-type': 'application/json',
+    //     'x-rapidapi-host': 'deep-translate1.p.rapidapi.com',
+    //     'x-rapidapi-key': 'e8d6c2fd03msh66bf61617e980abp136823jsn6a763ce3d902'
+    //   },
+    //   data: { q: message, source: languages[0], target: languages[1] }
+    // };
+
+    // axios.request(options).then(function (response) {
+    //   setTranslation(response.data.data.translations.translatedText);
+    //   setShow(true);
+    // }).catch(function (error) {
+    //   console.error(error);
+    // });
+
     var options = {
       method: 'GET',
       url: 'https://just-translated.p.rapidapi.com/',
