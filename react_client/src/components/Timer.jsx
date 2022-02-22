@@ -4,7 +4,7 @@ import './Timer.css';
 function Timer(props) {
   const [time, setTime] = useState({
     m: 0,
-    s: 10,
+    s: 45,
   });
 
   const [timer, setTimer] = useState(null);

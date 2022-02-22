@@ -34,7 +34,7 @@ function Main() {
   const renderFriend = () => {
     // console.log(friends)
     return friends.map((item) => {
-      return <FriendListItem friendName={item} key={item} />
+      return <FriendListItem friendName={item} key={item} detail="Hello!!"/>
     })
   }
   
@@ -51,7 +51,9 @@ function Main() {
 
       {/* body */}
       <div className='friend_body'>
-        <FriendListItem friendName='Yun' />
+        <FriendListItem friendName='Yun' detail="Hello? How are you?"/>
+        <FriendListItem friendName='Erica' detail="Hi, nice to meet you!"/>
+        <FriendListItem friendName='Michael' detail="How are you doing?"/>
         {renderFriend()}
 
       </div>
