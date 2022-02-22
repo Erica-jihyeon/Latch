@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Friends_main.css';
 import Header from '../Header';
 import { useNavigate } from 'react-router-dom';
@@ -9,32 +9,34 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import FriendListItem from './Friend';
 import axios from 'axios';
 
-function Main() {
 
+function Main() {
+  const [friends, setFriends] = useState([])
+  
   const { user } = useContext(loginContext);
   console.log(user);
-
+  
   const navigate = useNavigate();
   const back = () => {
     navigate('/login');
   };
-
-  const ListRequest = (userId) => {
-    return axios.get('http://localhost:8080/api/friendlist', {params: {userId: userId}})
-      .then((res) => {
-        console.log(res.data)
+  
+  //request to the server only once
+  useEffect(() => {
+    return axios.get('http://localhost:8080/api/friendlist', {params: {userId: user.userId}})
+    .then((res) => {
+      setFriends(res.data)
       })
+  },[])
+
+
+  //this is the rendering friend itme
+  const renderFriend = () => {
+    // console.log(friends)
+    return friends.map((item) => {
+      return <FriendListItem friendName={item} key={item} />
+    })
   }
-
-  ListRequest(user.userId);
-
-  // const getUserId = (username) => {
-  //   return axios.get('http://localhost:8080/api/current_user', { params: { username: username } })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       userIdRef.current = res.data;
-  //     })
-  // }
   
   return (
     <div className="mainpage_container">
@@ -49,9 +51,8 @@ function Main() {
 
       {/* body */}
       <div className='friend_body'>
-        <FriendListItem />
-        <FriendListItem />
-        <FriendListItem />
+        <FriendListItem friendName='Marry' />
+        {renderFriend()}
 
       </div>
 
