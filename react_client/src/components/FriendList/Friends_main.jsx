@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Friends_main.css';
 import Header from '../Header';
 import { useNavigate } from 'react-router-dom';
@@ -7,17 +7,37 @@ import SimpleBottomNavigation from '../bottom_nav';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import FriendListItem from './Friend';
+import axios from 'axios';
+
 
 function Main() {
-
+  const [friends, setFriends] = useState([])
+  
   const { user } = useContext(loginContext);
   console.log(user);
-
+  
   const navigate = useNavigate();
   const back = () => {
     navigate('/login');
   };
+  
+  //request to the server only once
+  useEffect(() => {
+    return axios.get('http://localhost:8080/api/friendlist', {params: {userId: user.userId}})
+    .then((res) => {
+      setFriends(res.data)
+      })
+  },[])
 
+
+  //this is the rendering friend itme
+  const renderFriend = () => {
+    // console.log(friends)
+    return friends.map((item) => {
+      return <FriendListItem friendName={item} key={item} />
+    })
+  }
+  
   return (
     <div className="mainpage_container">
       <Header title="Friends"
@@ -31,9 +51,9 @@ function Main() {
 
       {/* body */}
       <div className='friend_body'>
-        <FriendListItem />
-        <FriendListItem />
-        <FriendListItem />
+        <FriendListItem friendName='Yun' />
+        {renderFriend()}
+
       </div>
 
       <div className="bottom_nav_bar">
