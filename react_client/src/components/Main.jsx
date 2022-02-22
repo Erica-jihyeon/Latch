@@ -8,23 +8,24 @@ import { loginContext } from '../Providers/LoginProviders';
 import SimpleBottomNavigation from './bottom_nav';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 function Main() {
 
-  const { user } = useContext(loginContext);
+  const { user, logout } = useContext(loginContext);
   console.log(user);
 
   const navigate = useNavigate();
-  const back = () => {
-    navigate('/login');
-  };
+  const handleClick = () => {
+    logout();
+    navigate('/login')
+  }
 
   return (
     <div className="mainpage_container">
       <Header title="Find Matches"
-        back={
-          <IconButton onClick={back}>
-            <ArrowBackIosNewIcon sx={{ color: '#9d9d9d'}} fontSize="large" />
+        button={
+          <IconButton onClick={handleClick} >
+            <LogoutIcon fontSize='large' color='error' variant="filled"/>
           </IconButton>
         }
       />
