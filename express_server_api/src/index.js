@@ -72,6 +72,10 @@ app.use("/api/bookmark", bookmark(db));
 const userOptions = require('./routes/user_options');
 app.use("/api/user_options", userOptions(db));
 
+//api/friend list page
+const friendListPage = require('./routes/friends_list_page');
+app.use("/api/friendlist", friendListPage(db));
+
 // using router for matching(just reference) -> using websocket instead
 // const matching = require("./routes/matching_router(ref)");
 // app.use("/matching", matching(db, io));
