@@ -150,7 +150,7 @@ io.on('connection', (socket) => {
         }
       }
       socket.disconnect();
-    }, 6000);
+    }, 3000);
 
   });
 

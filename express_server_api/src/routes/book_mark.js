@@ -24,7 +24,7 @@ const addBookmark = (db, userId, answer) => {
   return db
     .query(queryStr, queryParam)
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       console.log('add answer to the bookmark')
       return data;
     })
