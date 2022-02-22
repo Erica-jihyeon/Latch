@@ -11,10 +11,10 @@ INSERT INTO languages (language_name) VALUES ('English');
 INSERT INTO languages (language_name) VALUES ('Spanish');
 INSERT INTO languages (language_name) VALUES ('French');
 
-INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES (1, 'Korean', 'English', 2);
-INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES (2, 'English', 'Korean', 1);
-INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES (3, 'Spanish', 'French', 3);
-INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES (4, 'French', 'Spanish', 1);
+-- INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES (1, 'Korean', 'English', 2);
+-- INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES (2, 'English', 'Korean', 1);
+-- INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES (3, 'Spanish', 'French', 3);
+-- INSERT INTO user_option (user_id, learning_language, First_Sec_language, option_selected) VALUES (4, 'French', 'Spanish', 1);
 
 INSERT INTO bookmark (user_id, answers) VALUES (3, 'Marry answer');
 INSERT INTO bookmark (user_id, answers) VALUES (1, 'First answer');
