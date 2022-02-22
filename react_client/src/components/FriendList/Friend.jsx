@@ -8,7 +8,7 @@ export default function FriendListItem (props) {
       <img src={default_logo} alt="logo" id="avater" />
       <div className="item_text">
         <h4>{props.friendName}</h4>
-        <p className="friendList_detail" >detail?</p>
+        <p className="friendList_detail" >detail</p>
       </div>
     </div>
   )

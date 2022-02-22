@@ -51,7 +51,7 @@ function Main() {
 
       {/* body */}
       <div className='friend_body'>
-        <FriendListItem friendName='Marry' />
+        <FriendListItem friendName='Yun' />
         {renderFriend()}
 
       </div>

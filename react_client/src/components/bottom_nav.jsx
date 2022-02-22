@@ -23,7 +23,7 @@ export default function SimpleBottomNavigation(props) {
         }}
       >
         <BottomNavigationAction label="Learing Bot" icon={<SmartToyIcon />} onClick={() => navigate('/learningbot')} />
-        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+        <BottomNavigationAction label="Home" onClick={() => {navigate('/main')}} icon={<HomeIcon />} />
         <BottomNavigationAction label="Friend List" onClick={() => navigate('/friendlist')} icon={<PeopleIcon />} />
       </BottomNavigation>
     </Box>
