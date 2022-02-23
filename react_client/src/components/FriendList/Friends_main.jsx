@@ -47,7 +47,7 @@ function Main() {
     <div className="mainpage_container">
       <Header title="Friends"
       back={
-        <IconButton onClick={() => {}}>
+        <IconButton onClick={() => {navigate('/main');}}>
           <ArrowBackIosNewIcon sx={{ color: '#9d9d9d'}} fontSize="large" />
         </IconButton>}
       button={
