@@ -4,6 +4,8 @@
   display: flex;
   border-bottom: 2px solid #E5E5E5;
   margin-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 #avater {
   width: 70px;

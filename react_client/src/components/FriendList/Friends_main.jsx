@@ -8,6 +8,7 @@ import { IconButton } from '@material-ui/core';
 import LogoutIcon from '@mui/icons-material/Logout';
 import FriendListItem from './Friend';
 import axios from 'axios';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 
 function Main() {
@@ -45,6 +46,10 @@ function Main() {
   return (
     <div className="mainpage_container">
       <Header title="Friends"
+      back={
+        <IconButton onClick={() => {}}>
+          <ArrowBackIosNewIcon sx={{ color: '#9d9d9d'}} fontSize="large" />
+        </IconButton>}
       button={
         <IconButton onClick={handleClick} >
           <LogoutIcon fontSize='large' color='error' variant="filled"/>

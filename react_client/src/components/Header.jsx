@@ -19,9 +19,11 @@ function Header(props) {
       <div className='header-title'>
         <span>{props.title}</span>
       </div>
-      <div className='header-close-button'>
-        {props.button}
-      </div>
+      {props.button &&
+        <div className='header-close-button'>
+          {props.button}
+        </div>
+      }
       <div className="header-avatar">
         <Avatar sx={{ bgcolor: '#45acc9' }}>{userInitial()}</Avatar>
       </div>

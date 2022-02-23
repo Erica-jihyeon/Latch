@@ -119,12 +119,12 @@ function Options() {
                 aria-label="text formatting"
               >
                 <ToggleButton sx={{
-                  border: "2px #45acc9 solid", borderRadius: "20px", width: "105px"
+                  border: "2px #45acc9 solid", borderRadius: "20px", width: "105px", fontSize: "16px"
                 }}
                   value={1} onClick={chatOptHandler}>{learning || "Learning"}</ToggleButton>
-                <ToggleButton sx={{ border: "2px #45acc9 solid", width: "105px" }}
+                <ToggleButton sx={{ border: "2px #45acc9 solid", width: "105px", fontSize: "16px"}}
                   value={2} onClick={chatOptHandler}>{speaking || "Speaking"}</ToggleButton>
-                <ToggleButton sx={{ border: "2px #45acc9 solid", borderRadius: "20px", width: "105px" }}
+                <ToggleButton sx={{ border: "2px #45acc9 solid", borderRadius: "20px", width: "105px", fontSize: "16px" }}
                   value={3} onClick={chatOptHandler}>Both</ToggleButton>
               </ToggleButtonGroup>
             </div>
