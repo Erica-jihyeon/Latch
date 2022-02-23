@@ -20,7 +20,7 @@ import Timer from './Timer';
 
 function Chat() {
   const [messages, setMessages] = useState([]);
-  const { user } = useContext(loginContext);
+  const { user, userInitial } = useContext(loginContext);
   const [message, setMessage] = useState(null);
   // const userLearning = useRef(null);
   const userSpeaking = useRef(null);
@@ -172,12 +172,12 @@ function Chat() {
         <><Header title={"Latching Chat"}
           back={
             <IconButton>
-              <TagFacesRoundedIcon sx={{ color: '#c3c3c3cc', fontSize: 40 }} />
+              <TagFacesRoundedIcon sx={{ color: '#c3c3c3cc', fontSize: 48 }} />
             </IconButton>
           }
           button={
-            <IconButton >
-              <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 40 }} color='error' />
+            <IconButton size='large' >
+              <CancelRoundedIcon onClick={leaveChat} sx={{ fontSize: 48 }} color='error' />
             </IconButton>
           } />
           {<Timer chatTimeout={() => setMode('friends')} />}

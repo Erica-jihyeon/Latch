@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginContext } from '../../Providers/LoginProviders'
 import SimpleBottomNavigation from '../bottom_nav';
 import { IconButton } from '@material-ui/core';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import LogoutIcon from '@mui/icons-material/Logout';
 import FriendListItem from './Friend';
 import axios from 'axios';
 
@@ -13,14 +13,18 @@ import axios from 'axios';
 function Main() {
   const [friends, setFriends] = useState([])
   
-  const { user } = useContext(loginContext);
+  const { user, logout, userInitial } = useContext(loginContext);
   console.log(user);
   
   const navigate = useNavigate();
-  const back = () => {
-    navigate('/login');
-  };
-  
+  // const back = () => {
+  //   navigate('/login');
+  // };
+  const handleClick = () => {
+    logout();
+    navigate('/login')
+  }
+
   //request to the server only once
   useEffect(() => {
     return axios.get('http://localhost:8080/api/friendlist', {params: {userId: user.userId}})
@@ -41,12 +45,12 @@ function Main() {
   return (
     <div className="mainpage_container">
       <Header title="Friends"
-        back={
-          <IconButton onClick={back}>
-            <ArrowBackIosNewIcon fontSize="large" />
-          </IconButton>
-          
-        }
+      button={
+        <IconButton onClick={handleClick} >
+          <LogoutIcon fontSize='large' color='error' variant="filled"/>
+        </IconButton>
+      }
+
       />
 
       {/* body */}

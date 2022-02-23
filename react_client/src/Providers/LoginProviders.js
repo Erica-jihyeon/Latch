@@ -30,9 +30,15 @@ export default function LoginProvider (props) {
     setUser({...user, username})
   };
 
+  const userInitial = () => {
+    if (user) {
+      return user.username[0];
+    }
+  }
+
 
   //can get use Reducer can be better
-  const providerData = {user, auth, login, logout, changeUsername};
+  const providerData = {user, auth, login, logout, changeUsername, userInitial};
 
   //the place we need to warp
   return (

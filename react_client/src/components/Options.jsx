@@ -16,6 +16,8 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Avatar from '@mui/material/Avatar';
+
 
 
 
@@ -88,11 +90,12 @@ function Options() {
   return (
     <div className="options-container">
       {mode === 'options' &&
-        <> <Header title='Match Options' back={
-          <IconButton onClick={back}>
-            <ArrowBackIosNewIcon sx={{ color: '#9d9d9d' }} fontSize="large" />
-          </IconButton>
-        }
+        <> <Header title='Match Options'
+          back={
+            <IconButton onClick={back}>
+              <ArrowBackIosNewIcon sx={{ color: '#9d9d9d' }} fontSize="large" />
+            </IconButton>
+          }
           button={
             <IconButton onClick={handleClick} >
               <LogoutIcon fontSize='large' color='error' variant="filled" />
