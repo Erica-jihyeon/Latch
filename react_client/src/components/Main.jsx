@@ -7,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { loginContext } from '../Providers/LoginProviders';
 import SimpleBottomNavigation from './bottom_nav';
 import { IconButton } from '@material-ui/core';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import LogoutIcon from '@mui/icons-material/Logout';
+
 function Main() {
 
   const { user, logout } = useContext(loginContext);
@@ -25,7 +25,7 @@ function Main() {
       <Header title="Find Matches"
         button={
           <IconButton onClick={handleClick} >
-            <LogoutIcon fontSize='large' color='error' variant="filled"/>
+            <LogoutIcon fontSize='large' color='error' variant="filled" />
           </IconButton>
         }
       />

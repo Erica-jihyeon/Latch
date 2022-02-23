@@ -33,10 +33,21 @@ header > .header-close-button {
   align-items: center;
 }
 
+header > .header-avatar {
+  display: inherit;
+  min-width: 60px;
+  max-width: 60px;
+  min-height: 60px;
+  max-height: 60px;
+  justify-content: center;
+  align-items: center;
+  color: #45acc9;
+}
+
 .header-title {
   flex: 1;
   color:  #6c6c6c;
-  text-align: center;
+  text-align: left;
 }
 
 p {
