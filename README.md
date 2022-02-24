@@ -15,7 +15,7 @@ https://user-images.githubusercontent.com/83943027/155615652-351b8f4d-3575-443a-
 # UI/UX
 ![UI/UX](https://user-images.githubusercontent.com/92115251/155620724-f915980f-0834-4fca-90bc-8fb4b7d656fe.png)
 
-# Matching Logic
+# Real-Time Matching Logic(using socket.io)
 [matching_finding_flowchart (1).pdf](https://github.com/Erica-jihyeon/Latch/files/8137037/matching_finding_flowchart.1.pdf)
 
 # Tech Stack
