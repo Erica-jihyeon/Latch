@@ -18,4 +18,6 @@ INSERT INTO languages (language_name) VALUES ('French');
 
 INSERT INTO bookmark (user_id, answers) VALUES (3, 'Marry answer');
 INSERT INTO bookmark (user_id, answers) VALUES (1, 'First answer');
-INSERT INTO bookmark (user_id, answers) VALUES (4, 'Joe answer');
+INSERT INTO bookmark (user_id, answers) VALUES (4, 'You can say hello in Korean as 안녕하세요');
+
+INSERT INTO friends_list (user1_id, user2_id) VALUES (1, 4);

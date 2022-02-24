@@ -42,12 +42,13 @@ header > .header-avatar {
   justify-content: center;
   align-items: center;
   color: #45acc9;
+  padding-right: 20px;
 }
 
 .header-title {
   flex: 1;
   color:  #6c6c6c;
-  text-align: left;
+  text-align: center;
 }
 
 p {
