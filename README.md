@@ -4,7 +4,7 @@ Latch is an app that allows users to quickly and easily find language exchange p
 # User Story
 ![user story](https://user-images.githubusercontent.com/92115251/155621066-c31f31fc-c667-40da-a253-e541ac4da48c.png)
 
-# About the Latch
+# About Latch
 ![abotu the Latch](https://user-images.githubusercontent.com/92115251/155621086-ff06377c-0ae7-40c9-aad8-8daeecd1a2ef.png)
 
 # App Demo
