@@ -61,7 +61,7 @@ function LearningBot(props) {
         params: { question: question },
         headers: {
           'x-rapidapi-host': 'question-answer.p.rapidapi.com',
-          'x-rapidapi-key': 'b33bf5d7f4msh256f184d8a1960ep11ae96jsnd29609668e33'
+          'x-rapidapi-key': ''
         }
       };
 
